@@ -28,7 +28,6 @@ const messageSchema = new mongoose.Schema({
     message: {
         type: String,
         required: true,
-        minlength: 5,
         maxlength: 255,
     },
     sentOn: {
@@ -44,7 +43,7 @@ const messageSchema = new mongoose.Schema({
         maxlength: 1024,
         ref: "Users",
     },
-    sentTo: {
+    sentBy: {
         type: mongoose.Types.ObjectId,
         required: false,
         minlength: 10,

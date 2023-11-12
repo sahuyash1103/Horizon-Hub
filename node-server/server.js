@@ -11,6 +11,8 @@ const signupRouter = require("./src/routes/auth/signup");
 const { PORT } = require("./src/utils/get-env");
 const { checkEnvironmentVariable } = require("./src/utils/check_env_var");
 const { initMongo } = require("./src/mongo/index");
+const { onSocketConnection } = require("./src/socket");
+const authenticateSocketConnection = require("./src/middlewares/auth-socket-connection");
 
 //-----------------------------------CHECKING ENV VARIABLES
 const envVariableError = checkEnvironmentVariable();
@@ -57,26 +59,20 @@ const httpServer = http.createServer(app);
 
 // -------------------------------------------SETUP SOCKET.IO
 const io = new Server(httpServer, {
-    cors: {
-        origin: '*',
-    }
+  cors: {
+    origin: '*',
+  }
 });
 
-io.on('connection', (socket) => {
-    console.log(`[Connected] ID:${socket.id} connected`);
-    socket.on('disconnect', () => {
-        console.log(`[Disconnected] ID:${socket.id} disconnected`);
-    });
-    socket.on('message', (message) => {
-        console.log(`[Message] ID:${socket.id} message: ${message}`);
-        io.emit('message', message);
-    });
-});
+//-------------------------------------------SOCKET MIDDLWARES
+io.use(authenticateSocketConnection);
 
+//-------------------------------------------SOCKET CONNECTION HANDLER
+io.on('connection', (socket) => onSocketConnection(io, socket));
 
 // -------------------------PORT LISTENING
 httpServer.listen(PORT, () => {
-    console.log(`Server is running on port ${PORT}`);
+  console.log(`Server is running on port ${PORT}`);
 });
 
 module.exports = app;

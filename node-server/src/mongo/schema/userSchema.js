@@ -2,6 +2,65 @@ const mongoose = require("mongoose");
 const jwt = require("jsonwebtoken");
 const { JWT_PRIVATE_KEY } = require("../../utils/get-env");
 
+const friendSchema = new mongoose.Schema({
+  friendId: {
+    type: mongoose.Types.ObjectId,
+    required: true,
+    minlength: 5,
+    maxlength: 255,
+    unique: true,
+    ref: "Users",
+  },
+  lastMessage: {
+    type: String,
+    required: false,
+    maxlength: 255,
+    ref: "Messages",
+  },
+});
+
+const groupSchema = new mongoose.Schema({
+  groupId: {
+    type: mongoose.Types.ObjectId,
+    required: true,
+    minlength: 5,
+    maxlength: 255,
+    unique: true,
+    ref: "Groups",
+  },
+  lastMessage: {
+    type: String,
+    required: false,
+    maxlength: 255,
+    ref: "Messages",
+  },
+});
+
+const messageSchema = new mongoose.Schema({
+  messageId: {
+    type: mongoose.Types.ObjectId,
+    required: true,
+    minlength: 5,
+    maxlength: 255,
+    unique: true,
+    ref: "Messages",
+  },
+  sentBy: {
+    type: mongoose.Types.ObjectId,
+    required: true,
+    minlength: 5,
+    maxlength: 1024,
+    ref: "Users",
+  },
+  sentTo: {
+    type: mongoose.Types.ObjectId,
+    required: false,
+    minlength: 5,
+    maxlength: 1024,
+    ref: "Users",
+  },
+});
+
 const userSchema = new mongoose.Schema({
   name: {
     type: String,
@@ -31,44 +90,36 @@ const userSchema = new mongoose.Schema({
   isDeleted: { type: Boolean, required: false, default: false },
   status: { type: String, required: false, minlength: 5, maxlength: 255 },
   friends: {
-    type: [mongoose.Types.ObjectId],
+    type: [friendSchema],
     required: false,
-    ref: "Users",
   },
   blockedFriends: {
-    type: [mongoose.Types.ObjectId],
+    type: [friendSchema],
     required: false,
-    ref: "Users",
   },
   mutedFriends: {
-    type: [mongoose.Types.ObjectId],
+    type: [friendSchema],
     required: false,
-    ref: "Users",
   },
   pinnedFriends: {
-    type: [mongoose.Types.ObjectId],
+    type: [friendSchema],
     required: false,
-    ref: "Users",
   },
   unknownFriends: {
-    type: [mongoose.Types.ObjectId],
+    type: [friendSchema],
     required: false,
-    ref: "Users",
   },
   groups: {
-    type: [mongoose.Types.ObjectId],
+    type: [groupSchema],
     required: false,
-    ref: "Groups",
   },
   messages: {
-    type: [mongoose.Types.ObjectId],
+    type: [messageSchema],
     required: false,
-    ref: "Messages",
   },
   unreadMessages: {
-    type: [mongoose.Types.ObjectId],
+    type: [mmessageSchema],
     required: false,
-    ref: "Messages",
   },
 });
 
