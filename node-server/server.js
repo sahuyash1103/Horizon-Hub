@@ -5,8 +5,8 @@ const { Server } = require("socket.io");
 const cors = require("cors");
 var morgan = require('morgan')
 
-const loginRouter = require("./src/routes/login");
-const signupRouter = require("./src/routes/signup");
+const loginRouter = require("./src/routes/auth/login");
+const signupRouter = require("./src/routes/auth/signup");
 
 const { PORT } = require("./src/utils/get-env");
 const { checkEnvironmentVariable } = require("./src/utils/check_env_var");

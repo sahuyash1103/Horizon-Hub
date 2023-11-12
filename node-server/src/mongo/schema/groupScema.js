@@ -39,10 +39,37 @@ const groupSchema = new mongoose.Schema({
         required: false,
         ref: "Users",
     },
+    kickedMembers: {
+        type: [mongoose.Types.ObjectId],
+        required: false,
+        ref: "Users",
+    },
+    suspanedMembers: {
+        type: [mongoose.Types.ObjectId],
+        required: false,
+        ref: "Users",
+    },
+    mutedMembers: {
+        type: [mongoose.Types.ObjectId],
+        required: false,
+        ref: "Users",
+    },
     messages: {
         type: [mongoose.Types.ObjectId],
         required: false,
         ref: "Messages",
+    },
+    isBanned: {
+        type: Boolean,
+        required: true,
+    },
+    isActive: {
+        type: Boolean,
+        required: true,
+    },
+    isDeleted: {
+        type: Boolean,
+        required: true,
     },
 });
 

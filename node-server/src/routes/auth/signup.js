@@ -1,8 +1,8 @@
 // ---------------------------------IMPORTS
 const router = require("express").Router();
 const bcrypt = require("bcrypt");
-const User = require("../mongo/schema/userSchema");
-const { validateSignupData } = require("../utils/validators");
+const User = require("../../mongo/schema/userSchema");
+const { validateSignupData } = require("../../utils/validators");
 const _ = require("lodash");
 
 router.post("/", async (req, res) => {
@@ -28,9 +28,12 @@ router.post("/", async (req, res) => {
     const token = user.genrateAuthToken();
     res
         .header("x-auth-token", token)
-        .json(
-            _.pick(user, ["name", "email", "phone"])
-        )
+        .json({
+            token,
+            data: _.pick(user, ["_id", "name", "email", "phone", "enrollmentNumber", "profilePic"]),
+            message: "Signup successful.",
+            error: null,
+        })
         .status(200);
 });
 

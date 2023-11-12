@@ -9,7 +9,7 @@ async function validateSignupData(user) {
     email: joi.string().min(10).max(255).required().email(),
     password: joi.string().min(8).max(255).required(),
     phone: joi.string().length(10).pattern(phoneRegExp).required(),
-    picture: joi.string().max(255),
+    profilePic: joi.string().max(255),
   });
 
   try {
@@ -36,9 +36,8 @@ async function validateUserUpdateData(dataToUpdate) {
   const schema = joi.object({
     name: joi.string().min(3).max(50),
     email: joi.string().min(10).max(255).email(),
-    password: joi.string().min(8).max(255),
     phone: joi.string().length(10).pattern(phoneRegExp),
-    picture: joi.string().max(255),
+    enrollmentNumber: joi.string().min(12).max(14),
   });
 
   try {
@@ -48,4 +47,22 @@ async function validateUserUpdateData(dataToUpdate) {
   }
 }
 
-module.exports = { validateSignupData, validateLoginData, validateUserUpdateData };
+async function validateChangePasswordData(dataToUpdate) {
+  const schema = joi.object({
+    oldPassword: joi.string().min(8).max(255).required(),
+    newPassword: joi.string().min(8).max(255).required(),
+  });
+
+  try {
+    await schema.validateAsync(dataToUpdate);
+  } catch (err) {
+    return err;
+  }
+}
+
+module.exports = {
+  validateSignupData,
+  validateLoginData,
+  validateUserUpdateData,
+  validateChangePasswordData
+};
