@@ -1,6 +1,7 @@
 const router = require("express").Router();
 const User = require("../../mongo/schema/userSchema");
 const auth = require("../../middlewares/authenticate-user");
+const findFriendInUserSubCollection = require("../../utils/find-friend-in-user");
 
 router.delete("/", auth, async (req, res) => {
     const user = await User.findById(req.user._id).select(["-password", "-__v"]);
@@ -9,15 +10,26 @@ router.delete("/", auth, async (req, res) => {
     const friend_data = req.body.friend_data;
     if (!friend_data) return res.status(400).send("No friend data provided.");
 
-    if (!user.friends.includes(friend_data._id))
+    const friend = await User.findOne({ email: friend_data.email });
+
+    const firend = await findFriendInUserSubCollection(user, friend._id);
+    if (!firend)
         return res.status(400).send("Already removed from friend list.");
 
-    const index = user.friends.indexOf(friend_data._id);
-    user.friends.splice(index, 1);
-    await user.save();
+    if (firend.collection === "blockedFriends")
+        return res.status(400).send("Unblock the friend first.");
+
+    const updatedUser = await User.findByIdAndUpdate(user._id,
+        {
+            $pull: { [firend.collection]: { "friend": friend._id } },
+        },
+        {
+            new: true
+        }
+    ).select(["friends", "blockedFriends", "mutedFriends", "pinnedFriends", "unknownFriends"]);
 
     res.status(200).json({
-        data: user.friends,
+        data: updatedUser,
         message: "Friend removed successfully.",
         error: null,
     });

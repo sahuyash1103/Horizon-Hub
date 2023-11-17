@@ -1,7 +1,6 @@
 const router = require('express').Router();
 const User = require("../../mongo/schema/userSchema");
 const { validateLoginData } = require("../../utils/validators");
-const { verifyPassword } = require("../../utils/verifiers");
 const _ = require("lodash");
 
 router.post("/", async (req, res) => {
@@ -11,15 +10,21 @@ router.post("/", async (req, res) => {
   const user = await User.findOne({ email: req.body.email });
   if (!user) return res.status(401).send("Invalid email or password.");
 
-  const validPassword = await verifyPassword(req.body.password, user.password);
+  if (user.isDeleted) return res.status(401).send("Profile is deleted.");
+
+  if (user.isSuspended) return res.status(401).send("Profile is suspended.");
+
+  if (user.isLocked) return res.status(401).send("Profile is locked.");
+  
+  const validPassword = await user.verifyPassword(req.body.password);
   if (!validPassword) return res.status(401).send("Invalid email or password.");
 
-  const token = user.genrateAuthToken();
+  const token = `Bearer ${user.genrateAuthToken()}`;
   res
     .header("x-auth-token", token)
     .json({
       token,
-      data: _.pick(user, ["_id", "name", "email", "phone", "enrollmentNumber", "profilePic"]),
+      data: _.pick(user, ["_id", "name", "email", "phone", "profilePic"]),
       message: "Login successful.",
       error: null,
     })

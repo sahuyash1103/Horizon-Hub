@@ -1,6 +1,5 @@
 // ---------------------------------IMPORTS
 const router = require("express").Router();
-const bcrypt = require("bcrypt");
 const User = require("../../mongo/schema/userSchema");
 const { validateSignupData } = require("../../utils/validators");
 const _ = require("lodash");
@@ -19,18 +18,15 @@ router.post("/", async (req, res) => {
         phone: req.body.phone,
     });
 
-    const salt = await bcrypt.genSalt(10);
-
-    user.password = await bcrypt.hash(req.body.password, salt);
-
+    user.password = await user.genrateHashedPassword(req.body.password);
     await user.save();
 
-    const token = user.genrateAuthToken();
+    const token = `Bearer ${user.genrateAuthToken()}`;
     res
         .header("x-auth-token", token)
         .json({
             token,
-            data: _.pick(user, ["_id", "name", "email", "phone", "enrollmentNumber", "profilePic"]),
+            data: _.pick(user, ["_id", "name", "email", "phone", "profilePic"]),
             message: "Signup successful.",
             error: null,
         })

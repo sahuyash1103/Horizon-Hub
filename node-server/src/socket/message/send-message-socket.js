@@ -1,16 +1,29 @@
+const User = require("../../mongo/schema/userSchema");
 const Message = require("../../mongo/schema/messageSchema");
+const Group = require("../../mongo/schema/groupSchema");
 
 const sendMessage = (socket, io) => {
-    socket.on("send-message", async (data) => {
-        const sendTo = data.friendId;
-        const message = data.message;
+    socket.on("send-message:text", async (data) => {
+        const sendTo = data.to;
+        const text = data.text;
 
-        const messageObj = Message.create({
+        if (!sendTo || !text)
+            return socket.emit("error", { message: "Invalid data" });
+
+        const user = await User.findOne({ email: socket.user.email });
+        const friend = await User.findOne({ email: sendTo });
+        if (!user)
+            return socket.emit("error", { message: "User not found" });
+
+        if (!friend)
+            return socket.emit("error", { message: "Friend not found" });
+
+        const message = new Message({
             messageType: "text",
-            message: message,
+            message: text,
             sentOn: new Date().toISOString(),
-            sentBy: socket.user._id,
-            sentTo: sendTo,
+            sentBy: user._id,
+            sentTo: friend._id,
             isSent: true,
             isReceived: false,
             isRead: false,
@@ -20,27 +33,16 @@ const sendMessage = (socket, io) => {
             isForwarded: false,
         });
 
-        await messageObj.save();
+        await message.save();
 
-        const user = await User.findById(socket.user._id);
-        const friend = await User.findById(sendTo);
+        await user.updateOne({ messages: { $push: { message: message._id, sentBy: socket.user._id, sentTo: sendTo } } });
+        await friend.updateOne({ unreadMessages: { $push: { message: message._id, sentBy: socket.user._id, sentTo: sendTo } } });
 
-        user.messages.push({ messageId: messageObj._id, sentBy: socket.user._id, sentTo: sendTo });
-        friend.messages.push({ messageId: messageObj._id, sentBy: socket.user._id, sentTo: sendTo });
-
-        user.friends.forEach((friend) => {
-            if (friend.friendId === sendTo) {
-                friend.lastMessage = message;
-            }
+        io.to(sendTo).emit("receive-message", { message: message }, async () => {
+            await message.updateOne({ isReceived: true });
         });
-
-        friend.friends.forEach((friend) => {
-            if (friend.friendId === socket.user._id) {
-                friend.lastMessage = message;
-            }
-        });
-
-        await user.save();
-        await friend.save();
+        io.to(socket.user.email).emit("receive-message", { message: message });
     });
 };
+
+module.exports = { sendMessage };

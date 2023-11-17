@@ -4,72 +4,56 @@ const reactionSchema = new mongoose.Schema({
     reaction: {
         type: String,
         required: true,
-        minlength: 3,
-        maxlength: 50,
     },
     reactedBy: {
         type: mongoose.Types.ObjectId,
         required: true,
-        minlength: 5,
-        maxlength: 255,
-        unique: true,
         ref: "Users",
     },
-    reactedOn: { type: String, required: true, minlength: 5, maxlength: 255 },
+    reactedOn: { type: String, required: true },
 });
 
 const messageSchema = new mongoose.Schema({
     messageType: {
         type: String,
         required: true,
-        minlength: 3,
-        maxlength: 50,
     },
     message: {
         type: String,
         required: true,
-        maxlength: 255,
     },
     sentOn: {
         type: String,
         required: true,
-        minlength: 5,
-        maxlength: 255,
     },
     sentBy: {
         type: mongoose.Types.ObjectId,
         required: true,
-        minlength: 5,
-        maxlength: 1024,
         ref: "Users",
     },
-    sentBy: {
+    sentTo: {
         type: mongoose.Types.ObjectId,
-        required: false,
-        minlength: 10,
-        maxlength: 10,
+        required: true,
         ref: "Users",
     },
-    isSent: { type: Boolean, required: false, minlength: 10, maxlength: 10 },
-    isReceived: { type: Boolean, required: false, minlength: 10, maxlength: 10 },
-    isRead: { type: Boolean, required: false, minlength: 10, maxlength: 10 },
-    isDeleted: { type: Boolean, required: false, minlength: 10, maxlength: 10 },
-    isPinned: { type: Boolean, required: false, minlength: 10, maxlength: 10 },
-    isStarred: { type: Boolean, required: false, minlength: 10, maxlength: 10 },
-    isForwarded: { type: Boolean, required: false, minlength: 10, maxlength: 10 },
+    isSent: { type: Boolean, required: false },
+    isReceived: { type: Boolean, required: false },
+    isRead: { type: Boolean, required: false },
+    isDeleted: { type: Boolean, required: false },
+    isPinned: { type: Boolean, required: false },
+    isStarred: { type: Boolean, required: false },
+    isForwarded: { type: Boolean, required: false },
     forwardedTo: {
         type: [mongoose.Types.ObjectId],
         required: false,
-        minlength: 10,
-        maxlength: 10,
         ref: "Users",
     },
-    isReplied: { type: Boolean, required: false, minlength: 10, maxlength: 10 },
-    repliedMessage: { type: mongoose.Types.ObjectId, required: false, minlength: 10, maxlength: 10 },
-    isEdited: { type: Boolean, required: false, minlength: 10, maxlength: 10 },
-    editedMessage: { type: String, required: false, minlength: 10, maxlength: 10 },
+    isReplied: { type: Boolean, required: false },
+    repliedMessage: { type: mongoose.Types.ObjectId, required: false },
+    isEdited: { type: Boolean, required: false },
+    editedMessage: { type: String, required: false },
     reactions: {
-        type: reactionSchema, required: false, minlength: 10, maxlength: 10
+        type: reactionSchema, required: false
     },
 });
 

@@ -37,7 +37,6 @@ async function validateUserUpdateData(dataToUpdate) {
     name: joi.string().min(3).max(50),
     email: joi.string().min(10).max(255).email(),
     phone: joi.string().length(10).pattern(phoneRegExp),
-    enrollmentNumber: joi.string().min(12).max(14),
   });
 
   try {

@@ -1,11 +1,11 @@
-const { User } = require("../../../models/user");
-const { Message } = require("../../../models/message");
-const { Group } = require("../../../models/group");
+const { User } = require("../../mongo/schema/userSchema");
+const { Message } = require("../../mongo/schema/messageSchema");
+const { Group } = require("../../mongo/schema/groupSchema");
 const _ = require("lodash");
 
 const getMessagesData = (socket, io) => {
     socket.on("get-messages", async (data) => {
-        const friendId = data.friendId;
+        const friendId = data.to;
         const user = await User.findById(socket.user._id).select(["_id", "messages", "unreadMessages"]).populate(["messages", "unreadMessages"]);;
 
         user.messages.forEach((message) => {

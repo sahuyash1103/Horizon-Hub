@@ -1,14 +1,28 @@
-const { getFriendsData } = require("./friend/get-friends-socket");
-const { getMessagesData } = require("./message/get-messages-socket");
+const { sendMessage } = require("./message/send-message-socket");
+const User = require("../mongo/schema/userSchema");
 
-const onSocketConnection = (io, socket) => {
-    console.log(`[Connected] ID:${socket.id} connected`);
-    socket.on('disconnect', () => {
-        console.log(`[Disconnected] ID:${socket.id} disconnected`);
+const joinRoom = (socket, io) => {
+    socket.on('join', (data) => {
+        socket.join(data.room);
+        console.log(`[Joined] ${socket.user.email}:${socket.id} joined ${data.room}`);
     });
+}
 
-    getFriendsData(socket, io);
-    getMessagesData(socket, io);
+const onSocketConnection = async (io, socket) => {
+    console.log(`[Connected] ${socket.user.email}`);
+    socket.join(socket.user.email);
+    const user = await User.findOne({ email: socket.user.email });
+    if (!user) return socket.emit("error", { message: "User not found" });
+    socket.on('disconnect', () => {
+        console.log(`[Disconnected] ${socket.user.email}`);
+        user.updateOne({ isOnline: false });
+    });
+    if (!user.isOnline) {
+        user.updateOne({ isOnline: true });
+    }
+
+    sendMessage(socket, io);
+    joinRoom(socket, io);
 }
 
 module.exports = { onSocketConnection };

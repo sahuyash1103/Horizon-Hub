@@ -12,17 +12,19 @@ router.put("/", auth, async (req, res) => {
     if (!updatedData) return res.status(400).send("No updated data provided.");
 
     const error = await validateUserUpdateData(updatedData);
-    if (error) return res.status(400).send("error: ", error.details[0].message);
+    if (error) return res.status(400).send(`error: ${error.details[0].message}`);
 
-    const updateKeys = Object.keys(_.pick(updatedData, ["name", "email", "phone", "enrollmentNumber"]));
+    const updateKeys = Object.keys(_.pick(updatedData, ["name", "email", "phone"]));
     updateKeys.forEach((updateKey) => {
         user[updateKey] = updatedData[updateKey];
     });
     await user.save();
 
     res.status(200).json({
-        data: _.pick(user, ["_id", "name", "email", "phone", "enrollmentNumber"]),
+        data: _.pick(user, ["_id", "name", "email", "phone"]),
         message: "Profile updated successfully.",
         error: null,
     });
 });
+
+module.exports = router;

@@ -2,22 +2,38 @@ const router = require("express").Router();
 const User = require("../../mongo/schema/userSchema");
 const auth = require("../../middlewares/authenticate-user");
 
-router.delete("/", auth, async (req, res) => {
+router.put("/", auth, async (req, res) => {
     const user = await User.findById(req.user._id).select(["-password", "-__v"]);
     if (!user) return res.status(404).send("User not found.");
 
     const friend_data = req.body.friend_data;
     if (!friend_data) return res.status(400).send("No friend data provided.");
 
-    if (!user.mutedFriends.includes(friend_data._id))
+    const friend = await User.findOne({ email: friend_data.email }).select(["_id", "name", "email",]);
+    if (!friend) return res.status(404).send("Friend not found.");
+
+    const isFound = user.mutedFriends.find(f => f.friend.toString() === friend._id.toString());
+    if (!isFound)
         return res.status(400).send("Friend already unmuted.");
 
-    const index = user.mutedFriends.indexOf(friend_data._id);
-    user.mutedFriends.splice(index, 1);
-    await user.save();
+    const updatedUser = await User.findByIdAndUpdate(user._id,
+        {
+            $pull: { mutedFriends: { "friend": friend._id } },
+            $push: {
+                "friends": isFound || {
+                    friend: friend._id,
+                    lastMessage: null,
+                    lastMessageText: null
+                }
+            }
+        },
+        {
+            new: true
+        }
+    ).select(["friends", "blockedFriends", "mutedFriends", "pinnedFriends", "unknownFriends"]);
 
     res.status(200).json({
-        data: user.mutedFriends,
+        data: updatedUser,
         message: "Friend unmuted successfully.",
         error: null,
     });
