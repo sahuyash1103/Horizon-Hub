@@ -58,25 +58,25 @@ const userSchema = new mongoose.Schema({
   name: {
     type: String,
     required: true,
-    minlength: 3,
-    maxlength: 50,
   },
   email: {
     type: String,
     required: true,
-    minlength: 5,
-    maxlength: 255,
     unique: true,
   },
-  password: { type: String, required: true, minlength: 5, maxlength: 1024 },
-  phone: { type: Number, required: false, minlength: 10, maxlength: 10 },
-  profilePic: { type: String, required: false, minlength: 5, maxlength: 1024 },
+  provider: {
+    type: String,
+    default: "local",
+  },
+  password: { type: String, required: false },
+  phone: { type: Number, required: false },
+  profilePic: { type: String, required: false },
   isOnline: { type: Boolean, required: false, default: false },
-  lastSeen: { type: String, required: false, minlength: 5, maxlength: 255 },
+  lastSeen: { type: String, required: false },
   isDeleted: { type: Boolean, required: false, default: false },
   isSuspended: { type: Boolean, required: false, default: false },
   isLocked: { type: Boolean, required: false, default: false },
-  status: { type: String, required: false, minlength: 5, maxlength: 255 },
+  status: { type: String, required: false },
   friends: {
     type: [friendSchema],
   },
@@ -105,7 +105,7 @@ const userSchema = new mongoose.Schema({
 
 userSchema.methods.genrateAuthToken = function () {
   return jwt.sign(
-    { _id: this._id, email: this.email, phone: this.phone },
+    { _id: this._id, name: this.name, email: this.email, phone: this.phone },
     JWT_PRIVATE_KEY,
     { expiresIn: "24h" }
   );

@@ -1,4 +1,5 @@
 const router = require('express').Router();
+const passport = require('passport');
 const User = require("../../mongo/schema/userSchema");
 const { validateLoginData } = require("../../utils/validators");
 const _ = require("lodash");
@@ -15,7 +16,7 @@ router.post("/", async (req, res) => {
   if (user.isSuspended) return res.status(401).send("Profile is suspended.");
 
   if (user.isLocked) return res.status(401).send("Profile is locked.");
-  
+
   const validPassword = await user.verifyPassword(req.body.password);
   if (!validPassword) return res.status(401).send("Invalid email or password.");
 

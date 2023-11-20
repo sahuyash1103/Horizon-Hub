@@ -3,17 +3,20 @@ const express = require("express");
 const http = require('http');
 const { Server } = require("socket.io");
 const cors = require("cors");
-var morgan = require('morgan')
+const morgan = require('morgan')
+const passport = require("passport");
+const expressSession = require("express-session");
 
 const routes = require("./src/routes/index");
 
-const { PORT } = require("./src/utils/get-env");
+const { PORT, SESSION_SECRET } = require("./src/utils/get-env");
 const { checkEnvironmentVariable } = require("./src/utils/check_env_var");
 const { initMongo } = require("./src/mongo/index");
 const { initFirebase } = require("./src/firebase/index");
 const { onSocketConnection } = require("./src/socket");
-const authenticateSocketConnection = require("./src/middlewares/auth-socket-connection");
+const authSocketMW = require("./src/middlewares/socket-auth.middleware");
 
+require("./src/passport/index");
 //-----------------------------------CHECKING ENV VARIABLES
 const envVariableError = checkEnvironmentVariable();
 
@@ -30,14 +33,26 @@ const app = express();
 app.use(express.json());
 app.use(express.urlencoded({ extended: true }));
 app.use(morgan('tiny'));
+app.use(expressSession(
+  {
+    secret: SESSION_SECRET,
+    resave: false,
+    saveUninitialized: false,
+    cookie: { secure: false, maxAge: 60 * 60 * 24 * 1000 }
+  }
+));
+app.use(passport.initialize());
+app.use(passport.session());
+
 
 // -------------------------CORS
 app.use(
   cors({
-    origin: "*",
+    optionsSuccessStatus: 200,
+    credentials: true,
+    origin: "http://localhost:3000",
     methods: "*",
-    allowedHeaders: "*",
-    exposedHeaders: "*",
+    // "Access-Control-Allow-Origin": "*"
   })
 );
 
@@ -45,6 +60,8 @@ app.use(
 app.use("/api/auth/login/", routes.loginRouter);
 app.use("/api/auth/signup/", routes.signupRouter);
 app.use("/api/auth/google/", routes.googleAuthRouter);
+app.use("/api/auth/github/", routes.githubAuthRouter);
+app.use("/api/auth/logout/", routes.logoutRouter);
 
 app.use("/api/friends/", routes.getFriendsRouter);
 app.use("/api/friend/add/", routes.addFriendRouter);
@@ -94,7 +111,7 @@ const io = new Server(httpServer, {
 });
 
 //-------------------------------------------SOCKET MIDDLWARES
-io.use(authenticateSocketConnection);
+io.use(authSocketMW);
 
 //-------------------------------------------SOCKET CONNECTION HANDLER
 io.on('connection', (socket) => onSocketConnection(io, socket));

@@ -1,6 +1,6 @@
 const router = require("express").Router();
 const User = require("../../mongo/schema/userSchema");
-const auth = require("../../middlewares/authenticate-user");
+const auth = require("../../middlewares/auth.middleware");
 const { validateChangePasswordData } = require("../../utils/validators");
 
 router.put("/", auth, async (req, res) => {

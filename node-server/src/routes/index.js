@@ -1,6 +1,8 @@
 const loginRouter = require("./auth/login");
 const signupRouter = require("./auth/signup");
 const googleAuthRouter = require("./auth/google-auth");
+const githubAuthRouter = require("./auth/github-auth");
+const logoutRouter = require("./auth/logout");
 
 const getFriendsRouter = require("./friend/get-friends");
 const addFriendRouter = require("./friend/add-friend");
@@ -27,6 +29,9 @@ const updateProfilePicRouter = require("./profile/update-profile-pic");
 module.exports = {
     loginRouter,
     signupRouter,
+    googleAuthRouter,
+    githubAuthRouter,
+    logoutRouter,
 
     getFriendsRouter,
     addFriendRouter,
@@ -49,5 +54,4 @@ module.exports = {
     updateProfileRouter,
     updateProfilePicRouter,
     forgotPasswordRouter,
-    googleAuthRouter,
 };

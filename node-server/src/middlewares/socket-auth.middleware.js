@@ -1,7 +1,7 @@
 const jwt = require("jsonwebtoken");
 const { JWT_PRIVATE_KEY } = require("../utils/get-env");
 
-function authenticateSocketConnection(socket, next) {
+function authSocketMW(socket, next) {
     var token = socket.handshake.auth.token || socket.handshake.headers["x-auth-token"]
 
     if (!token) return next(new Error("Access denied. No token provided."));
@@ -16,4 +16,4 @@ function authenticateSocketConnection(socket, next) {
     }
 }
 
-module.exports = authenticateSocketConnection;
+module.exports = authSocketMW;
