@@ -64,14 +64,14 @@ app.use("/api/auth/github/", routes.githubAuthRouter);
 app.use("/api/auth/logout/", routes.logoutRouter);
 
 app.use("/api/friends/", routes.getFriendsRouter);
-app.use("/api/friend/add/", routes.addFriendRouter);
-app.use("/api/friend/remove/", routes.removeFriendRouter);
-app.use("/api/friend/block/", routes.blockFriendRouter);
-app.use("/api/friend/unblock/", routes.unblockFriendRouter);
-app.use("/api/friend/mute/", routes.muteFriendRouter);
-app.use("/api/friend/unmute/", routes.unmuteFriendRouter);
-app.use("/api/friend/pin/", routes.pinFriendRouter);
-app.use("/api/friend/unpin/", routes.unpinFriendRouter);
+app.use("/api/friends/friend/add/", routes.addFriendRouter);
+app.use("/api/friends/friend/remove/", routes.removeFriendRouter);
+app.use("/api/friends/friend/block/", routes.blockFriendRouter);
+app.use("/api/friends/friend/unblock/", routes.unblockFriendRouter);
+app.use("/api/friends/friend/mute/", routes.muteFriendRouter);
+app.use("/api/friends/friend/unmute/", routes.unmuteFriendRouter);
+app.use("/api/friends/friend/pin/", routes.pinFriendRouter);
+app.use("/api/friends/friend/unpin/", routes.unpinFriendRouter);
 
 app.use("/api/messages/", routes.getMessagesRouter);
 app.use("/api/messages/message/seen", routes.seenMessageRouter);
