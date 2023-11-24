@@ -1,4 +1,4 @@
-const { sendMessage } = require("./message/send-message-socket");
+const { sendMessageText, sendGroupMessageText } = require("./message/send-message-socket");
 const User = require("../mongo/schema/userSchema");
 
 const joinRoom = (socket, io) => {
@@ -21,7 +21,8 @@ const onSocketConnection = async (io, socket) => {
         user.updateOne({ isOnline: true });
     }
 
-    sendMessage(socket, io);
+    sendGroupMessageText(socket, io);
+    sendMessageText(socket, io);
     joinRoom(socket, io);
 }
 
