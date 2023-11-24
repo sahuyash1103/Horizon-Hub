@@ -3,3 +3,18 @@
   padding: 0;
   box-sizing: border-box;
 }
+
+body{
+  margin: 0;
+  padding: 0;
+  background-repeat: no-repeat;
+  background-size: cover;
+  overflow: hidden;
+  background-color:#c5aee3 ;
+}
+
+:root{
+  --main-color: #813eb6;
+  --second-color: #eee9f2;
+  --third-color: #734f99;
+}
