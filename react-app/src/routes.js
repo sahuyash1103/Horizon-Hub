@@ -2,12 +2,13 @@ import { useRoutes } from 'react-router-dom';
 
 import LoginRoute from './routes/LoginRoute';
 import SignupRoute from './routes/SignupRoute';
-import App from './App';
+import ProtectedRoute from './components/ProtectedRoute';
+import HomeRoute from './routes/HomeRoute';
 
 const routes = [
     {
         path: '/',
-        element: <App />
+        element: <ProtectedRoute element={<HomeRoute />} />
     },
     {
         path: '/auth/login',
@@ -16,6 +17,10 @@ const routes = [
     {
         path: '/auth/signup',
         element: <SignupRoute />
+    },
+    {
+        path: '*',
+        element: <h1>404 Not Found</h1>
     }
 ];
 

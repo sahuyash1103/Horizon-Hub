@@ -1,11 +1,8 @@
 import instance from "../../index";
 
-export const login = async (email, password) => {
+export const getProfile = async () => {
     try {
-        const response = await instance.post("/auth/login", {
-            email,
-            password,
-        });
+        const response = await instance.get("/");
         return response.data;
     }
     catch (error) {

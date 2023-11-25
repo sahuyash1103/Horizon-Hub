@@ -3,11 +3,13 @@ import { useDispatch } from 'react-redux';
 
 import { login } from '../axios/api/auth/auth.req';
 import { setUser } from '../redux-toolkit/reducers/auth';
+import { useNavigate } from 'react-router-dom';
 
 function LoginRoute() {
     const dispatch = useDispatch();
     const [email, setEmail] = useState('');
     const [password, setPassword] = useState('');
+    const navigate = useNavigate();
 
     const handleLogin = async (e) => {
         e.preventDefault();
@@ -16,6 +18,7 @@ function LoginRoute() {
         console.log(res);
 
         dispatch(setUser({ user: res.data, token: res.token }))
+        navigate('/', { state: { path: '/auth/login' } });
     }
 
     return (<div>

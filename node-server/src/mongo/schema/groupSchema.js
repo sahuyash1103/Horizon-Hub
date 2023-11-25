@@ -86,26 +86,6 @@ const groupSchema = new mongoose.Schema({
     },
 });
 
-groupSchema.methods.validate = function (group) {
-    const schema = Joi.object({
-        name: Joi.string().min(3).max(50).required(),
-        discription: Joi.string(),
-        status: Joi.string().max(250),
-        admin: Joi.string().required(),
-        createdOn: Joi.string().required(),
-        profilePic: Joi.string(),
-        members: Joi.array().items(Joi.string()),
-        kickedMembers: Joi.array().items(Joi.string()),
-        suspanedMembers: Joi.array().items(Joi.string()),
-        mutedMembers: Joi.array().items(Joi.string()),
-        messages: Joi.array().items(Joi.string()),
-        isBanned: Joi.boolean(),
-        isActive: Joi.boolean(),
-        isDeleted: Joi.boolean(),
-    });
-    return schema.validate(group);
-};
-
 const Group = mongoose.model("Groups", groupSchema);
 
 module.exports = Group;

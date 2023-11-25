@@ -3,6 +3,7 @@ import { useDispatch } from 'react-redux';
 
 import { signup } from '../axios/api/auth/auth.req';
 import { setUser } from '../redux-toolkit/reducers/auth';
+import { useNavigate } from 'react-router-dom';
 
 function SignupRoute() {
     const dispatch = useDispatch();
@@ -10,6 +11,7 @@ function SignupRoute() {
     const [phone, setPhone] = useState('');
     const [email, setEmail] = useState('');
     const [password, setPassword] = useState('');
+    const navigate = useNavigate();
 
     const handleLogin = async (e) => {
         e.preventDefault();
@@ -17,11 +19,12 @@ function SignupRoute() {
         const res = await signup(name, phone, email, password);
         console.log(res);
 
-        dispatch(setUser({ user: res.data, token: res.token }))
+        dispatch(setUser({ user: res?.data, token: res?.token }))
+        navigate('/', { state: { path: '/auth/signup' } });
     }
 
     return (<div>
-        <h1>Login</h1>
+        <h1>Signup</h1>
         <form onSubmit={handleLogin}>
             <input type="text"
                 placeholder='Enter your name'
@@ -43,7 +46,7 @@ function SignupRoute() {
                 onChange={(e) => setPassword(e.target.value)}
                 value={password}
             />
-            <button type="submit" >Login</button>
+            <button type="submit" >Signup</button>
         </form>
     </div>
     );
