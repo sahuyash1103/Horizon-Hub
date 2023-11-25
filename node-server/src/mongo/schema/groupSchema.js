@@ -1,5 +1,25 @@
 const mongoose = require("mongoose");
 
+
+const messageSchema = new mongoose.Schema({
+    message: {
+        type: mongoose.Types.ObjectId,
+        ref: "Messages",
+        required: true,
+        // unique: true,
+    },
+    sentBy: {
+        type: mongoose.Types.ObjectId,
+        ref: "Users",
+        required: true,
+    },
+    sentTo: {
+        type: mongoose.Types.ObjectId,
+        ref: "Users",
+        required: true,
+    },
+});
+
 const groupSchema = new mongoose.Schema({
     name: {
         type: String,
@@ -9,31 +29,23 @@ const groupSchema = new mongoose.Schema({
     },
     discription: {
         type: String,
-        required: true,
-        minlength: 5,
-        maxlength: 255,
+        required: false,
     },
     status: {
         type: String,
-        required: true,
-        minlength: 5,
-        maxlength: 255,
+        required: false,
     },
     admin: {
         type: mongoose.Types.ObjectId,
         required: true,
-        minlength: 5,
-        maxlength: 1024,
         ref: "Users",
     },
     createdOn: {
         type: String,
         required: true,
-        minlength: 5,
-        maxlength: 255,
     },
 
-    profilePic: { type: String, required: true, minlength: 5, maxlength: 1024 },
+    profilePic: { type: String, required: false },
     members: {
         type: [mongoose.Types.ObjectId],
         required: false,
@@ -44,7 +56,7 @@ const groupSchema = new mongoose.Schema({
         required: false,
         ref: "Users",
     },
-    suspanedMembers: {
+    suspandMembers: {
         type: [mongoose.Types.ObjectId],
         required: false,
         ref: "Users",
@@ -55,23 +67,44 @@ const groupSchema = new mongoose.Schema({
         ref: "Users",
     },
     messages: {
-        type: [mongoose.Types.ObjectId],
-        required: false,
-        ref: "Messages",
+        type: [messageSchema],
     },
     isBanned: {
         type: Boolean,
-        required: true,
+        required: false,
+        default: false,
     },
     isActive: {
         type: Boolean,
-        required: true,
+        required: false,
+        default: true,
     },
     isDeleted: {
         type: Boolean,
-        required: true,
+        required: false,
+        default: false,
     },
 });
+
+groupSchema.methods.validate = function (group) {
+    const schema = Joi.object({
+        name: Joi.string().min(3).max(50).required(),
+        discription: Joi.string(),
+        status: Joi.string().max(250),
+        admin: Joi.string().required(),
+        createdOn: Joi.string().required(),
+        profilePic: Joi.string(),
+        members: Joi.array().items(Joi.string()),
+        kickedMembers: Joi.array().items(Joi.string()),
+        suspanedMembers: Joi.array().items(Joi.string()),
+        mutedMembers: Joi.array().items(Joi.string()),
+        messages: Joi.array().items(Joi.string()),
+        isBanned: Joi.boolean(),
+        isActive: Joi.boolean(),
+        isDeleted: Joi.boolean(),
+    });
+    return schema.validate(group);
+};
 
 const Group = mongoose.model("Groups", groupSchema);
 

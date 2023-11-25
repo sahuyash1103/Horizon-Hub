@@ -14,11 +14,11 @@ router.put("/", auth, upload.single('profilePic'), async (req, res) => {
     if (!user) return res.status(404).send("User not found.");
 
     const profilePicUrl = await storeProfilePic(profilePic, user._id);
-    user.profilePic = profilePicUrl;
-    await user.save();
+
+    const updatedUSer = await user.updateOne({ $set: { profilePic: profilePicUrl } }, { new: true });
 
     res.status(200).json({
-        data: user,
+        data: updatedUSer,
         Message: "Profile pic updated.",
         error: null,
     });

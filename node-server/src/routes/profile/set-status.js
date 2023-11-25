@@ -10,11 +10,10 @@ router.put("/", auth, async (req, res) => {
     const status = req.body.status;
     if (!status) return res.status(400).send("No status provided.");
 
-    user.status = status;
-    await user.save();
+    const updatedUser = await user.updateOne({ $set: { status: status } }, { new: true });
 
     res.status(200).json({
-        data: _.pick(user, ["_id", "name", "email", "phone", "profilePic", "status"]),
+        data: _.pick(updatedUser, ["_id", "name", "email", "phone", "profilePic", "status"]),
         message: "Status updated successfully.",
         error: null,
     });

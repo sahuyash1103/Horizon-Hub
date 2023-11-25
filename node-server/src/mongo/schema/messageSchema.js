@@ -1,3 +1,4 @@
+const { boolean } = require("joi");
 const mongoose = require("mongoose");
 
 const reactionSchema = new mongoose.Schema({
@@ -47,6 +48,10 @@ const messageSchema = new mongoose.Schema({
         type: [mongoose.Types.ObjectId],
         required: false,
         ref: "Users",
+    },
+    isGroupMessage: {
+        type: Boolean,
+        default: false
     },
     isReplied: { type: Boolean, required: false },
     repliedMessage: { type: mongoose.Types.ObjectId, required: false },
