@@ -59,6 +59,11 @@ const userSchema = new mongoose.Schema({
     type: String,
     required: true,
   },
+  userName: {
+    type: String,
+    required: false,
+    unique: true,
+  },
   email: {
     type: String,
     required: true,

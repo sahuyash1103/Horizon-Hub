@@ -8,15 +8,13 @@ function ProtectedRoute({ element, children, ...rest }) {
   const location = useLocation();
 
   useEffect(() => {
-    console.log('ProtectedRoute', user, token, localStorage.getItem('token'));
-    if (!user || !token || !localStorage.getItem('token')) {
-      if (location.state?.path === '/auth/signup')
-        navigate('/auth/signup');
-      else
-        navigate('/auth/login');
-    }
-
-  // eslint-disable-next-line react-hooks/exhaustive-deps
+    console.log('ProtectedRoute', user, token);
+    if (user || token) return;
+    if (location.state?.path === '/auth/signup')
+      navigate('/auth/signup');
+    else
+      navigate('/auth/login');
+    // eslint-disable-next-line react-hooks/exhaustive-deps
   }, [user, token])
   return (
     <>

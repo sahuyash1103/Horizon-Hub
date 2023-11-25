@@ -9,7 +9,7 @@ import { FaMobile } from "react-icons/fa6";
 
 import { signup } from '../axios/api/auth/auth.req';
 import { setUser } from '../redux-toolkit/reducers/auth';
-import { useNavigate } from 'react-router-dom';
+import { Link, useNavigate } from 'react-router-dom';
 
 function SignupRoute() {
     const dispatch = useDispatch();
@@ -73,7 +73,7 @@ function SignupRoute() {
                 </div>
                 <button className='lgn_btn'>SignUp</button>
                 <div class="login_link">Please Click Here to
-                    <a href="./login.html"> Login</a>
+                    <Link to={'/auth/login'}> Login</Link>
                 </div>
             </form>
         </div>

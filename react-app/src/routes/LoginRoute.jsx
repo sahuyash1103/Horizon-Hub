@@ -8,7 +8,7 @@ import { IoChatbubble } from "react-icons/io5";
 
 import { login } from '../axios/api/auth/auth.req';
 import { setUser } from '../redux-toolkit/reducers/auth';
-import { useNavigate } from 'react-router-dom';
+import { Link, useNavigate } from 'react-router-dom';
 
 function LoginRoute() {
     const dispatch = useDispatch();
@@ -29,7 +29,7 @@ function LoginRoute() {
     return (<div className='container'>
 
         <div className='form'>
-        
+
             <form onSubmit={handleLogin}>
                 <div className="text_field">
                     <FaUser className="icons" />
@@ -50,20 +50,20 @@ function LoginRoute() {
 
                     <span></span>
                 </div>
-                
+
                 <button type="submit" >Login</button>
 
                 <div class="google_button">
                     <button class="btn_google">
-                            <  FcGoogle className="google" />
-                            Login with google
+                        <  FcGoogle className="google" />
+                        Login with google
                     </button>
                 </div>
 
                 <button className="otp_btn">Login with OTP?</button>
-                
-                <div class="register_link">Not registered? 
-                    <a href=""> Register</a>
+
+                <div class="register_link">Not registered?
+                    <Link to="/auth/signup"> Signup</Link>
                 </div>
             </form>
         </div>
@@ -71,7 +71,7 @@ function LoginRoute() {
         <IoChatbubble className="chat_icon" />
         <h2>ChitChat</h2>
         <h3>Connect and Communicate</h3>
-    
+
     </div>
 
     );
