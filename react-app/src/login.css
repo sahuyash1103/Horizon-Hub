@@ -82,7 +82,7 @@ button[type="submit"]:hover{
   margin-left: 247px;
   margin-top: 10px;
 }
-.google_button .btn_google{
+ .google_button .btn_google{
   width: 60%;
   margin-top: 20px;
   margin-left: 100px;
@@ -96,7 +96,8 @@ button[type="submit"]:hover{
   font-weight: 700;
   cursor: pointer;
   outline: none;
-  padding-bottom: 10px;
+  text-align: center;
+  padding-top: 15px;
 }
 
 .google_button .btn_google:hover{
@@ -122,9 +123,14 @@ transition: .5s all ease;
 }
 
 .google{
-  margin-top: 10px;
-  margin-right: 10px;
-  font-size: 20px;
+   font-weight: 700;
+  margin-right: 100px;
+  font-size: 18px;
+  width: 20px;
+  height: 20px;
+  position:relative;
+  margin-left: 30px;
+  bottom: 60%;
 }
 
 .otp_btn{

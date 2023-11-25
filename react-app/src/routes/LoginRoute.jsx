@@ -51,10 +51,12 @@ function LoginRoute() {
                 <button type="submit" >Login</button>
 
                 <div class="google_button">
+                
                     <button class="btn_google">
-                            <  FcGoogle className="google" />
-                            Login with google
+                    Login with google
+                    <div className="google"> <  FcGoogle  /></div>
                     </button>
+                    
                 </div>
 
                 <button className="otp_btn">Login with OTP?</button>

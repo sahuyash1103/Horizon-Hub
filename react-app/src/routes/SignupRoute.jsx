@@ -36,7 +36,7 @@ function SignupRoute() {
                 <div className='txt_field'>
                     <FaUser className='icon' />
                     <input type="text"
-                        placeholder='Enter your name'
+                        placeholder='Enter your name' required
                         onChange={(e) => setName(e.target.value)}
                         value={name}
                     />
@@ -45,7 +45,7 @@ function SignupRoute() {
                 <div className='txt_field'>
                     <FaMobile className='icon' />
                     <input type="text"
-                        placeholder='Enter your phone number'
+                        placeholder='Enter your phone number' required
                         onChange={(e) => setPhone(e.target.value)}
                         value={phone}
                     />
@@ -54,7 +54,7 @@ function SignupRoute() {
                 <div className='txt_field'>
                     <SiGmail className='icon' />
                     <input type="email"
-                        placeholder='Enter your email'
+                        placeholder='Enter your email' required
                         onChange={(e) => setEmail(e.target.value)}
                         value={email}
                     />
@@ -63,7 +63,7 @@ function SignupRoute() {
                 <div className='txt_field'>
                     <FaLock className="icon" />
                     <input type="password"
-                        placeholder='Enter your password'
+                        placeholder='Enter your password' required
                         onChange={(e) => setPassword(e.target.value)}
                         value={password}
                     />
