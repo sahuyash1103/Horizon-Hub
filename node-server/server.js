@@ -9,7 +9,7 @@ const expressSession = require("express-session");
 
 const routes = require("./src/routes/index");
 
-const { PORT, SESSION_SECRET } = require("./src/utils/get-env");
+const { PORT, SESSION_SECRET, APP_1_URL } = require("./src/utils/get-env");
 const { checkEnvironmentVariable } = require("./src/utils/check_env_var");
 const { initMongo } = require("./src/mongo/index");
 const { initFirebase } = require("./src/firebase/index");
@@ -50,7 +50,7 @@ app.use(
   cors({
     optionsSuccessStatus: 200,
     credentials: true,
-    origin: "*",
+    origin: ["http://localhost:3000", APP_1_URL],
     methods: "*",
   })
 );
