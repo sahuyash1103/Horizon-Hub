@@ -23,6 +23,10 @@ const messageSchema = new mongoose.Schema({
         type: String,
         required: true,
     },
+    conversationID: {
+        type: String,
+        required: true,
+    },
     sentOn: {
         type: String,
         required: true,

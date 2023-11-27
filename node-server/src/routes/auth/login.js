@@ -8,7 +8,7 @@ router.post("/", async (req, res) => {
   const error = await validateLoginData(req.body);
   if (error) return res.status(401).send(error.details[0].message);
 
-  const user = await User.find({ email: req.body.email });
+  const user = await User.findOne({ $or: [{ email: req.body.email }, { userName: req.body.userName }] });
   if (!user) return res.status(401).send("Invalid email or password.");
 
   if (user.isDeleted) return res.status(401).send("Profile is deleted.");
@@ -17,11 +17,12 @@ router.post("/", async (req, res) => {
 
   if (user.isLocked) return res.status(401).send("Profile is locked.");
 
+  console.log("user", user);
   const validPassword = await user.verifyPassword(req.body.password);
   if (!validPassword) return res.status(401).send("Invalid email or password.");
 
   const token = `Bearer ${user.genrateAuthToken()}`;
-  req.session.user = { jwt: token }
+  req.session.user = { token: token }
   res
     .json({
       token,

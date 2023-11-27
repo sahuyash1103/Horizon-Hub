@@ -10,6 +10,11 @@ const friendSchema = new mongoose.Schema({
     // unique: true,
     required: true,
   },
+  conversationID: {
+    type: String,
+    required: true,
+    // unique: true,
+  },
   lastMessage: {
     type: mongoose.Types.ObjectId,
     ref: "Messages",
@@ -26,6 +31,11 @@ const groupSchema = new mongoose.Schema({
     // unique: true,
     required: true,
   },
+  // conversationID: {
+  //   type: String,
+  //   required: true,
+  //   unique: true,
+  // },
   lastMessage: {
     type: mongoose.Types.ObjectId,
     ref: "Messages",

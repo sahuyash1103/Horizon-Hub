@@ -15,14 +15,30 @@ router.get('/', auth, async (req, res) => {
         .json({ data: user, error: null });
 });
 
-router.get('/messages/:id', auth, (req, res) => {
-    const user = User.findById(req.user._id)
-        .select(["messages", "unreadMessages"])
-        .populate("messages");
+router.get('/:email', auth, async (req, res) => {
+    const user = await User.findById(req.user._id)
+        .populate("messages unreadMessages");
     if (!user)
         return res.status(400).json({ message: 'User not found' });
 
-    
+    const friend = await User.findOne({ email: req.params.email });
+    if (!friend)
+        return res.status(400).json({ message: 'Friend not found' });
+
+    let conversationID = user.friends.find(f => f.friend.toString() === friend._id.toString())?.conversationID;
+    if (!conversationID)
+        return res.status(400).json({ message: 'Conversation not found' });
+
+    let messages = user.messages.filter(message => message.conversationID !== conversationID);
+    let unreadMessages = user.unreadMessages.filter(message => message.conversationID !== conversationID);
+
+    res
+        .status(200)
+        .json({
+            data: { conversationID, messages, unreadMessages },
+            message: 'Messages fetched successfully',
+            error: null
+        });
 });
 
 module.exports = router;

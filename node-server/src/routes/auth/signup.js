@@ -2,7 +2,9 @@
 const router = require("express").Router();
 const User = require("../../mongo/schema/userSchema");
 const { validateSignupData } = require("../../utils/validators");
+const { generateAvatarFromName } = require("../../utils/generate-avatar");
 const _ = require("lodash");
+const { storeProfilePic } = require("../../firebase/storage/storage");
 
 router.post("/", async (req, res) => {
     const error = await validateSignupData(req.body);
@@ -13,20 +15,24 @@ router.post("/", async (req, res) => {
 
     user = new User({
         name: req.body.name,
-        userName: req.body.userName,
+        userName: req.body.userName || req.body.email.split("@")[0],
         email: req.body.email,
-        password: req.body.password,
         phone: req.body.phone,
     });
 
+    const profilePic = await generateAvatarFromName(user.name);
+    const profilePicUrl = await storeProfilePic(profilePic, user._id);
+
+    user.profilePic = profilePicUrl;
     user.password = await user.genrateHashedPassword(req.body.password);
-    await user.save();
+    const savedUser = await user.save();
 
     const token = `Bearer ${user.genrateAuthToken()}`;
+    req.session.user = { token: token }
     res
         .json({
             token,
-            data: _.pick(user, ["_id", "name", "email", "phone", "profilePic"]),
+            data: _.pick(savedUser, ["_id", "name", "email", "phone", "profilePic"]),
             message: "Signup successful.",
             error: null,
         })

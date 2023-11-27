@@ -3,7 +3,7 @@ const { JWT_PRIVATE_KEY } = require("../utils/get-env");
 
 function authMW(req, res, next) {
     if (req.user) return next();
-    let token = req.session?.user?.jwt || req.headers["x-auth-token"];
+    let token = req.session?.user?.token || req.headers["x-auth-token"];
     if (!token) return res.status(401).send("Access denied. No token provided.");
     try {
         token = token.split(" ")[1];

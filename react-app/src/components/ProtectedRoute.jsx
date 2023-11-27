@@ -6,15 +6,14 @@ import { logout, setToken, setTokenValid, setUser } from '../redux-toolkit/reduc
 import { setProfile } from '../redux-toolkit/reducers/user';
 
 function ProtectedRoute({ element, children, ...rest }) {
-  const { user } = useSelector(state => state.auth);
+  const { profile } = useSelector(state => state.user);
   const dispatch = useDispatch();
   const navigate = useNavigate();
   const location = useLocation();
 
   const isAuth = async () => {
-    if (user) return;
+    if (profile) return;
     const res = await getProfile();
-    console.log("res", res);
     if (res?.data) {
       dispatch(setProfile(res?.data));
       dispatch(setUser(res?.data));

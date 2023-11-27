@@ -56,7 +56,7 @@ app.use(
 );
 //--------------------------SETUP HEADER
 app.use((req, res, next) => {
-  res.header('Access-Control-Allow-Origin', "*");
+  // res.header('Access-Control-Allow-Origin', "*");
   next();
 });
 
@@ -118,7 +118,10 @@ const httpServer = http.createServer(app);
 // -------------------------------------------SETUP SOCKET.IO
 const io = new Server(httpServer, {
   cors: {
-    origin: '*',
+    optionsSuccessStatus: 200,
+    credentials: true,
+    origin: ["http://localhost:3000", APP_1_URL],
+    methods: "*",
   }
 });
 

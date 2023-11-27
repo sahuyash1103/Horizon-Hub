@@ -2,6 +2,7 @@ const router = require("express").Router();
 const User = require("../../mongo/schema/userSchema");
 const auth = require("../../middlewares/auth.middleware");
 const findFriendInUserSubCollection = require("../../utils/find-friend-in-user");
+const { v4: uuidv4 } = require('uuid');
 
 router.put("/", auth, async (req, res) => {
     const user = await User.findById(req.user._id).select(["-password", "-__v"]);
@@ -16,14 +17,27 @@ router.put("/", auth, async (req, res) => {
     const isFound = await findFriendInUserSubCollection(user, friend._id);
     if (isFound) return res.status(400).send(`Friend is already (in) ${isFound.subMessage}.`);
 
-    const updatedUser = await User.findByIdAndUpdate(user._id,
+    const conversationID = uuidv4();
+
+    const updatedUser = await user.updateOne(
         {
             $push: {
-                friends: { friend: friend._id, lastMessage: null, lastMessageText: null }
+                friends: { friend: friend._id, lastMessage: null, lastMessageText: null, conversationID: conversationID }
             }
         },
         { new: true }
-    ).select(["friends", "blockedFriends", "mutedFriends", "pinnedFriends", "unknownFriends"]);
+    );
+
+    await friend.updateOne(
+        {
+            $push: {
+                friends: { friend: user._id, conversationID: conversationID }
+            }
+        },
+        {
+            new: true
+        }
+    );
 
     res.status(200).json({
         data: updatedUser,
