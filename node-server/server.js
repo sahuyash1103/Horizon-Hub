@@ -54,6 +54,11 @@ app.use(
     methods: "*",
   })
 );
+//--------------------------SETUP HEADER
+app.use((req, res, next) => {
+  res.header('Access-Control-Allow-Origin', APP_1_URL);
+  next();
+});
 
 // -------------------------ROUTES
 app.use("/api/auth/login/", routes.loginRouter);
