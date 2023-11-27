@@ -7,23 +7,25 @@ import { FaLock } from "react-icons/fa";
 import { IoChatbubble } from "react-icons/io5";
 
 import { login } from '../axios/api/auth/auth.req';
-import { setUser } from '../redux-toolkit/reducers/auth';
-import { Link, useNavigate } from 'react-router-dom';
+import { setToken, setTokenValid, setUser } from '../redux-toolkit/reducers/auth';
+import { Link, useNavigate, useLocation } from 'react-router-dom';
 
 function LoginRoute() {
     const dispatch = useDispatch();
     const [email, setEmail] = useState('');
     const [password, setPassword] = useState('');
     const navigate = useNavigate();
-
+    const location = useLocation();
+    
     const handleLogin = async (e) => {
         e.preventDefault();
 
         const res = await login(email, password,);
-        console.log(res);
-
-        dispatch(setUser({ user: res.data, token: res.token }))
-        navigate('/', { state: { path: '/auth/login' } });
+        dispatch(setUser(res?.data));
+        dispatch(setToken(res?.token));
+        dispatch(setTokenValid(true));
+        localStorage.setItem('token', res?.token);
+        navigate(location.state?.from || '/', { replace: true });
     }
 
     return (<div className='container'>
@@ -53,8 +55,8 @@ function LoginRoute() {
 
                 <button type="submit" >Login</button>
 
-                <div class="google_button">
-                    <button class="btn_google">
+                <div className="google_button">
+                    <button className="btn_google">
                         <  FcGoogle className="google" />
                         Login with google
                     </button>
@@ -62,7 +64,7 @@ function LoginRoute() {
 
                 <button className="otp_btn">Login with OTP?</button>
 
-                <div class="register_link">Not registered?
+                <div className="register_link">Not registered?
                     <Link to="/auth/signup"> Signup</Link>
                 </div>
             </form>

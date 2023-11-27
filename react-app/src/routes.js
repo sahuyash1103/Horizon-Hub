@@ -24,8 +24,8 @@ const routes = [
         element: (<ProtectedRoute element={<Layout />} />),
         children: [
             {
-                path: '/home/chat',
-                element: <h1>home</h1>
+                path: '/home/',
+                element: <HomeRoute />
             }
         ]
     },

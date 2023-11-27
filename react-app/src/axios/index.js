@@ -1,24 +1,28 @@
 import axios from 'axios';
+import { API_BASE_URL } from '../utils/get-env';
 
 const instance = axios.create({
-    baseURL: 'http://localhost:3001/api',
+    baseURL: API_BASE_URL,
     headers: {
         'Content-Type': 'application/json',
     },
-    withCredentials: true,
+    withCredentials: true, // SESSION COCKIES PASSED
 });
 
-instance.interceptors.request.use(
-    async (config) => {
-        const token = localStorage.getItem('token');
-        if (token) {
-            config.headers["x-auth-token"] = token;
-        }
-        return config;
-    },
-    (error) => {
-        return Promise.reject(error);
-    }
-);
+//-----------PASSING TOKEN IN HEADER---------------- 
+// uncomment below code to pass token in header if session is not working
+
+// instance.interceptors.request.use(
+//     async (config) => {
+//         const token = localStorage.getItem('token');
+//         if (token) {
+//             config.headers["x-auth-token"] = token;
+//         }
+//         return config;
+//     },
+//     (error) => {
+//         return Promise.reject(error);
+//     }
+// );
 
 export default instance;

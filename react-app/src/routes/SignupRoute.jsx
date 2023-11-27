@@ -8,8 +8,8 @@ import { FaUser } from "react-icons/fa";
 import { FaMobile } from "react-icons/fa6";
 
 import { signup } from '../axios/api/auth/auth.req';
-import { setUser } from '../redux-toolkit/reducers/auth';
-import { Link, useNavigate } from 'react-router-dom';
+import { setToken, setTokenValid, setUser } from '../redux-toolkit/reducers/auth';
+import { Link, useLocation, useNavigate } from 'react-router-dom';
 
 function SignupRoute() {
     const dispatch = useDispatch();
@@ -18,15 +18,17 @@ function SignupRoute() {
     const [email, setEmail] = useState('');
     const [password, setPassword] = useState('');
     const navigate = useNavigate();
+    const location = useLocation();
 
     const handleLogin = async (e) => {
         e.preventDefault();
 
         const res = await signup(name, phone, email, password);
-        console.log(res);
-
-        dispatch(setUser({ user: res?.data, token: res?.token }))
-        navigate('/', { state: { path: '/auth/signup' } });
+        dispatch(setUser(res?.data));
+        dispatch(setToken(res?.token));
+        dispatch(setTokenValid(true));
+        localStorage.setItem('token', res?.token);
+        navigate(location.state?.from || '/', { replace: true });
     }
 
     return (<div className='container'>
@@ -66,13 +68,14 @@ function SignupRoute() {
                     <FaLock className="icon" />
                     <input type="password"
                         placeholder='Enter your password'
+                        autoComplete='password'
                         onChange={(e) => setPassword(e.target.value)}
                         value={password}
                     />
                     <span></span>
                 </div>
                 <button className='lgn_btn'>SignUp</button>
-                <div class="login_link">Please Click Here to
+                <div className="login_link">Please Click Here to
                     <Link to={'/auth/login'}> Login</Link>
                 </div>
             </form>

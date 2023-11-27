@@ -13,6 +13,7 @@ router.post("/", async (req, res) => {
 
     user = new User({
         name: req.body.name,
+        userName: req.body.userName,
         email: req.body.email,
         password: req.body.password,
         phone: req.body.phone,
@@ -23,7 +24,6 @@ router.post("/", async (req, res) => {
 
     const token = `Bearer ${user.genrateAuthToken()}`;
     res
-        .header("x-auth-token", token)
         .json({
             token,
             data: _.pick(user, ["_id", "name", "email", "phone", "profilePic"]),
