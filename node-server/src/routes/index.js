@@ -54,6 +54,7 @@ module.exports = {
     unmuteFriendRouter,
     unpinFriendRouter,
     removeFriendRouter,
+    leaveGroupRouter,
 
     getGroupRouter,
     createGroupRouter,
