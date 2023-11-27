@@ -5,6 +5,7 @@ import SignupRoute from './routes/SignupRoute';
 import ProtectedRoute from './components/ProtectedRoute';
 import HomeRoute from './routes/HomeRoute';
 import Layout from './components/Layout';
+import NotFoundRoute from './routes/NotFoundRoute';
 
 const routes = [
     {
@@ -31,7 +32,7 @@ const routes = [
     },
     {
         path: '*',
-        element: <h1>404 Not Found</h1>
+        element: <NotFoundRoute />
     }
 ];
 

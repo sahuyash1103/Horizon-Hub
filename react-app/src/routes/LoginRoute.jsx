@@ -16,7 +16,7 @@ function LoginRoute() {
     const [password, setPassword] = useState('');
     const navigate = useNavigate();
     const location = useLocation();
-    
+
     const handleLogin = async (e) => {
         e.preventDefault();
 
@@ -28,54 +28,45 @@ function LoginRoute() {
         navigate(location.state?.from || '/', { replace: true });
     }
 
-    return (<div className='container'>
-
-        <div className='form'>
-
-            <form onSubmit={handleLogin}>
-                <div className="text_field">
-                    <FaUser className="icons" />
-                    <input type="email" placeholder='Enter registered user id'
-                        required
-                        onChange={(e) => setEmail(e.target.value)}
-                        value={email}
-                    />
-
-                    <span></span>
-                </div>
-                <div className="text_field">
-                    <FaLock className="icons" />
-                    <input type="password" placeholder='Enter password' required
-                        onChange={(e) => setPassword(e.target.value)}
-                        value={password}
-                    />
-
-                    <span></span>
-                </div>
-
-                <button type="submit" >Login</button>
-
-                <div className="google_button">
-                    <button className="btn_google">
-                        <  FcGoogle className="google" />
-                        Login with google
-                    </button>
-                </div>
-
-                <button className="otp_btn">Login with OTP?</button>
-
-                <div className="register_link">Not registered?
-                    <Link to="/auth/signup"> Signup</Link>
-                </div>
-            </form>
+    return (
+        <div className='container'>
+            <div className='form'>
+                <form onSubmit={handleLogin}>
+                    <div className="text_field">
+                        <FaUser className="icons" />
+                        <input type="email" placeholder='Enter registered user id'
+                            required
+                            onChange={(e) => setEmail(e.target.value)}
+                            value={email}
+                        />
+                        <span></span>
+                    </div>
+                    <div className="text_field">
+                        <FaLock className="icons" />
+                        <input type="password" placeholder='Enter password' required
+                            onChange={(e) => setPassword(e.target.value)}
+                            value={password}
+                        />
+                        <span></span>
+                    </div>
+                    <button type="submit" >Login</button>
+                    <div className="google_button">
+                        <button className="btn_google">
+                            Login with google
+                            <div className="google"> <  FcGoogle /></div>
+                        </button>
+                    </div>
+                    <button className="otp_btn">Login with OTP?</button>
+                    <div className="register_link">Not registered?
+                        <Link to="/auth/signup"> Signup</Link>
+                    </div>
+                </form>
+            </div>
+            {/* <h1>LOGIN</h1> */}
+            <IoChatbubble className="chat_icon" />
+            <h2>ChitChat</h2>
+            <h3>Connect and Communicate</h3>
         </div>
-        {/* <h1>LOGIN</h1> */}
-        <IoChatbubble className="chat_icon" />
-        <h2>ChitChat</h2>
-        <h3>Connect and Communicate</h3>
-
-    </div>
-
     );
 }
 
