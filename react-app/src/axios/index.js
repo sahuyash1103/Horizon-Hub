@@ -1,8 +1,8 @@
 import axios from 'axios';
-import { API_BASE_URL } from '../utils/get-env';
+import getEnv from '../utils/get-env';
 
 const instance = axios.create({
-    baseURL: API_BASE_URL,
+    baseURL: getEnv.API_BASE_URL,
     headers: {
         'Content-Type': 'application/json',
     },
