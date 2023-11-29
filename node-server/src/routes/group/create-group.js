@@ -2,6 +2,7 @@ const router = require('express').Router();
 const authMW = require('../../middlewares/auth.middleware');
 const Group = require('../../mongo/schema/groupSchema');
 const User = require('../../mongo/schema/userSchema');
+const { validateGroupData } = require('../../utils/validators');
 
 router.post('/', authMW, async (req, res) => {
     const user = await User.findById(req.user._id)
@@ -10,7 +11,7 @@ router.post('/', authMW, async (req, res) => {
     const groupData = req.body.groupData;
     if (!groupData) return res.status(400).send('Group data not provided');
 
-    const isValid = Group.validate(groupData);
+    const isValid = await validateGroupData(groupData);
     if (isValid.error) return res.status(400).send(isValid.error.details[0].message);
 
     const group = new Group({
@@ -31,6 +32,6 @@ router.post('/', authMW, async (req, res) => {
             error: null,
         });
     } catch (err) {
-        res.status(400).send({error: err.message, message: null, data: null});
+        res.status(400).send({ error: err.message, message: null, data: null });
     }
 })

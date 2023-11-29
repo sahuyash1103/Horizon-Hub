@@ -9,7 +9,7 @@ import { FaMobile } from "react-icons/fa6";
 
 import { signup } from '../axios/api/auth/auth.req';
 import { setUser } from '../redux-toolkit/reducers/auth';
-import { useNavigate } from 'react-router-dom';
+import { Link, useNavigate } from 'react-router-dom';
 
 function SignupRoute() {
     const dispatch = useDispatch();
@@ -17,6 +17,7 @@ function SignupRoute() {
     const [phone, setPhone] = useState('');
     const [email, setEmail] = useState('');
     const [password, setPassword] = useState('');
+    const navigate = useNavigate();
 
     const handleLogin = async (e) => {
         e.preventDefault();
@@ -24,7 +25,8 @@ function SignupRoute() {
         const res = await signup(name, phone, email, password);
         console.log(res);
 
-        dispatch(setUser({ user: res.data, token: res.token }))
+        dispatch(setUser({ user: res?.data, token: res?.token }))
+        navigate('/', { state: { path: '/auth/signup' } });
     }
 
     return (<div className='container'>
@@ -36,7 +38,7 @@ function SignupRoute() {
                 <div className='txt_field'>
                     <FaUser className='icon' />
                     <input type="text"
-                        placeholder='Enter your name' required
+                        placeholder='Enter name' required
                         onChange={(e) => setName(e.target.value)}
                         value={name}
                     />
@@ -45,7 +47,7 @@ function SignupRoute() {
                 <div className='txt_field'>
                     <FaMobile className='icon' />
                     <input type="text"
-                        placeholder='Enter your phone number' required
+                        placeholder='Enter phone number' required
                         onChange={(e) => setPhone(e.target.value)}
                         value={phone}
                     />
@@ -54,7 +56,7 @@ function SignupRoute() {
                 <div className='txt_field'>
                     <SiGmail className='icon' />
                     <input type="email"
-                        placeholder='Enter your email' required
+                        placeholder='Enter email' required
                         onChange={(e) => setEmail(e.target.value)}
                         value={email}
                     />
@@ -63,7 +65,7 @@ function SignupRoute() {
                 <div className='txt_field'>
                     <FaLock className="icon" />
                     <input type="password"
-                        placeholder='Enter your password' required
+                        placeholder='Enter password' required
                         onChange={(e) => setPassword(e.target.value)}
                         value={password}
                     />
@@ -71,7 +73,7 @@ function SignupRoute() {
                 </div>
                 <button className='lgn_btn'>SignUp</button>
                 <div class="login_link">Please Click Here to
-                    <a href="./login.html"> Login</a>
+                    <Link to={'/auth/login'}> Login</Link>
                 </div>
             </form>
         </div>

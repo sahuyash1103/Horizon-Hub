@@ -8,11 +8,13 @@ import { IoChatbubble } from "react-icons/io5";
 
 import { login } from '../axios/api/auth/auth.req';
 import { setUser } from '../redux-toolkit/reducers/auth';
+import { Link, useNavigate } from 'react-router-dom';
 
 function LoginRoute() {
     const dispatch = useDispatch();
     const [email, setEmail] = useState('');
     const [password, setPassword] = useState('');
+    const navigate = useNavigate();
 
     const handleLogin = async (e) => {
         e.preventDefault();
@@ -21,12 +23,13 @@ function LoginRoute() {
         console.log(res);
 
         dispatch(setUser({ user: res.data, token: res.token }))
+        navigate('/', { state: { path: '/auth/login' } });
     }
 
     return (<div className='container'>
 
         <div className='form'>
-        
+
             <form onSubmit={handleLogin}>
                 <div className="text_field">
                     <FaUser className="icons" />
@@ -47,8 +50,16 @@ function LoginRoute() {
 
                     <span></span>
                 </div>
-                
+
+                <div className="frgt_psswrd">
+                    <p>Forgot password?</p>
+                </div>
+
                 <button type="submit" >Login</button>
+                <div className="or">
+                    <h3 className="h3">or</h3>
+                    </div>
+                <button className="otp_btn">Login with OTP?</button>
 
                 <div class="google_button">
                 
@@ -59,10 +70,10 @@ function LoginRoute() {
                     
                 </div>
 
-                <button className="otp_btn">Login with OTP?</button>
                 
-                <div class="register_link">Not registered? 
-                    <a href="#"> Register</a>
+
+                <div class="register_link">Not registered?
+                    <Link to="/auth/signup"> Signup</Link>
                 </div>
             </form>
         </div>
@@ -70,7 +81,7 @@ function LoginRoute() {
         <IoChatbubble className="chat_icon" />
         <h2>ChitChat</h2>
         <h3>Connect and Communicate</h3>
-    
+
     </div>
 
     );

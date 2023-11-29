@@ -59,9 +59,34 @@ async function validateChangePasswordData(dataToUpdate) {
   }
 }
 
+const validateGroupData = async (group) => {
+  const schema = joi.object({
+    name: joi.string().min(3).max(50).required(),
+    discription: joi.string(),
+    status: joi.string().max(250),
+    admin: joi.string().required(),
+    createdOn: joi.string().required(),
+    profilePic: joi.string(),
+    members: joi.array().items(joi.string()),
+    kickedMembers: joi.array().items(joi.string()),
+    suspanedMembers: joi.array().items(joi.string()),
+    mutedMembers: joi.array().items(joi.string()),
+    messages: joi.array().items(joi.string()),
+    isBanned: joi.boolean(),
+    isActive: joi.boolean(),
+    isDeleted: joi.boolean(),
+  });
+  try {
+    await schema.validateAsync(group);
+  } catch (err) {
+    return err;
+  }
+};
+
 module.exports = {
   validateSignupData,
   validateLoginData,
   validateUserUpdateData,
-  validateChangePasswordData
+  validateChangePasswordData,
+  validateGroupData,
 };

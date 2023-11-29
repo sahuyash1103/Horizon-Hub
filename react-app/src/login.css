@@ -56,7 +56,7 @@
 
 button[type="submit"]{
   width: 60%;
-    margin-top: 80px;
+    margin-top: 15px;
     margin-left: 100px;
     height: 50px;
     border: 1px solid;
@@ -106,7 +106,7 @@ transition: .5s all ease;
 }
 
 .register_link{
-  margin: 25px 0;
+  margin: 20px 0;
   text-align: center;
   color: #4a4a4a;
   font-size: 20px;
@@ -127,15 +127,17 @@ transition: .5s all ease;
   margin-right: 100px;
   font-size: 18px;
   width: 20px;
-  height: 20px;
+  height: 18px;
   position:relative;
   margin-left: 30px;
   bottom: 60%;
+  background-color: white;
+  border-radius: 50%;
 }
 
 .otp_btn{
   width: 60%;
-  margin-top: 20px;
+  margin-top: 10px;
   margin-left: 100px;
   height: 50px;
   border: 1px solid;
@@ -182,3 +184,32 @@ h3{
   margin-top: 3px;
   font-family: 'Gill Sans', 'Gill Sans MT', Calibri, 'Trebuchet MS', sans-serif;
 }
+
+.or .h3{
+  color: #5c5c5c;
+  font-size: 20px;
+  height: 20px;
+  width: 20px;
+  position: relative;
+  float: left;
+   margin-right: 100px;
+   align-items: center;
+   margin-left: 220px;
+   align-items: center;
+   margin-top: 10px;
+}
+
+.frgt_psswrd{
+  color: #5c5c5c;
+  margin-top: 80px;
+  width: 120px;
+  height: 20px;
+  font-size: 16px;
+  margin-left: 250px;
+  font-family: 'Gill Sans', 'Gill Sans MT', Calibri, 'Trebuchet MS', sans-serif;
+}
+
+.frgt_psswrd p:hover{
+  text-decoration: underline;
+}
+ 

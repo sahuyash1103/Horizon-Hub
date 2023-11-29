@@ -15,4 +15,14 @@ router.get('/', auth, async (req, res) => {
         .json({ data: user, error: null });
 });
 
+router.get('/messages/:id', auth, (req, res) => {
+    const user = User.findById(req.user._id)
+        .select(["messages", "unreadMessages"])
+        .populate("messages");
+    if (!user)
+        return res.status(400).json({ message: 'User not found' });
+
+    
+});
+
 module.exports = router;
