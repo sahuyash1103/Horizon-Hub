@@ -7,23 +7,25 @@ import { FaLock } from "react-icons/fa";
 import { IoChatbubble } from "react-icons/io5";
 
 import { login } from '../axios/api/auth/auth.req';
-import { setUser } from '../redux-toolkit/reducers/auth';
-import { Link, useNavigate } from 'react-router-dom';
+import { setToken, setTokenValid, setUser } from '../redux-toolkit/reducers/auth';
+import { Link, useNavigate, useLocation } from 'react-router-dom';
 
 function LoginRoute() {
     const dispatch = useDispatch();
     const [email, setEmail] = useState('');
     const [password, setPassword] = useState('');
     const navigate = useNavigate();
+    const location = useLocation();
 
     const handleLogin = async (e) => {
         e.preventDefault();
 
         const res = await login(email, password,);
-        console.log(res);
-
-        dispatch(setUser({ user: res.data, token: res.token }))
-        navigate('/', { state: { path: '/auth/login' } });
+        dispatch(setUser(res?.data));
+        dispatch(setToken(res?.token));
+        dispatch(setTokenValid(true));
+        localStorage.setItem('token', res?.token);
+        navigate(location.state?.from || '/', { replace: true });
     }
 
     return (<div className='container'>

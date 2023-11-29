@@ -50,9 +50,8 @@ app.use(
   cors({
     optionsSuccessStatus: 200,
     credentials: true,
-    origin: "http://localhost:3000",
+    origin: "*",
     methods: "*",
-    // "Access-Control-Allow-Origin": "*"
   })
 );
 
@@ -73,6 +72,16 @@ app.use("/api/friends/friend/unmute/", routes.unmuteFriendRouter);
 app.use("/api/friends/friend/pin/", routes.pinFriendRouter);
 app.use("/api/friends/friend/unpin/", routes.unpinFriendRouter);
 
+app.use("/api/group/get", routes.getGroupRouter);
+app.use("/api/group/create", routes.createGroupRouter);
+app.use("/api/group/delete", routes.deleteGroupRouter);
+app.use("/api/group/update", routes.updateGroupRouter);
+app.use("/api/group/add-member", routes.addMemberRouter);
+app.use("/api/group/remove-member", routes.removeMemberRouter);
+app.use("/api/group/update-profile-pic", routes.updateGroupProfilePicRouter);
+app.use("/api/group/change-admin", routes.changeAdminRouter);
+app.use("/api/group/leave", routes.leaveGroupRouter)
+
 app.use("/api/messages/", routes.getMessagesRouter);
 app.use("/api/messages/message/seen", routes.seenMessageRouter);
 
@@ -84,8 +93,6 @@ app.use("/api/profile/change-password/", routes.changePasswordRouter);
 app.use("/api/profile/forgot-password/", routes.forgotPasswordRouter);
 app.use("/api/profile/set-status/", routes.setStatusRouter);
 app.use("/api/profile/update-profile-pic/", routes.updateProfilePicRouter);
-
-
 
 // -------------------------API CONNECTION CHECK
 app.get("/", (req, res) => {

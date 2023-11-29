@@ -35,3 +35,5 @@ router.post('/', authMW, async (req, res) => {
         res.status(400).send({ error: err.message, message: null, data: null });
     }
 })
+
+module.exports = router;

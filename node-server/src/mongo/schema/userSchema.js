@@ -110,7 +110,7 @@ const userSchema = new mongoose.Schema({
 
 userSchema.methods.genrateAuthToken = function () {
   return jwt.sign(
-    { _id: this._id, name: this.name, email: this.email, phone: this.phone },
+    { _id: this._id, userName: this.userName, email: this.email, phone: this.phone },
     JWT_PRIVATE_KEY,
     { expiresIn: "24h" }
   );

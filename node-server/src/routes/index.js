@@ -14,6 +14,18 @@ const unmuteFriendRouter = require("./friend/unmute-friend");
 const unpinFriendRouter = require("./friend/unpin-friend");
 const removeFriendRouter = require("./friend/remove-friend");
 
+const getGroupRouter = require("./group/get-group");
+const createGroupRouter = require("./group/create-group");
+const deleteGroupRouter = require("./group/delete-group");
+const updateGroupRouter = require("./group/update-group");
+const addMemberRouter = require("./group/add-members");
+const removeMemberRouter = require("./group/remove-member");
+const updateGroupProfilePicRouter = require("./group/update-profile-pic");
+const changeAdminRouter = require("./group/change-admin");
+const leaveGroupRouter = require("./group/leave-group.js");
+
+
+
 const getMessagesRouter = require("./message/get-messages");
 const seenMessageRouter = require("./message/message-seen");
 
@@ -42,6 +54,16 @@ module.exports = {
     unmuteFriendRouter,
     unpinFriendRouter,
     removeFriendRouter,
+    leaveGroupRouter,
+
+    getGroupRouter,
+    createGroupRouter,
+    deleteGroupRouter,
+    updateGroupRouter,
+    addMemberRouter,
+    removeMemberRouter,
+    updateGroupProfilePicRouter,
+    changeAdminRouter,
 
     getMessagesRouter,
     seenMessageRouter,

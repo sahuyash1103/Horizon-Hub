@@ -6,6 +6,7 @@ async function validateSignupData(user) {
 
   const schema = joi.object({
     name: joi.string().min(3).max(50).required(),
+    userName: joi.string().min(3).max(50),
     email: joi.string().min(10).max(255).required().email(),
     password: joi.string().min(8).max(255).required(),
     phone: joi.string().length(10).pattern(phoneRegExp).required(),
@@ -21,9 +22,10 @@ async function validateSignupData(user) {
 
 async function validateLoginData(user) {
   const schema = joi.object({
-    email: joi.string().min(10).max(255).required().email(),
+    email: joi.string().min(10).max(255).email().optional(),
+    unserName: joi.string().min(3).max(50).optional(),
     password: joi.string().min(8).max(255).required(),
-  });
+  }).xor("email", "unserName");
 
   try {
     await schema.validateAsync(user);
