@@ -1,0 +1,29 @@
+.search-container {
+    position: relative;
+    width: 30%;
+    height: 40px;
+    background: var(--third-color);
+    display: flex;
+    align-items: center;
+  }
+  
+  .search-container .input input {
+    width: 121%;
+    outline: none;
+    border: none;
+    background: #fff;
+    padding: 5px;
+    height: 30x;
+    border-radius: 10px;
+    font-size: 12px;
+    padding-left: 60px;
+    margin: 10px
+  }
+  
+  .search-container .search {
+    position: absolute;
+    left: 26px;
+    top: 14px;
+    color:#bbb;
+    font-size: 0.8em;
+  }

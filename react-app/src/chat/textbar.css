@@ -1,0 +1,39 @@
+.chatbox-input {
+    position: absolute;
+    width: 70%;
+    height: 60px;
+    background: var(--third-color);
+    display: flex;
+    justify-content: space-between;
+    align-items: center;
+    float: right;
+    right: 0;
+    bottom: 0;
+  }
+  
+.fa{
+    width: 25px;
+    height: 25px;
+    margin-left: 20px;
+    color: #222021;
+}
+  
+  
+  
+   .chatbox-input input {
+      position: relative;
+      width: 90%;
+      margin: 0 20px;
+      padding: 10px 20px;
+      border-radius:10px;
+      font-size: 1em;
+      border:none;
+      outline:none;
+   }
+
+   .send{
+    margin-right: 20px;
+    width: 30px;
+    height: 25px;
+    color: #222021;
+   }

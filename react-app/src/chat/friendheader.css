@@ -1,0 +1,62 @@
+.fheader {
+    position: absolute;
+    align-items: center;
+    width: 70%;
+    height: 60px;
+    background: #ededed;
+    padding: 0 15px;
+    float: right;
+    top: 0;
+    right: 0;
+  }
+
+.fheader {
+    display: flex;
+    justify-content: space-between;
+    align-items: center;
+  }
+  
+  .fheader .img-text .user-img .dp {
+    position:relative;
+    top: -2px;
+    left: 0px;
+    width: 40px;
+    height:auto;
+    overflow:hidden;
+    object-fit: cover;
+  }
+  
+   .fheader .img-text {
+    position: relative;
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    cursor: pointer;
+  }
+  
+  .fheader .img-text h4 {
+    font-weight: 500;
+    line-height: 1.2em;
+    margin-left: 15px;
+  }
+  
+  .fheader .img-text h4 span {
+    font-size: 0.8em;
+    color: #555;
+  }
+  
+.sidemenu{
+  position: relative;
+  float: right;
+  height: 20px;
+  width: 20px;
+  color: #363636;
+}
+
+.call{
+  position: relative;
+  margin-left: 740px;
+  height: 20px;
+  width: 20px;
+  color: #363636;
+}
