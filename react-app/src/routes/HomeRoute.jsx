@@ -11,7 +11,7 @@ function HomeRoute() {
     <div className='main-container'>
     
       <UserHeader/>
-        <SearchBar/>
+      <SearchBar/>
       <SideChatWindow/>
       <FriendHeader/>
       <MainChatWindow/>
