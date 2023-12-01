@@ -13,13 +13,18 @@ function ProtectedRoute({ element, children, ...rest }) {
 
   const isAuth = async () => {
     if (profile) return;
-    const res = await getProfile();
-    if (res?.data) {
-      dispatch(setProfile(res?.data));
-      dispatch(setUser(res?.data));
-      dispatch(setToken(res?.token));
-      dispatch(setTokenValid(true));
-      return;
+
+    let token = localStorage.getItem('token');
+    if (token) {
+      const res = await getProfile();
+      if (res?.data) {
+        dispatch(setProfile(res?.data));
+        dispatch(setUser(res?.data));
+        dispatch(setToken(res?.token));
+        dispatch(setTokenValid(true));
+        localStorage.setItem('token', res?.token);
+        return;
+      }
     }
     dispatch(setTokenValid(false));
     dispatch(setUser(null));
