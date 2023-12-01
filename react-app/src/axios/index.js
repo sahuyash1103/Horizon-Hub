@@ -5,6 +5,7 @@ const instance = axios.create({
     baseURL: getEnv.API_BASE_URL,
     headers: {
         'Content-Type': 'application/json',
+        'Access-Control-Allow-Origin': '*',
     },
     withCredentials: true, // SESSION COCKIES PASSED
 });

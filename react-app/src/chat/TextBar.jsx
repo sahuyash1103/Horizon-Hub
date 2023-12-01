@@ -6,10 +6,10 @@ import "./textbar.css"
 function TextBar() {
   return (
     <div class="chatbox-input">
-        <GrAttachment className='fa' />
-        <input type="text" placeholder="Type a message"/>
-        <IoSend className='send' />
-      </div>
+      <GrAttachment className='fa' />
+      <input type="text" placeholder="Type a message" />
+      <IoSend className='send' />
+    </div>
   )
 }
 

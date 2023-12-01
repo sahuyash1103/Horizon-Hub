@@ -1,10 +1,17 @@
-import React from 'react'
+
+import React, { useEffect } from 'react'
+import { useDispatch, useSelector } from 'react-redux';
+import { getFriends } from '../axios/api/friends/getFriends.req';
+import { setFriends, setMessages } from '../redux-toolkit/reducers/user';
+import _ from 'lodash';
+import { getMessages } from '../axios/api/messages/getMessages.req';
 import UserHeader from '../chat/UserHeader'
 import SearchBar from '../chat/SearchBar'
 import SideChatWindow from '../chat/SideChatWindow'
 import FriendHeader from '../chat/FriendHearder'
 import MainChatWindow from '../chat/MainChatWindow'
 import TextBar from '../chat/TextBar'
+
 
 function HomeRoute() {
   const { profile, friends, messages } = useSelector(state => state.user);
@@ -29,7 +36,14 @@ function HomeRoute() {
   }, [])
 
   return (
-    <div>HomeRoute</div>
+    <div className='main-container'>
+      <UserHeader/>
+      <SearchBar/>
+      <SideChatWindow/>
+      <FriendHeader/>
+      <MainChatWindow/>
+      <TextBar/>
+    </div>
   )
 }
 
