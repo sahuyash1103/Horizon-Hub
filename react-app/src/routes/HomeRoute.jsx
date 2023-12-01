@@ -1,9 +1,10 @@
-import React, { useEffect } from 'react'
-import { useDispatch, useSelector } from 'react-redux';
-import { getFriends } from '../axios/api/friends/getFriends.req';
-import { setFriends, setMessages } from '../redux-toolkit/reducers/user';
-import _ from 'lodash';
-import { getMessages } from '../axios/api/messages/getMessages.req';
+import React from 'react'
+import UserHeader from '../chat/UserHeader'
+import SearchBar from '../chat/SearchBar'
+import SideChatWindow from '../chat/SideChatWindow'
+import FriendHeader from '../chat/FriendHearder'
+import MainChatWindow from '../chat/MainChatWindow'
+import TextBar from '../chat/TextBar'
 
 function HomeRoute() {
   const { profile, friends, messages } = useSelector(state => state.user);
@@ -28,15 +29,7 @@ function HomeRoute() {
   }, [])
 
   return (
-    <div>
-      <h3>{profile?.name}</h3>
-      <h3>{profile?.email}</h3>
-      <h3>{profile?.phone}</h3>
-      <h3>{profile?.userName}</h3>
-      <img src={profile?.profilePic} alt="profilePic" />
-      <h3>{friends?.length}</h3>
-      <h3>{messages?.length}</h3>
-    </div>
+    <div>HomeRoute</div>
   )
 }
 

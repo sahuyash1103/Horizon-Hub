@@ -91,11 +91,12 @@
     margin: 25px 0;
     text-align: center;
     font-size: 18px;
-    color: #666666;
+    color: #4a4a4a;
 }
 .login_link a{
     color: #570082;
     text-decoration: none;
+    font-family: 'Gill Sans', 'Gill Sans MT', Calibri, 'Trebuchet MS', sans-serif;
 }
 .login_link a:hover{
     text-decoration: underline;

@@ -34,7 +34,7 @@ function ProtectedRoute({ element, children, ...rest }) {
   }
 
   useEffect(() => {
-    isAuth();
+    // isAuth();
     // eslint-disable-next-line react-hooks/exhaustive-deps
   }, [])
   return (
