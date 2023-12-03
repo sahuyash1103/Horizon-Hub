@@ -1,24 +1,3 @@
-.right-container {
-    position: absolute;
-    width: 70%;
-    height: 100%;
-    flex: 70%;
-    background: #e5ddd5;
-    float: right;
-    right: 0;
-  }
-
-  .right-container::before {
-    content: '';
-    position: absolute;
-    top: 0;
-    left: 0;
-    width: 100%;
-    height: 100%;
-    background: url(https://camo.githubusercontent.com/854a93c27d64274c4f8f5a0b6ec36ee1d053cfcd934eac6c63bed9eaef9764bd/68747470733a2f2f7765622e77686174736170702e636f6d2f696d672f62672d636861742d74696c652d6461726b5f61346265353132653731393562366237333364393131306234303866303735642e706e67);
-    opacity: 0.5;
-  }
-
 .chat-container {
     position:relative;
     width: 100%;
@@ -40,7 +19,7 @@
     text-align: right;
     max-width: 65%;
     padding: 12px;
-    background-color: #c5aee3;
+    background-color: #eee9f2;
     border-radius: 10px;
     font-size: 0.9em;
   }
@@ -52,7 +31,8 @@
     right: -12px;
     width: 20px;
     height: 20px;
-    background: linear-gradient(135deg, #c5aee3 0%, #c5aee3 50%, transparent 50%, transparent);
+    background: linear-gradient(135deg, #eee9f2 0%, #eee9f2 50%, transparent 50%, transparent);
+    
   }
   
   .message-box p span {
@@ -67,7 +47,10 @@
   }
   
   .friend-message p {
-    background: #fff;
+    /* background: #6a3093;
+    background: -webkit-linear-gradient(to right, #a044ff, #6a3093);  
+    background: linear-gradient(to right, #a044ff, #6a3093);  */
+background-image: linear-gradient( 135deg, #813eb6 5%, #b476ee 100%);
   }
   
   .friend-message {
@@ -83,5 +66,5 @@
     left: -12px;
     width: 20px;
     height: 20px;
-    background: linear-gradient(225deg, #fff 0%, #fff 50%, transparent 50%, transparent);
+    background: linear-gradient(225deg, #813eb6 0%, #813eb6 50%, transparent 50%, transparent);
   }

@@ -4,7 +4,7 @@ import "./sidechatwindow.css"
 
 function SideChatWindow() {
     return (
-      <div class="left-container">
+
        <div class="chat-list">
         <div class="chat-box">
           <div class="img-box">
@@ -13,7 +13,7 @@ function SideChatWindow() {
           <div class="chat-details">
             <div class="text-head">
               <h4>Yash</h4>
-              <p class="time unread">11:49</p>
+              <p class="time unread">11:49 pm</p>
             </div>
             <div class="text-message">
               <p>“How are you?”</p>
@@ -29,7 +29,7 @@ function SideChatWindow() {
           <div class="chat-details">
             <div class="text-head">
               <h4>Sayma</h4>
-              <p class="time">07:49</p>
+              <p class="time">07:49 pm</p>
             </div>
             <div class="text-message">
               <p>Sure.</p>
@@ -44,7 +44,7 @@ function SideChatWindow() {
           <div class="chat-details">
             <div class="text-head">
               <h4>Satyam</h4>
-              <p class="time unread">10:49</p>
+              <p class="time unread">10:49 pm</p>
             </div>
             <div class="text-message">
               <p>“Any updates?”</p>
@@ -60,7 +60,7 @@ function SideChatWindow() {
           <div class="chat-details">
             <div class="text-head">
               <h4>Shifa</h4>
-              <p class="time unread">09:49</p>
+              <p class="time unread">09:49 pm</p>
             </div>
             <div class="text-message">
               <p>“And, What about the documentation?”</p>
@@ -85,7 +85,7 @@ function SideChatWindow() {
           </div>
         </div>
         </div>
-    </div>
+  
     
     )
   }

@@ -10,9 +10,9 @@ body{
   background-repeat: no-repeat;
   background-size: cover;
   overflow: hidden;
-  background-color:#c5aee3 ;
+  background-color:#c5aee3;
 }
-
+ 
 :root{
   --main-color: #813eb6;
   --second-color: #eee9f2;

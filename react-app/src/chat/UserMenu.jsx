@@ -1,9 +1,9 @@
 import React from 'react'
 
-function SideBar() {
+function UserMenu() {
   return (
     <div></div>
   )
 }
 
-export default SideBar
+export default UserMenu
