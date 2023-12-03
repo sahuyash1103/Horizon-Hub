@@ -1,15 +1,16 @@
 const passport = require('passport');
+const { CLIENT_URL } = require('../../utils/get-env');
 const router = require('express').Router();
 
 router.get('/', passport.authenticate('google', { scope: ['profile', 'email'] }));
 
 router.get('/callback', passport.authenticate('google', {
-    successRedirect: '/api/auth/google/success',
+    successRedirect: CLIENT_URL, //'/api/auth/google/success',
     failureRedirect: '/api/auth/google/failure'
 }))
 
 router.get('/success', (req, res) => {
-    res.send("success");
+    res.redirect(CLIENT_URL);
 });
 
 router.get('/failure', (req, res) => {

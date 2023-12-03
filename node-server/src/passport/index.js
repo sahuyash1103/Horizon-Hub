@@ -14,11 +14,12 @@ passport.use(new GoogleStrategy({
     passReqToCallback: true
 },
     async (request, accessToken, refreshToken, profile, done) => {
-        var user = await User.findOne({ email: profile.email }).select("_id name email profilePic");
+        let user = await User.findOne({ email: profile.email }).select("_id name email profilePic");
         if (!user) {
             user = new User({
                 name: profile.displayName,
                 email: profile.email,
+                userName: profile.email?.split("@")[0],
                 profilePic: profile.picture,
                 provider: "google",
             })
@@ -35,11 +36,13 @@ passport.use(new GitHubStrategy({
     callbackURL: "http://127.0.0.1:3001/api/auth/github/callback"
 },
     async function (accessToken, refreshToken, profile, done) {
-        var user = await User.findOne({ email: profile.email || profile.username }).select("_id name email profilePic");
+        let user = await User.findOne({ email: profile.email || profile.username }).select("_id name email profilePic");
         if (!user) {
+            userName = profile.email?.spit("@")[0] || profile.username;
             user = new User({
                 name: profile.displayName,
                 email: profile.email || profile.username,
+                userName: userName,
                 provider: "github",
             })
             await user.save();
