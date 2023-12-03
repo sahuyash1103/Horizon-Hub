@@ -9,7 +9,7 @@ const expressSession = require("express-session");
 
 const routes = require("./src/routes/index");
 
-const { PORT, SESSION_SECRET, APP_1_URL } = require("./src/utils/get-env");
+const { PORT, SESSION_SECRET, CLIENT_URL,IS_HTTPS } = require("./src/utils/get-env");
 const { checkEnvironmentVariable } = require("./src/utils/check_env_var");
 const { initMongo } = require("./src/mongo/index");
 const { initFirebase } = require("./src/firebase/index");
@@ -38,7 +38,7 @@ app.use(expressSession(
     secret: SESSION_SECRET,
     resave: false,
     saveUninitialized: false,
-    cookie: { secure: false, maxAge: 60 * 60 * 24 * 1000 }
+    cookie: { secure: IS_HTTPS, maxAge: 60 * 60 * 24 * 1000 }
   }
 ));
 app.use(passport.initialize());
@@ -48,15 +48,16 @@ app.use(passport.session());
 // -------------------------CORS
 app.use(
   cors({
-    optionsSuccessStatus: 200,
     credentials: true,
-    origin: ["http://localhost:3000", APP_1_URL],
-    methods: "*",
+    origin: ["http://localhost:3000", CLIENT_URL],
   })
 );
 //--------------------------SETUP HEADER
 app.use((req, res, next) => {
-  // res.header('Access-Control-Allow-Origin', "*");
+  res.header('Access-Control-Allow-Origin', req.headers.origin);
+  res.header('Access-Control-Allow-Credentials', true);
+  res.header('Access-Control-Allow-Methods', 'GET, POST, PUT, DELETE');
+  res.header('Access-Control-Allow-Headers', '*');
   next();
 });
 
@@ -120,7 +121,7 @@ const io = new Server(httpServer, {
   cors: {
     optionsSuccessStatus: 200,
     credentials: true,
-    origin: ["http://localhost:3000", APP_1_URL],
+    origin: ["http://localhost:3000", CLIENT_URL],
     methods: "*",
   }
 });
