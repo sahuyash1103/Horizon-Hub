@@ -7,11 +7,11 @@ import "./userheader.css"
 
 function UserHeader() {
     return (
-        <div class="header">
-        <div class="user-img">
-          <img class="dp" src="https://media.istockphoto.com/id/897479344/vector/avatar-profile-icon-male-faceless-user-on-colorful-round-background.jpg?s=170667a&w=0&k=20&c=opO4PECuzGzhoouxHfMfjVUUYbSkwJBgFinqtbOhJfk=" alt=""/>
+        <div className="header">
+        <div className="user-img">
+          <img className="dp" src="https://media.istockphoto.com/id/897479344/vector/avatar-profile-icon-male-faceless-user-on-colorful-round-background.jpg?s=170667a&w=0&k=20&c=opO4PECuzGzhoouxHfMfjVUUYbSkwJBgFinqtbOhJfk=" alt=""/>
         </div>
-        <div class="nav-icons">
+        <div className="nav-icons">
         <FaUsers className='users' />
         </div>
         <BiSolidMessageAdd className='messagebox' />

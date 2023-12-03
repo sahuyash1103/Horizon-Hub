@@ -28,3 +28,31 @@ export const signup = async (name, phone, email, password) => {
         console.error(error);
     }
 };
+
+export const googleAuth = () => {
+    return `${instance.getUri()}/auth/google`;
+};
+
+export const githubAuth = () => {
+    return `${instance.getUri()}/auth/github`;
+};
+
+export const logout = async () => {
+    try {
+        const response = await instance.get("/auth/logout");
+        return response.data;
+    }
+    catch (error) {
+        console.error(error);
+    }
+};
+
+export const testAPI = async () => {
+    try {
+        const response = await instance.get("/");
+        return response.data;
+    }
+    catch (error) {
+        console.error(error);
+    }
+};

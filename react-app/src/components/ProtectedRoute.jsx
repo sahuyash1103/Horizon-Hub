@@ -2,7 +2,7 @@ import React, { useEffect } from 'react'
 import { useSelector, useDispatch } from 'react-redux'
 import { useLocation, useNavigate } from 'react-router-dom';
 import { getProfile } from '../axios/api/profile/getProfile.req';
-import { logout, setToken, setTokenValid, setUser } from '../redux-toolkit/reducers/auth';
+import { logout, setTokenValid, setUser } from '../redux-toolkit/reducers/auth';
 import { setProfile } from '../redux-toolkit/reducers/user';
 
 function ProtectedRoute({ element, children, ...rest }) {
@@ -11,21 +11,17 @@ function ProtectedRoute({ element, children, ...rest }) {
   const navigate = useNavigate();
   const location = useLocation();
 
-  const isAuth = async () => {
+  const auth = async () => {
     if (profile) return;
 
-    let token = localStorage.getItem('token');
-    if (token) {
-      const res = await getProfile();
-      if (res?.data) {
-        dispatch(setProfile(res?.data));
-        dispatch(setUser(res?.data));
-        dispatch(setToken(res?.token));
-        dispatch(setTokenValid(true));
-        localStorage.setItem('token', res?.token);
-        return;
-      }
+    const res = await getProfile();
+    if (res?.data) {
+      dispatch(setProfile(res?.data));
+      dispatch(setUser(res?.data));
+      dispatch(setTokenValid(true));
+      return;
     }
+
     dispatch(setTokenValid(false));
     dispatch(setUser(null));
     dispatch(logout());
@@ -34,7 +30,7 @@ function ProtectedRoute({ element, children, ...rest }) {
   }
 
   useEffect(() => {
-    // isAuth();
+    auth();
     // eslint-disable-next-line react-hooks/exhaustive-deps
   }, [])
   return (

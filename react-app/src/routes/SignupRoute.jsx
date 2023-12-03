@@ -27,7 +27,7 @@ function SignupRoute() {
         dispatch(setUser(res?.data));
         dispatch(setToken(res?.token));
         dispatch(setTokenValid(true));
-        localStorage.setItem('token', res?.token);
+        sessionStorage.setItem('token', res?.token);
         navigate(location.state?.from || '/', { replace: true });
     }
 
@@ -74,7 +74,7 @@ function SignupRoute() {
                     <span></span>
                 </div>
                 <button className='lgn_btn'>SignUp</button>
-                <div class="login_link">Please Click Here to
+                <div className="login_link">Please Click Here to
                     <Link to={'/auth/login'}> Login</Link>
                 </div>
             </form>

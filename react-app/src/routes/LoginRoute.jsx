@@ -6,7 +6,7 @@ import { FcGoogle } from "react-icons/fc";
 import { FaLock } from "react-icons/fa";
 import { IoChatbubble } from "react-icons/io5";
 
-import { login } from '../axios/api/auth/auth.req';
+import { googleAuth, login, githubAuth } from '../axios/api/auth/auth.req';
 import { setToken, setTokenValid, setUser } from '../redux-toolkit/reducers/auth';
 import { Link, useNavigate, useLocation } from 'react-router-dom';
 
@@ -17,6 +17,16 @@ function LoginRoute() {
     const navigate = useNavigate();
     const location = useLocation();
 
+    const loginWithGoogle = async () => {
+        const url = googleAuth();
+        window.open(url, '_self');
+    }
+   
+    const loginWithGithub = async () => {
+        const url = githubAuth();
+        window.open(url, '_self');
+    }
+
     const handleLogin = async (e) => {
         e.preventDefault();
 
@@ -24,7 +34,7 @@ function LoginRoute() {
         dispatch(setUser(res?.data));
         dispatch(setToken(res?.token));
         dispatch(setTokenValid(true));
-        localStorage.setItem('token', res?.token);
+        sessionStorage.setItem('token', res?.token);
         navigate(location.state?.from || '/', { replace: true });
     }
 
@@ -58,26 +68,25 @@ function LoginRoute() {
                 </div>
 
                 <button type="submit" >Login</button>
-                <div className="or">
-                    <h3 className="h3">or</h3>
-                    </div>
-                <button className="otp_btn">Login with OTP?</button>
-
-                <div class="google_button">
-                
-                    <button class="btn_google">
-                    Login with google
-                    <div className="google"> <  FcGoogle  /></div>
-                    </button>
-                    
-                </div>
-
-                
-
-                <div class="register_link">Not registered?
-                    <Link to="/auth/signup"> Signup</Link>
-                </div>
             </form>
+            <div className="or">
+                <h3 className="h3">or</h3>
+            </div>
+            <div className="google_button">
+                <button className="btn_google" onClick={loginWithGoogle}>
+                    Login with google
+                    <div className="google"> <  FcGoogle /></div>
+                </button>
+            </div>
+            <div className="google_button">
+                <button className="btn_google" onClick={loginWithGithub}>
+                    Login with github
+                    <div className="google"> <  FcGoogle /></div>
+                </button>
+            </div>
+            <div className="register_link">Not registered?
+                <Link to="/auth/signup"> Signup</Link>
+            </div>
         </div>
         {/* <h1>LOGIN</h1> */}
         <IoChatbubble className="chat_icon" />

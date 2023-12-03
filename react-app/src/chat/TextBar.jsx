@@ -5,7 +5,7 @@ import "./textbar.css"
 
 function TextBar() {
   return (
-    <div class="chatbox-input">
+    <div className="chatbox-input">
       <GrAttachment className='fa' />
       <input type="text" placeholder="Type a message" />
       <IoSend className='send' />

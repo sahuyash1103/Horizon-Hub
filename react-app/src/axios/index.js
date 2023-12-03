@@ -12,17 +12,17 @@ const instance = axios.create({
 //-----------PASSING TOKEN IN HEADER---------------- 
 // uncomment below code to pass token in header if session is not working
 
-// instance.interceptors.request.use(
-//     async (config) => {
-//         const token = localStorage.getItem('token');
-//         if (token) {
-//             config.headers["x-auth-token"] = token;
-//         }
-//         return config;
-//     },
-//     (error) => {
-//         return Promise.reject(error);
-//     }
-// );
+instance.interceptors.request.use(
+    async (config) => {
+        const token = sessionStorage.getItem('token');
+        if (token) {
+            config.headers["x-auth-token"] = token;
+        }
+        return config;
+    },
+    (error) => {
+        return Promise.reject(error);
+    }
+);
 
 export default instance;
