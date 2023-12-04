@@ -20,6 +20,7 @@ function ProtectedRoute({ element, children, ...rest }) {
     sessionStorage.removeItem('keepLoggedIn');
     const res = await logout();
     alert(`${res?.message}: keep logged in was unchecked` || 'Something went wrong: logout');
+    navigateToLogin();
   }
 
 
@@ -69,11 +70,11 @@ function ProtectedRoute({ element, children, ...rest }) {
   }
 
   useEffect(() => {
-    auth();
+    // auth();
     return () => {
       const sessionKeepLoggedIn = JSON.parse(sessionStorage.getItem('keepLoggedIn')) || false;
-      if (!keepLoggedIn && !sessionKeepLoggedIn)
-        cleanup();
+      if (!keepLoggedIn && !sessionKeepLoggedIn);
+        // cleanup();
     }
     // eslint-disable-next-line react-hooks/exhaustive-deps
   }, [])

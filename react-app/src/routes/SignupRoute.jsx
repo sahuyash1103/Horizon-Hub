@@ -9,7 +9,7 @@ import { FaMobile } from "react-icons/fa6";
 import { signup, getToken } from '../axios/api/auth/auth.req';
 import { setToken, setTokenValid, setUser, setKeepLoggedIn as setLoggedin } from '../redux-toolkit/reducers/auth';
 import { Link, useLocation, useNavigate } from 'react-router-dom';
-import "../signup.css"
+import "../styles/SignupRoute.css"
 
 function SignupRoute() {
     const dispatch = useDispatch();
