@@ -11,11 +11,17 @@ function UserHeader() {
         <div className="user-img">
           <img className="dp" src="https://media.istockphoto.com/id/897479344/vector/avatar-profile-icon-male-faceless-user-on-colorful-round-background.jpg?s=170667a&w=0&k=20&c=opO4PECuzGzhoouxHfMfjVUUYbSkwJBgFinqtbOhJfk=" alt=""/>
         </div>
-        <div className="nav-icons">
-        <FaUsers className='users' />
+        <div className='nav-icons'>
+        <div className='i'>
+        <FaUsers className='react-icon' />
         </div>
-        <BiSolidMessageAdd className='messagebox' />
-        <CiMenuKebab className='menu' />
+        <div className='i'> 
+        <BiSolidMessageAdd className='react-icon' />
+        </div>
+        <div className='i'>
+        <CiMenuKebab className='react-icon' />
+        </div>
+        </div>
       </div>
     )
   }

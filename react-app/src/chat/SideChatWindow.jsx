@@ -4,16 +4,16 @@ import "./sidechatwindow.css"
 
 function SideChatWindow() {
     return (
-      <div className="left-container">
-       <div className="chat-list">
-        <div className="chat-box">
-          <div className="img-box">
-            <img className="img-cover" src="https://media.istockphoto.com/id/897479344/vector/avatar-profile-icon-male-faceless-user-on-colorful-round-background.jpg?s=170667a&w=0&k=20&c=opO4PECuzGzhoouxHfMfjVUUYbSkwJBgFinqtbOhJfk=" alt=""/>
+
+       <div class="chat-list">
+        <div class="chat-box">
+          <div class="img-box">
+            <img class="img-cover" src="https://media.istockphoto.com/id/897479344/vector/avatar-profile-icon-male-faceless-user-on-colorful-round-background.jpg?s=170667a&w=0&k=20&c=opO4PECuzGzhoouxHfMfjVUUYbSkwJBgFinqtbOhJfk=" alt=""/>
           </div>
           <div className="chat-details">
             <div className="text-head">
               <h4>Yash</h4>
-              <p className="time unread">11:49</p>
+              <p class="time unread">11:49 pm</p>
             </div>
             <div className="text-message">
               <p>“How are you?”</p>
@@ -29,7 +29,7 @@ function SideChatWindow() {
           <div className="chat-details">
             <div className="text-head">
               <h4>Sayma</h4>
-              <p className="time">07:49</p>
+              <p class="time">07:49 pm</p>
             </div>
             <div className="text-message">
               <p>Sure.</p>
@@ -44,7 +44,7 @@ function SideChatWindow() {
           <div className="chat-details">
             <div className="text-head">
               <h4>Satyam</h4>
-              <p className="time unread">10:49</p>
+              <p class="time unread">10:49 pm</p>
             </div>
             <div className="text-message">
               <p>“Any updates?”</p>
@@ -60,7 +60,7 @@ function SideChatWindow() {
           <div className="chat-details">
             <div className="text-head">
               <h4>Shifa</h4>
-              <p className="time unread">09:49</p>
+              <p class="time unread">09:49 pm</p>
             </div>
             <div className="text-message">
               <p>“And, What about the documentation?”</p>
@@ -85,7 +85,7 @@ function SideChatWindow() {
           </div>
         </div>
         </div>
-    </div>
+  
     
     )
   }
