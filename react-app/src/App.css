@@ -1,0 +1,21 @@
+@keyframes horizontal-shake {
+    0% {
+        transform: translateX(0) translateY(-50%)
+    }
+
+    25% {
+        transform: translateX(5px) translateY(-50%)
+    }
+
+    50% {
+        transform: translateX(-5px) translateY(-50%)
+    }
+
+    75% {
+        transform: translateX(5px) translateY(-50%)
+    }
+
+    100% {
+        transform: translateX(0) translateY(-50%)
+    }
+}

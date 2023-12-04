@@ -69,7 +69,7 @@ passport.use(new LocalStrategy({
             const validPassword = await user.verifyPassword(password);
             if (!validPassword) return done(null, false, { message: 'Incorrect password.' });
 
-            const token = `Bearer ${user.genrateAuthToken()}`;
+            const token = `Bearer ${user.generateAuthToken()}`;
 
             return done(null, _.pick(user, ["_id", "name", "email", "phone"]), { token });
         } catch (error) {

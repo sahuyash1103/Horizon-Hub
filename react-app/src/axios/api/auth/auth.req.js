@@ -39,7 +39,27 @@ export const githubAuth = () => {
 
 export const logout = async () => {
     try {
-        const response = await instance.get("/auth/logout");
+        const response = await instance.delete("/auth/logout");
+        return response.data;
+    }
+    catch (error) {
+        console.error(error);
+    }
+};
+
+export const getToken = async () => {
+    try {
+        const response = await instance.get("/auth/token");
+        return response.data;
+    }
+    catch (error) {
+        console.error(error);
+    }
+};
+
+export const verifyToken = async () => {
+    try {
+        const response = await instance.get("/auth/token/verify");
         return response.data;
     }
     catch (error) {

@@ -68,6 +68,7 @@ app.use("/api/auth/signup/", routes.signupRouter);
 app.use("/api/auth/google/", routes.googleAuthRouter);
 app.use("/api/auth/github/", routes.githubAuthRouter);
 app.use("/api/auth/logout/", routes.logoutRouter);
+app.use("/api/auth/token/", routes.getTokenRouter);
 
 app.use("/api/friends/", routes.getFriendsRouter);
 app.use("/api/friends/friend/add/", routes.addFriendRouter);

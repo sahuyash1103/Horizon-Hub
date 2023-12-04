@@ -33,6 +33,6 @@ const userSlice = createSlice({
     }
 });
 
-export const { setUser, logout, setFriendRequests, setFriends, setMessages, setProfile } = userSlice.actions
+export const { logout, setFriendRequests, setFriends, setMessages, setProfile } = userSlice.actions
 
 export default userSlice.reducer

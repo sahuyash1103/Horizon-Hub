@@ -27,7 +27,7 @@ router.post("/", async (req, res) => {
     user.password = await user.genrateHashedPassword(req.body.password);
     const savedUser = await user.save();
 
-    const token = `Bearer ${user.genrateAuthToken()}`;
+    const token = `Bearer ${user.generateAuthToken()}`;
     req.session.user = { token: token }
     res
         .json({

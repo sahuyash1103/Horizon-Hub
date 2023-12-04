@@ -5,6 +5,7 @@ const initState = {
     user: null,
     token: null,
     isTokenValid: false,
+    keepLoggedIn: false,
 }
 
 const authSlice = createSlice({
@@ -20,14 +21,16 @@ const authSlice = createSlice({
         setTokenValid(state, action) {
             state.isTokenValid = action.payload;
         },
+        setKeepLoggedIn(state, action) {
+            state.keepLoggedIn = action.payload
+        },
         logout(state) {
             state.user = null
             state.token = null
-            localStorage.removeItem('token')
         }
     }
 });
 
-export const { setUser, logout, setToken, setTokenValid } = authSlice.actions
+export const { setUser, logout, setToken, setTokenValid, setKeepLoggedIn } = authSlice.actions
 
 export default authSlice.reducer

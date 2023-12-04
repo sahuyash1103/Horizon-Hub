@@ -3,6 +3,7 @@ const signupRouter = require("./auth/signup");
 const googleAuthRouter = require("./auth/google-auth");
 const githubAuthRouter = require("./auth/github-auth");
 const logoutRouter = require("./auth/logout");
+const getTokenRouter = require("./auth/get-token");
 
 const getFriendsRouter = require("./friend/get-friends");
 const addFriendRouter = require("./friend/add-friend");
@@ -44,6 +45,7 @@ module.exports = {
     googleAuthRouter,
     githubAuthRouter,
     logoutRouter,
+    getTokenRouter,
 
     getFriendsRouter,
     addFriendRouter,

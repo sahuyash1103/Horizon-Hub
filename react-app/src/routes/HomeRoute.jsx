@@ -7,11 +7,11 @@ import _ from 'lodash';
 import { getMessages } from '../axios/api/messages/getMessages.req';
 import UserHeader from '../chat/UserHeader'
 import SearchBar from '../chat/SearchBar'
-import "../homeroute.css"
 import SideChatWindow from '../chat/SideChatWindow'
 import FriendHeader from '../chat/FriendHearder'
 import MainChatWindow from '../chat/MainChatWindow'
 import TextBar from '../chat/TextBar'
+import "../homeroute.css"
 
 
 function HomeRoute() {
@@ -38,16 +38,12 @@ function HomeRoute() {
 
   return (
     <div className='main-container'>
-    <div className='left_side_container' >
-      <UserHeader/>
-      <SearchBar/>
-      <SideChatWindow/>
+      {/* <div className='left_side_container' >
+
       </div>
       <div className='right_side_container'>
-      <FriendHeader/>
-      <MainChatWindow/>
-      <TextBar/>
-      </div>
+
+      </div> */}
     </div>
   )
 }

@@ -21,7 +21,7 @@ router.post("/", async (req, res) => {
   const validPassword = await user.verifyPassword(req.body.password);
   if (!validPassword) return res.status(401).send("Invalid email or password.");
 
-  const token = `Bearer ${user.genrateAuthToken()}`;
+  const token = `Bearer ${user.generateAuthToken()}`;
   req.session.user = { token: token }
   res
     .json({
