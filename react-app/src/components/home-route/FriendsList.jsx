@@ -6,14 +6,14 @@ import "./FriendsList.css"
 
 const FriendListTile = () => {
   return (
-    <div class="friend_tile">
-      <div class="f_profile_pic">
-        <img class="pic" src={defaultPic} alt="friend profile pic" />
+    <div className="friend_tile">
+      <div className="f_profile_pic">
+        <img className="pic" src={defaultPic} alt="friend profile pic" />
       </div>
       <div className="friend_details">
         <div className="main_heading">
           <h4>Yash</h4>
-          <p class="time unread">11:49 pm</p>
+          <p className="time unread">11:49 pm</p>
         </div>
         <div className="sub_heading">
           <p>“How are you?”</p>
@@ -27,7 +27,7 @@ const FriendListTile = () => {
 
 function FriendsList({ friends }) {
   return (
-    <div class="friend_list">
+    <div className="friend_list">
       {
 
       }

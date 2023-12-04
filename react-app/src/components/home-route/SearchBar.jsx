@@ -11,7 +11,7 @@ function SearchBar() {
         <input type="text" placeholder="Search or start new chat   " />
       </div>
       <div className="filter">
-        <BiMenuAltRight className='icon'/>
+        <BiMenuAltRight className='icon' />
       </div>
     </div>
   )

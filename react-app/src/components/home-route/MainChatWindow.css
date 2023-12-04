@@ -1,16 +1,16 @@
 .chat_window {
   width: 100%;
-  height: calc(100% - 60px);
+  max-height: calc(96vh - 60px - 65px);
 }
 
 .chat_container {
   width: 100%;
   height: 100%;
   padding: 10px 35px;
-  overflow-y: scroll;
   display: flex;
   flex-direction: column;
   justify-content: flex-start;
+  overflow-y: scroll;
 }
 
 .message {
@@ -82,4 +82,15 @@
   margin-top: 5px;
   font-size: 14px;
   align-self: flex-end;
+}
+
+/* style scroll bar */
+.chat_container::-webkit-scrollbar {
+  width: 5px;
+}
+
+/* style the thumb */
+.chat_container::-webkit-scrollbar-thumb {
+  background: var(--third-color);
+  /* border-radius: 10px; */
 }

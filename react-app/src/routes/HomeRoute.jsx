@@ -4,17 +4,17 @@ import { getFriends } from '../axios/api/friends/getFriends.req';
 import { setFriends, setMessages } from '../redux-toolkit/reducers/user';
 import { getMessages } from '../axios/api/messages/getMessages.req';
 import _ from 'lodash';
-import "../styles/HomeRoute.css"
 import LeftNavbar from '../components/home-route/LeftNavbar';
 import SearchBar from '../components/home-route/SearchBar';
 import FriendsList from '../components/home-route/FriendsList';
 import RightNavbar from '../components/home-route/RightNavbar';
 import MainChatWindow from '../components/home-route/MainChatWindow';
 import MessageBox from '../components/home-route/MessageBox';
+import "../styles/HomeRoute.css"
 
 
 function HomeRoute() {
-  const { profile, friends, messages } = useSelector(state => state.user);
+  const { profile, friends } = useSelector(state => state.user);
   const dispatch = useDispatch();
 
   const fetchFriends = async () => {
@@ -38,7 +38,7 @@ function HomeRoute() {
   return (
     <div className='main_container'>
       <div className="left_window">
-        <LeftNavbar />
+        <LeftNavbar profile={profile}/>
         <SearchBar />
         <FriendsList friends={friends} />
       </div>

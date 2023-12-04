@@ -70,11 +70,12 @@ function ProtectedRoute({ element, children, ...rest }) {
   }
 
   useEffect(() => {
-    // auth();
+    auth();
     return () => {
-      const sessionKeepLoggedIn = JSON.parse(sessionStorage.getItem('keepLoggedIn')) || false;
-      if (!keepLoggedIn && !sessionKeepLoggedIn);
-        // cleanup();
+      const sessionKeepLoggedIn = JSON.parse(sessionStorage.getItem('keepLoggedIn')) || true;
+      if (!keepLoggedIn && !sessionKeepLoggedIn) {
+        cleanup();
+      }
     }
     // eslint-disable-next-line react-hooks/exhaustive-deps
   }, [])

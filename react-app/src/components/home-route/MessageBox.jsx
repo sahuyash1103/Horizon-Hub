@@ -6,7 +6,7 @@ import "./MessageBox.css"
 
 function MessageBox() {
   return (
-    <form class="message_box">
+    <form className="message_box">
       <div className='add_icon'>
         <MdAdd className='icon' />
       </div>

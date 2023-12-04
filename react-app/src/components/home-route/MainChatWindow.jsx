@@ -1,10 +1,11 @@
 import React from 'react'
 import "./MainChatWindow.css"
+import "./MessageBox.css"
 
 
 const FriendMessage = ({ message }) => {
   return (
-    <div class="message friend_message">
+    <div className="message friend_message">
       <p>
         Yeah, almost done.
       </p>
@@ -28,14 +29,14 @@ function MainChatWindow() {
   return (
     <div className='chat_window'>
       <div className="chat_container">
-        <UserMessage />
-        <FriendMessage />
-        <UserMessage />
-        <FriendMessage />
-        <UserMessage />
-        <FriendMessage />
-        <UserMessage />
-        <FriendMessage />
+        {
+          [...Array(20)].map((_, i) =>
+            <>
+              <FriendMessage key={i + 40} />
+              <UserMessage key={i + 60} />
+            </>
+          )
+        }
       </div>
     </div>
   )
