@@ -2,10 +2,10 @@ import { createSlice } from "@reduxjs/toolkit"
 
 
 const initState = {
-    profile: null,
-    friends: null,
-    friendRequests: null,
-    messages: null,
+    profile: {},
+    friends: {},
+    friendRequests: {},
+    messages: {},
 }
 
 const userSlice = createSlice({

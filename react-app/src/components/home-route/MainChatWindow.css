@@ -1,6 +1,6 @@
 .chat_window {
   width: 100%;
-  max-height: calc(96vh - 60px - 65px);
+  height: calc(96vh - 60px - 65px);
 }
 
 .chat_container {
@@ -69,6 +69,7 @@
 .message.friend_message p {
   color: #fff;
   font-size: 16px;
+  user-select: text;
 }
 
 .message.my_message span {

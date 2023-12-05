@@ -17,7 +17,7 @@ router.get('/', auth, async (req, res) => {
 
 router.get('/:email', auth, async (req, res) => {
     const user = await User.findById(req.user._id)
-        .populate("messages unreadMessages");
+        .populate("messages.message unreadMessages.message");
     if (!user)
         return res.status(400).json({ message: 'User not found' });
 
@@ -35,7 +35,7 @@ router.get('/:email', auth, async (req, res) => {
     res
         .status(200)
         .json({
-            data: { conversationID, messages, unreadMessages },
+            data: { conversationID, messages: [...messages, ...unreadMessages] },
             message: 'Messages fetched successfully',
             error: null
         });

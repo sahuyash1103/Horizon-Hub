@@ -8,13 +8,13 @@ body {
   margin: 0;
   padding: 0;
   background-color: #c5aee3;
+  user-select: none;
 }
 
 button {
   outline: none;
   border: none;
   cursor: pointer;
-  user-select: none;
 }
 
 :root {

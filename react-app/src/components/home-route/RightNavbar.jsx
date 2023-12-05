@@ -6,16 +6,16 @@ import { MoreVertIcon } from '../../assets/svgs/'
 import defaultPic from '../../assets/images/defaultPic.png';
 import "./RightNavbar.css"
 
-function RightNavbar() {
+function RightNavbar({ friend }) {
   return (
     <div className="right_header">
       <div className="main_content">
         <div className="f_profile_pic">
-          <img className="pic" src={defaultPic} alt="friend profile pic" />
+          <img className="pic" src={friend?.profilePic || defaultPic} alt="friend profile pic" />
         </div>
         <div className="f_details">
-          <h3>Sayma</h3>
-          <p>Online</p>
+          <h3>{friend?.name}</h3>
+          <p>{friend?.isOnline || 'Offline'}</p>
         </div>
       </div>
       <div className='nav_icons'>

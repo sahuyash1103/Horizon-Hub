@@ -2,38 +2,19 @@ import React from 'react'
 import defaultPic from '../../assets/images/defaultPic.png';
 import { FaChevronDown } from "react-icons/fa";
 import "./FriendsList.css"
+import { fromateTime } from '../../utils/formators';
 
-const fromateTime = (time) => {
-  const nowDate = new Date();
-  const date = new Date(time);
-  const hours = date.getHours();
-  const minutes = date.getMinutes();
-  const ampm = hours >= 12 ? "PM" : "AM";
-
-  if (nowDate.getDate() === date.getDate()) {
-    return `${hours}:${minutes} ${ampm}`;
-  }
-  if (nowDate.getDate() - 1 === date.getDate()) {
-    return `Yesterday`;
-  }
-  if (nowDate.getFullYear() === date.getFullYear()) {
-    return `${date.getDate()}/${date.getMonth() + 1}/${date.getFullYear()}`;
-  }
-  return `${hours}:${minutes} ${ampm}`;
-}
-
-
-const FriendListTile = ({ friend, unreadMessages }) => {
-  const { name, profilePic } = friend?.friend;
+const FriendListTile = ({ friend, unreadMessages, onClick }) => {
+  const friendDetails = friend?.friend;
   const { lastMessage } = friend;
   return (
-    <div className="friend_tile">
+    <div className="friend_tile" onClick={onClick}>
       <div className="f_profile_pic">
-        <img className="pic" src={profilePic || defaultPic} alt="friend profile pic" />
+        <img className="pic" src={friendDetails?.profilePic || defaultPic} alt="friend profile pic" />
       </div>
       <div className="friend_details">
         <div className="main_heading">
-          <h4>{name}</h4>
+          <h4>{friendDetails?.name}</h4>
           <p className="time unread">{fromateTime(lastMessage?.sentOn)}</p>
         </div>
         <div className="sub_heading">
@@ -46,12 +27,14 @@ const FriendListTile = ({ friend, unreadMessages }) => {
   )
 }
 
-function FriendsList({ friends, unreadMessages }) {
+function FriendsList({ friends, unreadMessages, onSelectFriend }) {
   return (
     <div className="friend_list">
       {
         friends?.friends?.map((friend, i) => (
-          <FriendListTile key={i} friend={friend} unreadMessages={unreadMessages} />
+          <FriendListTile key={i} friend={friend} unreadMessages={unreadMessages}
+            onClick={() => onSelectFriend(friend?.friend)}
+          />
         ))
       }
     </div>

@@ -9,3 +9,13 @@ export const getMessages = async () => {
         console.error(error);
     }
 };
+
+export const getMessagesOf = async (email) => {
+    try {
+        const response = await instance.get(`/messages/${email}`);
+        return response.data;
+    }
+    catch (error) {
+        console.error(error);
+    }
+};
