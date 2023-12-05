@@ -6,8 +6,8 @@ router.get("/", auth, async (req, res) => {
     const user = await User.findById(req.user._id)
         .select(["_id", "email", "friends", "blockedFriends", "mutedFriends", "pinnedFriends", "unknownFriends"])
         .populate(
-            "friends.friend blockedFriends.friend mutedFriends.friend pinnedFriends.friend unknownFriends.friend",
-            "name email phone profilePic isOnline lastSeen isDeleted isSuspended isLocked status"
+            "friends.friend blockedFriends.friend mutedFriends.friend pinnedFriends.friend unknownFriends.friend friends.lastMessage blockedFriends.lastMessage mutedFriends.lastMessage pinnedFriends.lastMessage unknownFriends.lastMessage",
+            "name email phone profilePic isOnline lastSeen isDeleted isSuspended isLocked status message sentOn sentBy sentTo messageType isRead"
         );
 
     if (!user) return socket.emit("get-friends", { error: "User not found" });

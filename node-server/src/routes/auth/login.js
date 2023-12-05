@@ -17,7 +17,6 @@ router.post("/", async (req, res) => {
 
   if (user.isLocked) return res.status(401).send("Profile is locked.");
 
-  console.log("user", user);
   const validPassword = await user.verifyPassword(req.body.password);
   if (!validPassword) return res.status(401).send("Invalid email or password.");
 

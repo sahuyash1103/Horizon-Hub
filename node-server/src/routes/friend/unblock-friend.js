@@ -16,7 +16,7 @@ router.put("/", auth, async (req, res) => {
     if (!isFound)
         return res.status(400).send("Friend is already unblocked.");
 
-    console.log(isFound)
+    // console.log(isFound)
     const updatedUser = await User.findByIdAndUpdate(user._id,
         {
             $pull: { blockedFriends: { "friend": friend._id } },

@@ -3,7 +3,6 @@ import { useDispatch, useSelector } from 'react-redux';
 import { getFriends } from '../axios/api/friends/getFriends.req';
 import { setFriends, setMessages } from '../redux-toolkit/reducers/user';
 import { getMessages } from '../axios/api/messages/getMessages.req';
-import _ from 'lodash';
 import LeftNavbar from '../components/home-route/LeftNavbar';
 import SearchBar from '../components/home-route/SearchBar';
 import FriendsList from '../components/home-route/FriendsList';
@@ -14,20 +13,24 @@ import "../styles/HomeRoute.css"
 
 
 function HomeRoute() {
-  const { profile, friends } = useSelector(state => state.user);
+  const { profile, friends, messages } = useSelector(state => state.user);
   const dispatch = useDispatch();
 
   const fetchFriends = async () => {
     const res = await getFriends();
-    console.log("Fetch Friends: ", res?.data);
-    dispatch(setFriends(_.pick(res?.data, "-_id -email")));
+    dispatch(setFriends(res?.data));
   }
 
   const fetchMessages = async () => {
     const res = await getMessages();
-    console.log("Fetch Messages: ", res?.data);
-    dispatch(setMessages(_.pick(res?.data, "-_id -email")));
+    dispatch(setMessages(res?.data));
   }
+
+  // useEffect(() => {
+  //   console.log("Profile: ", profile);
+  //   console.log("Friends: ", friends);
+  //   console.log("Messages: ", messages);
+  // }, [friends, profile, messages])
 
   useEffect(() => {
     fetchFriends();
@@ -38,9 +41,9 @@ function HomeRoute() {
   return (
     <div className='main_container'>
       <div className="left_window">
-        <LeftNavbar profile={profile}/>
+        <LeftNavbar profile={profile} />
         <SearchBar />
-        <FriendsList friends={friends} />
+        <FriendsList friends={friends} unreadMessages={messages?.unreadMessages?.length} />
       </div>
       <div className="right_window">
         <RightNavbar />

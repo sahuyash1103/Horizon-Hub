@@ -14,7 +14,7 @@ function RightNavbar() {
           <img className="pic" src={defaultPic} alt="friend profile pic" />
         </div>
         <div className="f_details">
-          <h3>Sasdfayma</h3>
+          <h3>Sayma</h3>
           <p>Online</p>
         </div>
       </div>

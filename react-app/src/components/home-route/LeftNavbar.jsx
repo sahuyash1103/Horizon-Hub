@@ -3,12 +3,12 @@ import defaultPic from '../../assets/images/defaultPic.png';
 import { CommunityIcon, StatusIcon, ChannelIcon, NewChatIcon, MoreVertIcon } from '../../assets/svgs/'
 import "./LeftNavbar.css"
 
-function LeftNavbar() {
+function LeftNavbar({ profile }) {
   return (
     <div className="left_header">
       <div className="Profile_pic">
         <img className="pic"
-          src={defaultPic} alt="user profile pic" />
+          src={profile?.profilePic || defaultPic} alt="user profile pic" />
       </div>
       <div className='nav_icons'>
         <div className='icon_area'>
