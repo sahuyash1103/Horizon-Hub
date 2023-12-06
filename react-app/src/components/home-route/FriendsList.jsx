@@ -15,7 +15,10 @@ const FriendListTile = ({ friend, unreadMessages, onClick }) => {
       <div className="friend_details">
         <div className="main_heading">
           <h4>{friendDetails?.name}</h4>
-          <p className="time unread">{fromateTime(lastMessage?.sentOn)}</p>
+          <p className="time unread">{
+            lastMessage?.sentOn &&
+            fromateTime(lastMessage?.sentOn)
+          }</p>
         </div>
         <div className="sub_heading">
           <p>{friend?.lastMessageText || "No conversation yet"}</p>

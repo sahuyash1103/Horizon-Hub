@@ -44,7 +44,7 @@ router.post("/image/:mid", auth, uploadImage.single('image'), async (req, res) =
         const image = req.file;
         if (!image) return res.status(400).send("No images provided.");
 
-        const imgUrl = await storeMessageImage(image, message.conversationID, message._id);
+        const imgUrl = await storeMessageImage(image, message.conversationId, message._id);
         if (!imgUrl) return res.status(500).send("Error while uploading images.");
 
         const updatedMessage = await Message.findByIdAndUpdate(
@@ -86,7 +86,7 @@ router.post("/doc/:mid", auth, uploadDoc.single('doc'), async (req, res) => {
         const doc = req.file;
         if (!doc) return res.status(400).send("No doc provided.");
 
-        const docUrl = await storeMessageDoc(doc, message.conversationID, message._id);
+        const docUrl = await storeMessageDoc(doc, message.conversationId, message._id);
         if (!docUrl) return res.status(500).send("Error while uploading images.");
 
         const updatedMessage = await Message.findByIdAndUpdate(

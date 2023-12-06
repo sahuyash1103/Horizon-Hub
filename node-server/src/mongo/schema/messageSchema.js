@@ -27,7 +27,7 @@ const messageSchema = new mongoose.Schema({
         type: String,
         required: false,
     },
-    conversationID: {
+    conversationId: {
         type: String,
         required: true,
     },

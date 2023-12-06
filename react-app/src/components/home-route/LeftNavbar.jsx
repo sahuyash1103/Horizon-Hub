@@ -5,14 +5,15 @@ import "./LeftNavbar.css"
 import { addFriend } from '../../axios/api/friends/friendFeatures.req';
 import PopupNewChat from '../Popups';
 
-function LeftNavbar({ profile }) {
+function LeftNavbar({ profile, updateFriendList }) {
   const [showPopup, setShowPopup] = React.useState(false);
   const [email, setEmail] = React.useState("");
   const newChatHandler = async (e) => {
     e.preventDefault();
     if (email) {
       const res = await addFriend(email);
-      console.log(res);
+      if (res?.data)
+        updateFriendList(res?.data);
     }
     setShowPopup(false);
   }

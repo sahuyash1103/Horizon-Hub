@@ -75,7 +75,12 @@ function LoginRoute() {
 
         if (!validateFormData(formData)) return;
 
-        const res = await login(formData.email, formData.password,);
+        const res = await login(formData.email, formData.password);
+        if (!res || res?.error || !res?.data) {
+            console.log("Login Response: ", res);
+            alert(res || 'Something went wrong');
+            return;
+        }
         dispatch(setUser(res?.data));
         dispatch(setToken(res?.token));
         dispatch(setTokenValid(true));

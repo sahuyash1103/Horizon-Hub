@@ -23,8 +23,8 @@ const sendMessageText = (socket, io) => {
         if (!friendInUserSubCollection)
             return socket.emit("error", { message: "not in friend list" });
 
-        const conversationID = friendInUserSubCollection.friend.conversationID;
-        const subCollection = friendInUserSubCollection.collection;
+        const conversationId = friendInUserSubCollection.friend?.conversationId;
+        const subCollection = friendInUserSubCollection?.collection;
 
         const message = new Message({
             messageType: "text",
@@ -32,7 +32,7 @@ const sendMessageText = (socket, io) => {
             sentOn: new Date().toISOString(),
             sentBy: user._id,
             sentTo: friend._id,
-            conversationID: conversationID,
+            conversationId: conversationId,
             isSent: true,
             isReceived: false,
             isRead: false,
@@ -130,7 +130,7 @@ const sendGroupMessageText = (socket, io) => {
             sentOn: new Date().toISOString(),
             sentBy: user._id,
             sentTo: friend._id,
-            conversationID: group._id,
+            conversationId: group._id,
             isSent: true,
             isReceived: false,
             isRead: false,

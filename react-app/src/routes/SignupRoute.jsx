@@ -18,7 +18,7 @@ function SignupRoute() {
         phone: '',
         email: '',
         password: '',
-        confirmPassword: '',
+        cpassword: '',
     });
     const [showPassword, setShowPassword] = useState(false);
     const [keepLoggedIn, setKeepLoggedIn] = useState(true);
@@ -32,7 +32,7 @@ function SignupRoute() {
         const _error = {};
         let isValid = true;
         const regex = {
-            name: /^([0-9]*[a-zA-Z]){3,}[0-9]*$/,
+            name: /^([0-9]*[a-zA-Z ]){3,}[0-9]*$/,
             phone: /^[0-9]{10}$/,
             email: /^[a-zA-Z0-9+_.-]+@[a-zA-Z0-9.-]+$/,
             password: /^(?=.*[a-z])(?=.*[A-Z])(?=.*\d)(?=.*[@$!%*?&])[A-Za-z\d@$!%*?&]{8,}$/,
@@ -69,15 +69,15 @@ function SignupRoute() {
             _error.password = "Password is invalid";
             isValid = false;
         }
-        if (!_formData.confirmPassword) {
+        if (!_formData.cpassword) {
             _error.cpassword = "Confirm password is required";
             isValid = false;
         }
-        if (!regex.password.test(_formData.confirmPassword)) {
+        if (!regex.password.test(_formData.cpassword)) {
             _error.cpassword = "Confirm password is invalid";
             isValid = false;
         }
-        if (_formData.password !== _formData.confirmPassword) {
+        if (_formData.password !== _formData.cpassword) {
             _error.cpassword = "Password and confirm password must be same";
             isValid = false;
         }
@@ -104,7 +104,7 @@ function SignupRoute() {
         const res = await signup(formData.name, formData.phone, formData.email, formData.password);
         if (!res || res?.error || !res?.data) {
             console.log("Signup Response: ", res);
-            alert(res?.error?.message || 'Something went wrong');
+            alert(res|| 'Something went wrong');
             return;
         }
         dispatch(setUser(res?.data));
@@ -216,7 +216,7 @@ function SignupRoute() {
                     </div>
                     <div className='signup_text_field'>
                         <input
-                            value={formData.confirmPassword}
+                            value={formData.cpassword}
                             name='cpassword'
                             isvalid={error?.cpassword ? 'false' : 'true'}
                             type={showPassword ? "text" : "password"}

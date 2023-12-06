@@ -22,26 +22,35 @@ function HomeRoute() {
   const { profile, friends, messages } = useSelector(state => state.user);
   const { token } = useSelector(state => state.auth);
   const [selectedFriend, setSelectedFriend] = useState(null);
-  const [conversationId, setConversationId] = useState(null);
+  const [conversationId, setconversationId] = useState(null);
   const [newMessage, setNewMessage] = useState(null);
   const dispatch = useDispatch();
+
+
+  const getFriendFromConversationId = (conversationId) => {
+    const friend = _.find(friends, ['conversationId', conversationId]);
+    return friend;
+  }
 
   const fetchFriends = async () => {
     const res = await getFriends();
     dispatch(setFriends(res?.data));
   }
 
+  const fetchMessagesOf = async (email, conversationId) => {
+    const res = await getMessagesOf(email);
+    if (res?.data?.messages) {
+      const sortedMessages = orderMessagesByDate(_.map(res?.data?.messages, 'message'));
+      dispatch(setMessages({ ...messages, [conversationId]: sortedMessages }));
+    }
+  }
+
   const onSelectFriendHandler = async (friend) => {
-    const conversationID = friend?.conversationID;
+    const conversationId = friend?.conversationId;
     const friendDetails = friend?.friend;
     setSelectedFriend(friendDetails);
-    setConversationId(conversationID);
-
-    const res = await getMessagesOf(friendDetails?.email);
-    if (res?.data?.messages) {
-      const sortedMessages = orderMessagesByDate(_.map(res?.data?.messages, 'message')); 
-      dispatch(setMessages({ ...messages, [conversationID]: sortedMessages }));
-    }
+    setconversationId(conversationId);
+    fetchMessagesOf(friendDetails?.email, conversationId)
   }
 
   useEffect(() => {
@@ -59,18 +68,34 @@ function HomeRoute() {
   useEffect(() => {
     if (newMessage) {
       const message = newMessage?.message;
-      const mconversationId = message.conversationID;
-      const sortedMessages = orderMessagesByDate([...messages[mconversationId], message]);
-      dispatch(setMessages({ ...messages, [mconversationId]: sortedMessages }));
-      setNewMessage(null);
+      const mconversationId = message.conversationId;
+
+      if (messages[mconversationId]) {
+        const sortedMessages = orderMessagesByDate([...messages[mconversationId], message]);
+        dispatch(setMessages({ ...messages, [mconversationId]: sortedMessages }));
+        setNewMessage(null);
+      }
+      else {
+        const friend = getFriendFromConversationId(mconversationId);
+        console.log(friend);
+        // fetchMessagesOf(fEmail, mconversationId);
+        // dispatch(setMessages({ ...messages, [mconversationId]: message }));
+        // setNewMessage(null);
+      }
     }
     // eslint-disable-next-line react-hooks/exhaustive-deps
   }, [newMessage])
 
+  const updateFriendList = (fr) => {
+    const updatedList = { ...friends, friends: [fr.friends, ...friends.friends] };
+    dispatch(setFriends(updatedList));
+    console.log(updatedList);
+  }
+
   return (
     <div className='main_container'>
       <div className="left_window">
-        <LeftNavbar profile={profile} />
+        <LeftNavbar profile={profile} updateFriendList={updateFriendList} />
         <SearchBar />
         <FriendsList
           friends={friends}

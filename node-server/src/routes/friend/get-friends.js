@@ -10,7 +10,7 @@ router.get("/", auth, async (req, res) => {
             "name email phone profilePic isOnline lastSeen isDeleted isSuspended isLocked status message sentOn sentBy sentTo messageType isRead"
         );
 
-    if (!user) return socket.emit("get-friends", { error: "User not found" });
+    if (!user) return res.status(404).json({ error: "User not found" });
 
     res.status(200).json({
         data: user,

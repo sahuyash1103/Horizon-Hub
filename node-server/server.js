@@ -9,7 +9,7 @@ const expressSession = require("express-session");
 
 const routes = require("./src/routes/index");
 
-const { PORT, SESSION_SECRET, CLIENT_URL,IS_HTTPS } = require("./src/utils/get-env");
+const { PORT, SESSION_SECRET, CLIENT_URL, IS_HTTPS } = require("./src/utils/get-env");
 const { checkEnvironmentVariable } = require("./src/utils/check_env_var");
 const { initMongo } = require("./src/mongo/index");
 const { initFirebase } = require("./src/firebase/index");
@@ -45,12 +45,12 @@ app.use(passport.initialize());
 app.use(passport.session());
 
 // -------------------------CORS
-app.use(
-  cors({
-    credentials: true,
-    origin: ["http://localhost:3000", CLIENT_URL],
-  })
-);
+const corseOptions = {
+  credentials: true,
+  origin: ["http://localhost:3000", CLIENT_URL],
+  methods: ["GET", "POST", "PUT", "DELETE"]
+}
+app.use(cors(corseOptions));
 
 //--------------------------SETUP HEADER
 app.use((req, res, next) => {
@@ -123,12 +123,7 @@ const httpServer = http.createServer(app);
 
 // -------------------------------------------SETUP SOCKET.IO
 const io = new Server(httpServer, {
-  cors: {
-    optionsSuccessStatus: 200,
-    credentials: true,
-    origin: ["http://localhost:3000", CLIENT_URL],
-    methods: "*",
-  }
+  cors: corseOptions
 });
 
 //-------------------------------------------SOCKET MIDDLWARES

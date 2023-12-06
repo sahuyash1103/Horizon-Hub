@@ -1,0 +1,35 @@
+.friend_message {
+    display: flex;
+    position: relative;
+    align-self: flex-start;
+    max-width: 65%;
+    background: linear-gradient(135deg, #813eb6 5%, #b476ee 100%);
+    background-color: #eee9f2;
+    border-radius: 10px;
+    padding: 12px;
+    margin: 5px 0;
+}
+
+.friend_message::before {
+    content: '';
+    position: absolute;
+    top: 0;
+    left: -12px;
+    width: 20px;
+    height: 20px;
+    background: linear-gradient(225deg, #813eb6 0%, #813eb6 50%, transparent 50%, transparent);
+}
+
+.friend_message p {
+    color: #fff;
+    font-size: 16px;
+    user-select: text;
+}
+
+.friend_message span {
+    color: #eee9f2;
+    margin-top: 5px;
+    margin-left: 5px;
+    font-size: 14px;
+    align-self: flex-end;
+}

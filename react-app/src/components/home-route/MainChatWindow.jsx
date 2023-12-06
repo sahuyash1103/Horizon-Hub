@@ -1,30 +1,8 @@
 import React from 'react'
-import { fromateTime } from '../../utils/formators';
 import { useSelector } from 'react-redux';
+import FriendMessage from './chat/FriendMessage';
+import UserMessage from './chat/UserMessage';
 import "./MainChatWindow.css"
-
-
-const FriendMessage = ({ message }) => {
-  return (
-    <div className="message friend_message">
-      <p>
-        {message?.message}
-      </p>
-      <span>{fromateTime(message?.sentOn)}</span>
-    </div>
-  )
-}
-
-const UserMessage = ({ message }) => {
-  return (
-    <div className="message my_message">
-      <p>
-        {message?.message}
-      </p>
-      <span>{fromateTime(message?.sentOn)}</span>
-    </div>
-  )
-}
 
 function MainChatWindow({ friend, conversationId }) {
   const { messages } = useSelector(state => state.user);

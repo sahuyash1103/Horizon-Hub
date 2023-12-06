@@ -10,7 +10,7 @@ const friendSchema = new mongoose.Schema({
     // unique: true,
     required: true,
   },
-  conversationID: {
+  conversationId: {
     type: String,
     required: true,
     // unique: true,

@@ -25,17 +25,17 @@ router.get('/:email', auth, async (req, res) => {
     if (!friend)
         return res.status(400).json({ message: 'Friend not found' });
 
-    let conversationID = user.friends.find(f => f.friend.toString() === friend._id.toString())?.conversationID;
-    if (!conversationID)
+    let conversationId = user.friends.find(f => f.friend.toString() === friend._id.toString())?.conversationId;
+    if (!conversationId)
         return res.status(400).json({ message: 'Conversation not found' });
 
-    let messages = user.messages.filter(message => message.conversationID !== conversationID);
-    let unreadMessages = user.unreadMessages.filter(message => message.conversationID !== conversationID);
+    let messages = user.messages.filter(message => message.conversationId !== conversationId);
+    let unreadMessages = user.unreadMessages.filter(message => message.conversationId !== conversationId);
 
     res
         .status(200)
         .json({
-            data: { conversationID, messages: [...messages, ...unreadMessages] },
+            data: { conversationId, messages: [...messages, ...unreadMessages] },
             message: 'Messages fetched successfully',
             error: null
         });

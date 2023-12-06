@@ -6,7 +6,7 @@ const { v4: uuidv4 } = require('uuid');
 
 router.put("/", auth, async (req, res) => {
     let friend;
-    const user = await User.findById(req.user._id).select(["-password", "-__v"]);
+    const user = await User.findById(req.user._id);
     if (!user) return res.status(404).send("User not found.");
 
     const friend_data = req.body.friend_data;
@@ -27,30 +27,31 @@ router.put("/", auth, async (req, res) => {
     const isFound = await findFriendInUserSubCollection(user, friend._id);
     if (isFound) return res.status(400).send(`Friend is already (in) ${isFound.subMessage}.`);
 
-    const conversationID = uuidv4();
+    const conversationId = uuidv4();
 
     const updatedUser = await User.findByIdAndUpdate(user._id,
         {
             $push: {
-                friends: { friend: friend._id, lastMessage: null, lastMessageText: null, conversationID: conversationID }
+                friends: { friend: friend._id, lastMessage: null, lastMessageText: null, conversationId: conversationId }
             }
         },
-        { new: true }
-    );
+        { new: true })
+        .select(["_id", "email", "friends", "blockedFriends", "mutedFriends", "pinnedFriends", "unknownFriends"])
+        .populate(
+            "friends.friend blockedFriends.friend mutedFriends.friend pinnedFriends.friend unknownFriends.friend friends.lastMessage blockedFriends.lastMessage mutedFriends.lastMessage pinnedFriends.lastMessage unknownFriends.lastMessage",
+            "name email phone profilePic isOnline lastSeen isDeleted isSuspended isLocked status message sentOn sentBy sentTo messageType isRead"
+        );;
 
     await User.findByIdAndUpdate(friend._id,
         {
             $push: {
-                friends: { friend: user._id, conversationID: conversationID }
+                friends: { friend: user._id, conversationId: conversationId }
             }
-        },
-        {
-            new: true
         }
     );
 
     res.status(200).json({
-        data: updatedUser,
+        data: { friends: updatedUser.friends },
         message: "Friend added successfully.",
         error: null,
     });

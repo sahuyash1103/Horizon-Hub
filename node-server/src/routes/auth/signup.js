@@ -23,7 +23,7 @@ router.post("/", async (req, res) => {
         phone: req.body.phone,
     });
 
-    const profilePic = await generateAvatarFromName(user.name);
+    const profilePic = generateAvatarFromName(user.name);
     const profilePicUrl = await storeProfilePic(profilePic, user._id);
 
     user.profilePic = profilePicUrl;
