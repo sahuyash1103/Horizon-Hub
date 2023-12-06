@@ -1,5 +1,5 @@
 const mongoose = require("mongoose");
-const { MONGO_URI } = require("../utils/get-env");
+const { MONGO_URI } = require("./../utils/get-env");
 
 function initMongo() {
   mongoose

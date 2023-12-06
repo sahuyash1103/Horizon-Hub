@@ -1,8 +1,8 @@
 import React from 'react'
-import defaultPic from '../../assets/images/defaultPic.png';
+import defaultPic from './../../assets/images/defaultPic.png';
 import { FaChevronDown } from "react-icons/fa";
 import "./FriendsList.css"
-import { fromateTime } from '../../utils/formators';
+import { fromateTime } from './../../utils/formators';
 
 const FriendListTile = ({ friend, unreadMessages, onClick }) => {
   const friendDetails = friend?.friend;

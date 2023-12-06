@@ -1,5 +1,5 @@
 const { sendMessageText, sendGroupMessageText } = require("./message/send-message-text-socket");
-const User = require("../mongo/schema/userSchema");
+const User = require("./../mongo/schema/userSchema");
 const { sendMessageFile } = require("./message/send-message-file-socket");
 
 const joinRoom = (socket, io) => {

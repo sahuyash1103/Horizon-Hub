@@ -1,8 +1,8 @@
 const router = require("express").Router();
-const User = require("../../mongo/schema/userSchema");
-const auth = require("../../middlewares/auth.middleware");
+const User = require("./../../mongo/schema/userSchema");
+const auth = require("./../../middlewares/auth.middleware");
 const _ = require("lodash");
-const { validateUserUpdateData } = require("../../utils/validators");
+const { validateUserUpdateData } = require("./../../utils/validators");
 
 router.put("/", auth, async (req, res) => {
     const user = await User.findById(req.user._id).select(["-password", "-__v"]);

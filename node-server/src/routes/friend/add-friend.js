@@ -1,7 +1,7 @@
 const router = require("express").Router();
-const User = require("../../mongo/schema/userSchema");
-const auth = require("../../middlewares/auth.middleware");
-const findFriendInUserSubCollection = require("../../utils/find-friend-in-user");
+const User = require("./../../mongo/schema/userSchema");
+const auth = require("./../../middlewares/auth.middleware");
+const findFriendInUserSubCollection = require("./../../utils/find-friend-in-user");
 const { v4: uuidv4 } = require('uuid');
 
 router.put("/", auth, async (req, res) => {

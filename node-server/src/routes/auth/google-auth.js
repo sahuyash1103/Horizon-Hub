@@ -1,5 +1,5 @@
 const passport = require('passport');
-const { CLIENT_URL } = require('../../utils/get-env');
+const { CLIENT_URL } = require('./../../utils/get-env');
 const router = require('express').Router();
 
 router.get('/', passport.authenticate('google', { scope: ['profile', 'email'] }));

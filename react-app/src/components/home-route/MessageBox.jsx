@@ -3,7 +3,7 @@ import { MdAdd } from "react-icons/md";
 import { IoSend } from "react-icons/io5";
 import { MdEmojiEmotions } from "react-icons/md";
 import "./MessageBox.css"
-import { sendTextMessage } from '../../socket';
+import { sendTextMessage } from './../../socket';
 
 function MessageBox({ email }) {
   const [message, setMessage] = React.useState('')

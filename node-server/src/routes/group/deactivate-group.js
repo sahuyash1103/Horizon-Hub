@@ -1,7 +1,7 @@
 const router = require("express").Router();
-const authMW = require("../../middlewares/auth.middleware");
-const Group = require("../../mongo/schema/groupSchema");
-const User = require("../../mongo/schema/userSchema");
+const authMW = require("./../../middlewares/auth.middleware");
+const Group = require("./../../mongo/schema/groupSchema");
+const User = require("./../../mongo/schema/userSchema");
 
 router.put("/", authMW, async (req, res) => {
     const user = await User.findById(req.user._id);

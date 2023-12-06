@@ -1,7 +1,7 @@
-const User = require("../../mongo/schema/userSchema");
-const Message = require("../../mongo/schema/messageSchema");
-const Group = require("../../mongo/schema/groupSchema");
-const findFriendInUserSubCollection = require("../../utils/find-friend-in-user");
+const User = require("./../../mongo/schema/userSchema");
+const Message = require("./../../mongo/schema/messageSchema");
+const Group = require("./../../mongo/schema/groupSchema");
+const findFriendInUserSubCollection = require("./../../utils/find-friend-in-user");
 
 const sendMessageFile = (socket, io) => {
     socket.on("send-message:file", async (data) => {

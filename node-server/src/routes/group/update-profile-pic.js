@@ -1,9 +1,9 @@
 const router = require("express").Router();
 const multer = require("multer");
-const authMW = require("../../middlewares/auth.middleware");
-const Group = require("../../mongo/schema/groupSchema");
-const User = require("../../mongo/schema/userSchema");
-const { storeProfilePic } = require("../../firebase/storage/storage");
+const authMW = require("./../../middlewares/auth.middleware");
+const Group = require("./../../mongo/schema/groupSchema");
+const User = require("./../../mongo/schema/userSchema");
+const { storeProfilePic } = require("./../../firebase/storage/storage");
 
 const multerStorage = multer.memoryStorage();
 const upload = multer({ storage: multerStorage });

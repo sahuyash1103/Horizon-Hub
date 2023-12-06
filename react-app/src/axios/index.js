@@ -1,5 +1,5 @@
 import axios from 'axios';
-import getEnv from '../utils/get-env';
+import getEnv from './../utils/get-env';
 
 const instance = axios.create({
     baseURL: getEnv.API_BASE_URL,

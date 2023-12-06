@@ -1,6 +1,6 @@
 const router = require('express').Router();
-const Message = require('../../mongo/schema/messageSchema');
-const User = require('../../mongo/schema/userSchema');
+const Message = require('./../../mongo/schema/messageSchema');
+const User = require('./../../mongo/schema/userSchema');
 
 router.get('/:mid', async (req, res) => {
     const user = await User.findOne({ email: req.user.email }).select("-password -__v");

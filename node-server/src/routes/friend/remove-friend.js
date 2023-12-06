@@ -1,7 +1,7 @@
 const router = require("express").Router();
-const User = require("../../mongo/schema/userSchema");
-const auth = require("../../middlewares/auth.middleware");
-const findFriendInUserSubCollection = require("../../utils/find-friend-in-user");
+const User = require("./../../mongo/schema/userSchema");
+const auth = require("./../../middlewares/auth.middleware");
+const findFriendInUserSubCollection = require("./../../utils/find-friend-in-user");
 
 router.delete("/", auth, async (req, res) => {
     const user = await User.findById(req.user._id).select(["-password", "-__v"]);

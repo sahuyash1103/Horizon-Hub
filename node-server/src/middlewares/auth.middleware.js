@@ -1,5 +1,5 @@
 const jwt = require("jsonwebtoken");
-const { JWT_PRIVATE_KEY } = require("../utils/get-env");
+const { JWT_PRIVATE_KEY } = require("./../utils/get-env");
 
 function authMW(req, res, next) {
     if (req.user) return next();

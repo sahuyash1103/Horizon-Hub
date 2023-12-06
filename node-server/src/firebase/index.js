@@ -1,6 +1,6 @@
 // Import the functions you need from the SDKs you need
 const { initializeApp } = require("firebase/app");
-const env = require("../utils/get-env");
+const env = require("./../utils/get-env");
 
 const firebaseConfig = {
   apiKey: env.FIREBASE_API_KEY,

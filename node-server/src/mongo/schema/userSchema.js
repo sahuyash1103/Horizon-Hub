@@ -1,7 +1,7 @@
 const mongoose = require("mongoose");
 const jwt = require("jsonwebtoken");
 const bcrypt = require("bcrypt");
-const { JWT_PRIVATE_KEY } = require("../../utils/get-env");
+const { JWT_PRIVATE_KEY } = require("./../../utils/get-env");
 
 const friendSchema = new mongoose.Schema({
   friend: {

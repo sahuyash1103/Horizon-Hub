@@ -1,7 +1,7 @@
 const router = require('express').Router();
 const passport = require('passport');
-const User = require("../../mongo/schema/userSchema");
-const { validateLoginData } = require("../../utils/validators");
+const User = require("./../../mongo/schema/userSchema");
+const { validateLoginData } = require("./../../utils/validators");
 const _ = require("lodash");
 
 router.post("/", async (req, res) => {

@@ -1,6 +1,6 @@
 const router = require("express").Router();
-const User = require("../../mongo/schema/userSchema");
-const auth = require("../../middlewares/auth.middleware");
+const User = require("./../../mongo/schema/userSchema");
+const auth = require("./../../middlewares/auth.middleware");
 
 router.get("/", auth, async (req, res) => {
     const user = await User.findById(req.user._id)

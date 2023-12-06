@@ -1,10 +1,10 @@
 import React, { useEffect } from 'react'
 import { useSelector, useDispatch } from 'react-redux'
 import { useLocation, useNavigate } from 'react-router-dom';
-import { getProfile } from '../axios/api/profile/getProfile.req';
-import { logout as setLogout, setToken, setTokenValid, setUser } from '../redux-toolkit/reducers/auth';
-import { setProfile } from '../redux-toolkit/reducers/user';
-import { getToken, verifyToken, logout } from '../axios/api/auth/auth.req';
+import { getProfile } from './../axios/api/profile/getProfile.req';
+import { logout as setLogout, setToken, setTokenValid, setUser } from './../redux-toolkit/reducers/auth';
+import { setProfile } from './../redux-toolkit/reducers/user';
+import { getToken, verifyToken, logout } from './../axios/api/auth/auth.req';
 
 function ProtectedRoute({ element, children, ...rest }) {
   const { profile } = useSelector(state => state.user);

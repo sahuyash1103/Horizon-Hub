@@ -1,7 +1,7 @@
 const router = require("express").Router();
-const User = require("../../mongo/schema/userSchema");
-const auth = require("../../middlewares/auth.middleware");
-const { validateChangePasswordData } = require("../../utils/validators");
+const User = require("./../../mongo/schema/userSchema");
+const auth = require("./../../middlewares/auth.middleware");
+const { validateChangePasswordData } = require("./../../utils/validators");
 // const nodmailer = require("nodemailer");
 
 router.get('/')

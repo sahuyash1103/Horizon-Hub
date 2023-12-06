@@ -2,8 +2,8 @@ import React from 'react'
 import { MdCall } from "react-icons/md";
 import { BsFillCameraVideoFill } from "react-icons/bs";
 import { IoSearch } from "react-icons/io5";
-import { MoreVertIcon } from '../../assets/svgs/'
-import defaultPic from '../../assets/images/defaultPic.png';
+import { MoreVertIcon } from './../../assets/svgs/'
+import defaultPic from './../../assets/images/defaultPic.png';
 import "./RightNavbar.css"
 
 function RightNavbar({ friend }) {

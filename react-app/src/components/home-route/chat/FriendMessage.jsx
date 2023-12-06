@@ -1,4 +1,4 @@
-import { fromateTime } from '../../../utils/formators';
+import { fromateTime } from './../../../utils/formators';
 import "./FriendMessage.css"
 
 function FriendMessage({ message }) {

@@ -1,7 +1,7 @@
 // ---------------------------------IMPORTS
 const router = require("express").Router();
 const passport = require("passport");
-const { CLIENT_URL } = require("../../utils/get-env");
+const { CLIENT_URL } = require("./../../utils/get-env");
 
 router.get('/',
     passport.authenticate('github', { scope: ['user:email'] }));

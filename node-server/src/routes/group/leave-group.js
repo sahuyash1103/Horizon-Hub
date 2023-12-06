@@ -1,7 +1,7 @@
 const router = require('express').Router();
-const Group = require('../../mongo/schema/groupSchema');
-const User = require('../../mongo/schema/userSchema');
-const auth = require('../../middlewares/auth.middleware');
+const Group = require('./../../mongo/schema/groupSchema');
+const User = require('./../../mongo/schema/userSchema');
+const auth = require('./../../middlewares/auth.middleware');
 
 router.delete('/:id', auth, async (req, res) => {
     const user = await User.findById(req.user._id);

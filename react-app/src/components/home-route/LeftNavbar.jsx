@@ -1,9 +1,9 @@
 import React from 'react'
-import defaultPic from '../../assets/images/defaultPic.png';
-import { CommunityIcon, StatusIcon, ChannelIcon, NewChatIcon, MoreVertIcon } from '../../assets/svgs/'
+import defaultPic from './../../assets/images/defaultPic.png';
+import { CommunityIcon, StatusIcon, ChannelIcon, NewChatIcon, MoreVertIcon } from './../../assets/svgs/'
 import "./LeftNavbar.css"
-import { addFriend } from '../../axios/api/friends/friendFeatures.req';
-import PopupNewChat from '../Popups';
+import { addFriend } from './../../axios/api/friends/friendFeatures.req';
+import PopupNewChat from './../Popups';
 
 function LeftNavbar({ profile, updateFriendList }) {
   const [showPopup, setShowPopup] = React.useState(false);

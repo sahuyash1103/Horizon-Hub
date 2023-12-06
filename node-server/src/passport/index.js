@@ -2,8 +2,8 @@ const passport = require('passport');
 const GoogleStrategy = require('passport-google-oauth2').Strategy;
 const GitHubStrategy = require('passport-github2').Strategy;
 const LocalStrategy = require('passport-local').Strategy;
-const User = require("../mongo/schema/userSchema");
-const { GOOGLE_CLIENT_ID, GOOGLE_CLIENT_SECRET, GITHUB_CLIENT_ID, GITHUB_CLIENT_SECRET } = require("../utils/get-env");
+const User = require("./../mongo/schema/userSchema");
+const { GOOGLE_CLIENT_ID, GOOGLE_CLIENT_SECRET, GITHUB_CLIENT_ID, GITHUB_CLIENT_SECRET } = require("./../utils/get-env");
 const _ = require("lodash");
 
 // -------------------------PASSPORT CONFIGURATION FOR GOOGLE AUTH

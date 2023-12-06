@@ -1,10 +1,10 @@
 // ---------------------------------IMPORTS
 const router = require("express").Router();
-const User = require("../../mongo/schema/userSchema");
-const { validateSignupData } = require("../../utils/validators");
-const { generateAvatarFromName } = require("../../utils/generate-avatar");
+const User = require("./../../mongo/schema/userSchema");
+const { validateSignupData } = require("./../../utils/validators");
+const { generateAvatarFromName } = require("./../../utils/generate-avatar");
 const _ = require("lodash");
-const { storeProfilePic } = require("../../firebase/storage/storage");
+const { storeProfilePic } = require("./../../firebase/storage/storage");
 
 router.post("/", async (req, res) => {
     const error = await validateSignupData(req.body);

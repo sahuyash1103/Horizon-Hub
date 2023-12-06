@@ -6,10 +6,10 @@ import { BsGithub } from "react-icons/bs";
 import { BsInfoCircle } from "react-icons/bs";
 import { FaLock } from "react-icons/fa";
 import { IoChatbubble } from "react-icons/io5";
-import { googleAuth, login, githubAuth, getToken } from '../axios/api/auth/auth.req';
-import { setToken, setTokenValid, setUser, setKeepLoggedIn as setLoggedin } from '../redux-toolkit/reducers/auth';
+import { googleAuth, login, githubAuth, getToken } from './../axios/api/auth/auth.req';
+import { setToken, setTokenValid, setUser, setKeepLoggedIn as setLoggedin } from './../redux-toolkit/reducers/auth';
 import { Link, useNavigate, useLocation } from 'react-router-dom';
-import "../styles/LoginRoute.css"
+import "./../styles/LoginRoute.css"
 
 function LoginRoute() {
     const dispatch = useDispatch();

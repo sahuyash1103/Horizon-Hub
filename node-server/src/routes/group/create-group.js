@@ -1,8 +1,8 @@
 const router = require('express').Router();
-const authMW = require('../../middlewares/auth.middleware');
-const Group = require('../../mongo/schema/groupSchema');
-const User = require('../../mongo/schema/userSchema');
-const { validateGroupData } = require('../../utils/validators');
+const authMW = require('./../../middlewares/auth.middleware');
+const Group = require('./../../mongo/schema/groupSchema');
+const User = require('./../../mongo/schema/userSchema');
+const { validateGroupData } = require('./../../utils/validators');
 
 router.post('/', authMW, async (req, res) => {
     const user = await User.findById(req.user._id)

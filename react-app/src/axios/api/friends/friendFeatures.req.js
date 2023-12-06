@@ -1,4 +1,4 @@
-import instance from "../../index";
+import instance from "./../../index";
 
 export const addFriend = async (email, _id = null) => {
     try {

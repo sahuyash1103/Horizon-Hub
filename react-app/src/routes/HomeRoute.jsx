@@ -1,17 +1,17 @@
 import React, { useEffect, useState } from 'react'
 import { useDispatch, useSelector } from 'react-redux';
-import { getFriends } from '../axios/api/friends/getFriends.req';
-import { setFriends, setMessages } from '../redux-toolkit/reducers/user';
-import { getMessagesOf } from '../axios/api/messages/getMessages.req';
-import LeftNavbar from '../components/home-route/LeftNavbar';
-import SearchBar from '../components/home-route/SearchBar';
-import FriendsList from '../components/home-route/FriendsList';
-import RightNavbar from '../components/home-route/RightNavbar';
-import MainChatWindow from '../components/home-route/MainChatWindow';
-import MessageBox from '../components/home-route/MessageBox';
-import { connectSocket, initSocketListners, messageListner } from '../socket';
+import { getFriends } from './../axios/api/friends/getFriends.req';
+import { setFriends, setMessages } from './../redux-toolkit/reducers/user';
+import { getMessagesOf } from './../axios/api/messages/getMessages.req';
+import LeftNavbar from './../components/home-route/LeftNavbar';
+import SearchBar from './../components/home-route/SearchBar';
+import FriendsList from './../components/home-route/FriendsList';
+import RightNavbar from './../components/home-route/RightNavbar';
+import MainChatWindow from './../components/home-route/MainChatWindow';
+import MessageBox from './../components/home-route/MessageBox';
+import { connectSocket, initSocketListners, messageListner } from './../socket';
 import _ from 'lodash';
-import "../styles/HomeRoute.css"
+import "./../styles/HomeRoute.css"
 
 const orderMessagesByDate = (messages) => {
   const sortedMessages = _.orderBy(messages, 'sentOn', ['asc']);

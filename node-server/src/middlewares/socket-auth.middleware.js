@@ -1,5 +1,5 @@
 const jwt = require("jsonwebtoken");
-const { JWT_PRIVATE_KEY } = require("../utils/get-env");
+const { JWT_PRIVATE_KEY } = require("./../utils/get-env");
 
 function authSocketMW(socket, next) {
     var token = socket.handshake.auth.token || socket.handshake.headers["x-auth-token"]

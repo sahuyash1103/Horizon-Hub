@@ -1,6 +1,6 @@
 const router = require("express").Router();
-const User = require("../../mongo/schema/userSchema");
-const auth = require("../../middlewares/auth.middleware");
+const User = require("./../../mongo/schema/userSchema");
+const auth = require("./../../middlewares/auth.middleware");
 const _ = require("lodash");
 
 router.put("/", auth, async (req, res) => {
