@@ -1,4 +1,4 @@
-import React, { useEffect } from 'react'
+import React, { useEffect, useState } from 'react'
 import { useDispatch, useSelector } from 'react-redux';
 import { getFriends } from '../axios/api/friends/getFriends.req';
 import { setFriends, setMessages } from '../redux-toolkit/reducers/user';
@@ -9,17 +9,21 @@ import FriendsList from '../components/home-route/FriendsList';
 import RightNavbar from '../components/home-route/RightNavbar';
 import MainChatWindow from '../components/home-route/MainChatWindow';
 import MessageBox from '../components/home-route/MessageBox';
+import { connectSocket, initSocketListners, messageListner } from '../socket';
 import _ from 'lodash';
 import "../styles/HomeRoute.css"
 
 const orderMessagesByDate = (messages) => {
-  const sortedMessages = _.orderBy(messages, 'message.sentOn', ['asc']);
+  const sortedMessages = _.orderBy(messages, 'sentOn', ['asc']);
   return sortedMessages;
 }
 
 function HomeRoute() {
   const { profile, friends, messages } = useSelector(state => state.user);
-  const [selectedFriend, setSelectedFriend] = React.useState(null);
+  const { token } = useSelector(state => state.auth);
+  const [selectedFriend, setSelectedFriend] = useState(null);
+  const [conversationId, setConversationId] = useState(null);
+  const [newMessage, setNewMessage] = useState(null);
   const dispatch = useDispatch();
 
   const fetchFriends = async () => {
@@ -28,38 +32,61 @@ function HomeRoute() {
   }
 
   const onSelectFriendHandler = async (friend) => {
-    setSelectedFriend(friend);
-    const res = await getMessagesOf(friend?.email);
+    const conversationID = friend?.conversationID;
+    const friendDetails = friend?.friend;
+    setSelectedFriend(friendDetails);
+    setConversationId(conversationID);
+
+    const res = await getMessagesOf(friendDetails?.email);
     if (res?.data?.messages) {
-      const sortedMessages = orderMessagesByDate(res?.data?.messages);
-      dispatch(setMessages({ ...messages, [friend?.email]: sortedMessages }));
+      const sortedMessages = orderMessagesByDate(_.map(res?.data?.messages, 'message')); 
+      dispatch(setMessages({ ...messages, [conversationID]: sortedMessages }));
     }
   }
-
-  // useEffect(() => {
-  //   console.log("Profile: ", profile);
-  //   console.log("Friends: ", friends);
-  //   console.log("Messages: ", messages);
-  // }, [friends, profile, messages])
 
   useEffect(() => {
     fetchFriends();
     // eslint-disable-next-line react-hooks/exhaustive-deps
   }, [])
 
+  useEffect(() => {
+    connectSocket(token);
+    initSocketListners();
+    messageListner(setNewMessage);
+    // eslint-disable-next-line react-hooks/exhaustive-deps
+  }, [token])
+
+  useEffect(() => {
+    if (newMessage) {
+      const message = newMessage?.message;
+      const mconversationId = message.conversationID;
+      const sortedMessages = orderMessagesByDate([...messages[mconversationId], message]);
+      dispatch(setMessages({ ...messages, [mconversationId]: sortedMessages }));
+      setNewMessage(null);
+    }
+    // eslint-disable-next-line react-hooks/exhaustive-deps
+  }, [newMessage])
+
   return (
     <div className='main_container'>
       <div className="left_window">
         <LeftNavbar profile={profile} />
         <SearchBar />
-        <FriendsList friends={friends} unreadMessages={"1"} onSelectFriend={onSelectFriendHandler} />
+        <FriendsList
+          friends={friends}
+          unreadMessages={"1"}
+          onSelectFriend={onSelectFriendHandler}
+        />
       </div>
       <div className="right_window">
         {selectedFriend ?
           <>
             <RightNavbar friend={selectedFriend} />
-            <MainChatWindow friend={selectedFriend} />
-            <MessageBox />
+            <MainChatWindow
+              friend={selectedFriend}
+              conversationId={conversationId}
+            />
+            <MessageBox email={selectedFriend?.email} />
           </>
           :
           <div className="no_chat_selected">

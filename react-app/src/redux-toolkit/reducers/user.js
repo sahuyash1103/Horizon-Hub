@@ -2,9 +2,9 @@ import { createSlice } from "@reduxjs/toolkit"
 
 
 const initState = {
-    profile: {},
-    friends: {},
-    friendRequests: {},
+    profile: null,
+    friends: null,
+    friendRequests: null,
     messages: {},
 }
 

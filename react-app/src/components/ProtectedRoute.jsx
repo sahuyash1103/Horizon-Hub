@@ -53,11 +53,9 @@ function ProtectedRoute({ element, children, ...rest }) {
   const auth = async () => {
     if (profile) return;
 
-    let token = sessionStorage.getItem('token');
-    if (!token) await storeToken();
-
+    storeToken();
     checkToken();
-
+    
     const res = await getProfile();
     if (res?.data) {
       dispatch(setProfile(res?.data));

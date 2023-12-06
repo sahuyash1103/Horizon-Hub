@@ -33,7 +33,7 @@ function FriendsList({ friends, unreadMessages, onSelectFriend }) {
       {
         friends?.friends?.map((friend, i) => (
           <FriendListTile key={i} friend={friend} unreadMessages={unreadMessages}
-            onClick={() => onSelectFriend(friend?.friend)}
+            onClick={() => onSelectFriend(friend)}
           />
         ))
       }
