@@ -58,7 +58,7 @@ app.use((req, res, next) => {
   res.header('Access-Control-Allow-Credentials', true);
   res.header('Access-Control-Allow-Methods', 'GET, POST, PUT, DELETE');
   res.header('Access-Control-Allow-Headers', '*');
-  console.log(req.headers.origin);
+  // console.log(req.headers.origin);
   next();
 });
 
@@ -91,7 +91,8 @@ app.use("/api/group/change-admin", routes.changeAdminRouter);
 app.use("/api/group/leave", routes.leaveGroupRouter)
 
 app.use("/api/messages/", routes.getMessagesRouter);
-app.use("/api/messages/message/seen", routes.seenMessageRouter);
+app.use("/api/messages/message/send/file/", routes.sendFileMessagesRouter);
+app.use("/api/messages/message/set/seen/", routes.seenMessageRouter);
 
 app.use("/api/profile/get/", routes.getProfileRouter);
 app.use("/api/profile/update/", routes.updateProfileRouter);
@@ -101,6 +102,8 @@ app.use("/api/profile/change-password/", routes.changePasswordRouter);
 app.use("/api/profile/forgot-password/", routes.forgotPasswordRouter);
 app.use("/api/profile/set-status/", routes.setStatusRouter);
 app.use("/api/profile/update-profile-pic/", routes.updateProfilePicRouter);
+
+app.use("/api/users/search/", routes.searchFriendRouter);
 
 // -------------------------API CONNECTION CHECK
 app.get("/", (req, res) => {

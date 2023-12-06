@@ -29,6 +29,7 @@ const leaveGroupRouter = require("./group/leave-group.js");
 
 const getMessagesRouter = require("./message/get-messages");
 const seenMessageRouter = require("./message/message-seen");
+const sendFileMessagesRouter = require("./message/send-file");
 
 const changePasswordRouter = require("./profile/change-password");
 const forgotPasswordRouter = require("./profile/forgot-paasword");
@@ -38,6 +39,8 @@ const getProfileRouter = require("./profile/get-profile");
 const setStatusRouter = require("./profile/set-status");
 const updateProfileRouter = require("./profile/update-profile");
 const updateProfilePicRouter = require("./profile/update-profile-pic");
+
+const searchFriendRouter = require("./find/search-friend");
 
 module.exports = {
     loginRouter,
@@ -69,6 +72,7 @@ module.exports = {
 
     getMessagesRouter,
     seenMessageRouter,
+    sendFileMessagesRouter,
 
     changePasswordRouter,
     deleteProfileRouter,
@@ -78,4 +82,6 @@ module.exports = {
     updateProfileRouter,
     updateProfilePicRouter,
     forgotPasswordRouter,
+
+    searchFriendRouter,
 };

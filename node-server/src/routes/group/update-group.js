@@ -17,7 +17,12 @@ router.put("/status", authMW, async (req, res) => {
     if (group.admin.toString() != user._id.toString())
         return res.status(400).send("You are not admin of this group");
 
-    const updatedGroup = await group.updateOne({ $set: { status: groupData.status } }, { new: true });
+    const updatedGroup = await Group.findByIdAndUpdate(group._id,
+        {
+            $set: {
+                status: groupData.status
+            }
+        }, { new: true });
 
     res.status(200).send({
         data: updatedGroup,
@@ -40,7 +45,12 @@ router.put('/discription', authMW, async (req, res) => {
     if (group.admin.toString() != user._id.toString())
         return res.status(400).send("You are not admin of this group");
 
-    const updatedGroup = await group.updateOne({ $set: { discription: groupData.discription } }, { new: true });
+    const updatedGroup = await Group.findByIdAndUpdate(group._id,
+        {
+            $set: {
+                discription: groupData.discription
+            }
+        }, { new: true });
 
     res.status(200).send({
         data: updatedGroup,
@@ -63,7 +73,7 @@ router.put('/name', authMW, async (req, res) => {
     if (group.admin.toString() != user._id.toString())
         return res.status(400).send("You are not admin of this group");
 
-    const updatedGroup = await group.updateOne({ $set: { name: groupData.name } }, { new: true });
+    const updatedGroup = await Group.findByIdAndUpdate(group._id,{ $set: { name: groupData.name } }, { new: true });
 
     res.status(200).send({
         data: updatedGroup,

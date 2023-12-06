@@ -26,7 +26,7 @@ router.put('/profile-pic', authMW, upload.single('profilePic'), async (req, res)
         return res.status(400).send("You are not admin of this group");
 
     const profilePicUrl = await storeProfilePic(profilePic, user._id);
-    const updatedGroup = await group.updateOne({ $set: { profilePic: profilePicUrl } }, { new: true });
+    const updatedGroup = await Group.findByIdAndUpdate(group._id,{ $set: { profilePic: profilePicUrl } }, { new: true });
 
     res.status(200).send({
         data: updatedGroup,

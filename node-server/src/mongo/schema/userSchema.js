@@ -24,27 +24,6 @@ const friendSchema = new mongoose.Schema({
   },
 });
 
-const groupSchema = new mongoose.Schema({
-  group: {
-    type: mongoose.Types.ObjectId,
-    ref: "Groups",
-    // unique: true,
-    required: true,
-  },
-  // conversationID: {
-  //   type: String,
-  //   required: true,
-  //   unique: true,
-  // },
-  lastMessage: {
-    type: mongoose.Types.ObjectId,
-    ref: "Messages",
-  },
-  lastMessageText: {
-    type: String,
-  },
-});
-
 const messageSchema = new mongoose.Schema({
   message: {
     type: mongoose.Types.ObjectId,
@@ -108,7 +87,10 @@ const userSchema = new mongoose.Schema({
     type: [friendSchema],
   },
   groups: {
-    type: [groupSchema],
+    type: [mongoose.Types.ObjectId],
+    ref: "Groups",
+    required: true,
+    // unique: true,
   },
   messages: {
     type: [messageSchema],

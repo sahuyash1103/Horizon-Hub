@@ -21,7 +21,12 @@ router.put("/:email", authMW, async (req, res) => {
     if (!isMember)
         return res.status(400).send({ error: `User is not member of this group`, });
 
-    const updatedGroup = await group.updateOne({ $pull: { members: req.params.email } }, { new: true });
+    const updatedGroup = await Group.findByIdAndUpdate(group._id,
+        {
+            $pull: {
+                members: req.params.email
+            }
+        }, { new: true });
 
     res.status(200).send({
         data: updatedGroup,

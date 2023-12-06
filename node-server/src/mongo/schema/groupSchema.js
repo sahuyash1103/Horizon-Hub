@@ -69,6 +69,13 @@ const groupSchema = new mongoose.Schema({
     messages: {
         type: [messageSchema],
     },
+    lastMessageText: {
+        type: String,
+    },
+    lastMessage: {
+        type: mongoose.Types.ObjectId,
+        ref: "Messages",
+    },
     isBanned: {
         type: Boolean,
         required: false,

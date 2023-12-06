@@ -21,8 +21,20 @@ router.delete('/:id', auth, async (req, res) => {
         res.status(400).send({ message: 'You can\'t leave the group, you are the admin of this group' });
 
     try {
-        const updatedUser = await User.updateOne({ $pull: { groups: group._id } });
-        const updatedGroup = await Group.updateOne({ $pull: { members: user._id } });
+        const updatedUser = await User.findByIdAndUpdate(user._id,
+            {
+                $pull: {
+                    groups: group._id
+                }
+            }, { new: true });
+
+        const updatedGroup = await Group.findByIdAndUpdate(group._id,
+            {
+                $pull: {
+                    members: user._id
+                }
+            }, { new: true });
+            
         res.status(200).json({
             message: 'Group left successfully',
             data: {

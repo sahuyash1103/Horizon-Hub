@@ -15,7 +15,12 @@ router.put("/", auth, upload.single('profilePic'), async (req, res) => {
 
     const profilePicUrl = await storeProfilePic(profilePic, user._id);
 
-    const updatedUSer = await user.updateOne({ $set: { profilePic: profilePicUrl } }, { new: true });
+    const updatedUSer = await User.findByIdAndUpdate(user._id,
+        {
+            $set: {
+                profilePic: profilePicUrl
+            }
+        }, { new: true });
 
     res.status(200).json({
         data: updatedUSer,

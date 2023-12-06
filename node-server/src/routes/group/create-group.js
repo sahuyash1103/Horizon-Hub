@@ -25,7 +25,7 @@ router.post('/', authMW, async (req, res) => {
     })
     try {
         const savedGroup = await group.save();
-        user.updateOne({ $push: { groups: savedGroup._id } })
+        User.findByIdAndUpdate( user._id, { $push: { groups: savedGroup._id } })
         res.status(200).send({
             data: savedGroup,
             message: 'Group created successfully',

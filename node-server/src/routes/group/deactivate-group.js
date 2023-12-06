@@ -17,7 +17,12 @@ router.put("/", authMW, async (req, res) => {
     if (group.admin.toString() != user._id.toString())
         return res.status(400).send("You are not admin of this group");
 
-    const updatedGroup = await group.updateOne({ $set: { isActive: false } }, { new: true });
+    const updatedGroup = await Group.findByIdAndUpdate(group._id,
+        {
+            $set: {
+                isActive: false
+            }
+        }, { new: true });
 
     res.status(200).send({
         data: updatedGroup,

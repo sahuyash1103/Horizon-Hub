@@ -72,7 +72,12 @@ router.put('/member/:email', authMW, async (req, res) => {
     const isMember = await findMemberInGroupMemberList(group, member._id);
     if (isMember) return res.status(400).send(`User is ${isMember.subMessage}`);
 
-    const savedGroup = await group.updateOne({ $push: { members: member._id } }, { new: true });
+    const savedGroup = await Group.findByIdAndUpdate(group._id,
+        {
+            $push: {
+                members: member._id
+            }
+        }, { new: true });
 
     res.status(200).send({
         data: savedGroup,
