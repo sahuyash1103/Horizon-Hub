@@ -3,20 +3,20 @@ const GoogleStrategy = require('passport-google-oauth2').Strategy;
 const GitHubStrategy = require('passport-github2').Strategy;
 const LocalStrategy = require('passport-local').Strategy;
 const User = require("./../mongo/schema/userSchema");
-const { GOOGLE_CLIENT_ID, GOOGLE_CLIENT_SECRET, GITHUB_CLIENT_ID, GITHUB_CLIENT_SECRET } = require("./../utils/get-env");
+const { GOOGLE_CLIENT_ID, GOOGLE_CLIENT_SECRET, GITHUB_CLIENT_ID, GITHUB_CLIENT_SECRET, GOOGLE_CALLBACK_URL, GITHUB_CALLBACK_URL } = require("./../utils/get-env");
 const _ = require("lodash");
 
 // -------------------------PASSPORT CONFIGURATION FOR GOOGLE AUTH
 passport.use(new GoogleStrategy({
     clientID: GOOGLE_CLIENT_ID,
     clientSecret: GOOGLE_CLIENT_SECRET,
-    callbackURL: "http://localhost:3001/api/auth/google/callback",
+    callbackURL: GOOGLE_CALLBACK_URL || "/api/auth/google/callback",
     passReqToCallback: true
 },
     async (request, accessToken, refreshToken, profile, done) => {
-        let user = await User.findOne({ email: profile.email }).select("_id name email profilePic");
+        let user = await User.findOne({ email: profile.email }).select("_id name email profilePic provider");
         if (!user) {
-            user = new User({
+            user = User({
                 name: profile.displayName,
                 email: profile.email,
                 userName: profile.email?.split("@")[0],
@@ -25,6 +25,7 @@ passport.use(new GoogleStrategy({
             })
             await user.save();
         }
+        if (user.provider !== "google") return done(null, false, { message: "Email already registered with another provider." });
         return done(null, _.pick(user, ["_id", "name", "email"]));
     }
 ));
@@ -33,12 +34,19 @@ passport.use(new GoogleStrategy({
 passport.use(new GitHubStrategy({
     clientID: GITHUB_CLIENT_ID,
     clientSecret: GITHUB_CLIENT_SECRET,
-    callbackURL: "http://127.0.0.1:3001/api/auth/github/callback"
+    callbackURL: GITHUB_CALLBACK_URL || "/api/auth/github/callback"
 },
     async function (accessToken, refreshToken, profile, done) {
-        let user = await User.findOne({ email: profile.email || profile.username }).select("_id name email profilePic");
+        let userName = profile.email?.spit("@")[0] || profile.username;
+        let user = await User.findOne(
+            {
+                $or: [
+                    { email: profile.email || userName },
+                    { userName: userName }
+                ]
+            })
+            .select("_id name email profilePic provider");
         if (!user) {
-            userName = profile.email?.spit("@")[0] || profile.username;
             user = new User({
                 name: profile.displayName,
                 email: profile.email || profile.username,
@@ -47,6 +55,7 @@ passport.use(new GitHubStrategy({
             })
             await user.save();
         }
+        if (user.provider !== "github") return done(null, false, { message: "Email already registered with another provider." });
         return done(null, _.pick(user, ["_id", "name", "email"]));
     }
 ));

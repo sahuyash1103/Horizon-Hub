@@ -3,10 +3,15 @@ const {
   SESSION_SECRET,
   CLIENT_URL,
   JWT_PRIVATE_KEY,
+
   GOOGLE_CLIENT_ID,
   GOOGLE_CLIENT_SECRET,
+  GOOGLE_CALLBACK_URL,
+
   GITHUB_CLIENT_ID,
   GITHUB_CLIENT_SECRET,
+  GITHUB_CALLBACK_URL,
+
   FIREBASE_API_KEY,
   FIREBASE_AUTH_DOMAIN,
   FIREBASE_PROJECT_ID,
@@ -78,7 +83,14 @@ function checkEnvironmentVariable() {
     console.log("ERROR: mongo url is not defined.");
     error.push("ERROR: mongo url is not defined.");
   }
-
+  if (!GOOGLE_CALLBACK_URL) {
+    console.log("WARNING: google callback url is not defined.");
+    error.push("WARNING: google callback url is not defined.");
+  }
+  if (!GITHUB_CALLBACK_URL) {
+    console.log("WARNING: github callback url is not defined.");
+    error.push("WARNING: github callback url is not defined.");
+  }
   return error;
 }
 

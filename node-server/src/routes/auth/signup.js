@@ -21,6 +21,7 @@ router.post("/", async (req, res) => {
         userName: req.body.userName || req.body.email.split("@")[0],
         email: req.body.email,
         phone: req.body.phone,
+        provider: "local",
     });
 
     const profilePic = generateAvatarFromName(user.name);
