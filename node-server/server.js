@@ -30,19 +30,6 @@ initFirebase();
 // -------------------------MIDDLEWARES
 const app = express();
 
-app.use(express.json());
-app.use(express.urlencoded({ extended: true }));
-app.use(morgan('tiny'));
-app.use(expressSession(
-  {
-    secret: SESSION_SECRET,
-    resave: false,
-    saveUninitialized: false,
-    cookie: { secure: false, maxAge: 60 * 60 * 24 * 1000 }
-  }
-));
-app.use(passport.initialize());
-app.use(passport.session());
 
 // -------------------------CORS
 const corseOptions = {
@@ -54,13 +41,30 @@ app.use(cors(corseOptions));
 
 //--------------------------SETUP HEADER
 app.use((req, res, next) => {
-  res.header('Access-Control-Allow-Origin', req.headers.origin);
-  res.header('Access-Control-Allow-Credentials', true);
-  res.header('Access-Control-Allow-Methods', 'GET, POST, PUT, DELETE');
-  res.header('Access-Control-Allow-Headers', '*');
-  // console.log(req.headers.origin);
+  res.setHeader('Access-Control-Allow-Origin', req.headers.origin);
+  res.setHeader('Access-Control-Allow-Credentials', true)
+  res.setHeader('Access-Control-Allow-Methods', 'GET,OPTIONS,PATCH,DELETE,POST,PUT')
+  res.setHeader(
+    'Access-Control-Allow-Headers',
+    'X-CSRF-Token, X-Requested-With, Accept, Accept-Version, Content-Length, Content-MD5, Content-Type, Date, X-Api-Version'
+  )
   next();
 });
+
+// OTHER MIDDLEWARES
+app.use(express.json());
+app.use(express.urlencoded({ extended: true }));
+app.use(morgan('tiny'));
+app.use(expressSession(
+  {
+    secret: SESSION_SECRET,
+    resave: false,
+    saveUninitialized: false,
+    cookie: { secure: IS_HTTPS, maxAge: 60 * 60 * 24 * 1000 }
+  }
+));
+app.use(passport.initialize());
+app.use(passport.session());
 
 // -------------------------ROUTES
 app.use("/api/auth/login/", routes.loginRouter);
