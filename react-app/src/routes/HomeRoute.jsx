@@ -59,6 +59,7 @@ function HomeRoute() {
   }, [])
 
   useEffect(() => {
+    if (!token) return;
     connectSocket(token);
     initSocketListners();
     messageListner(setNewMessage);

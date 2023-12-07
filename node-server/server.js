@@ -6,6 +6,7 @@ const cors = require("cors");
 const morgan = require('morgan')
 const passport = require("passport");
 const expressSession = require("express-session");
+const cookieSession = require("cookie-session");
 
 const routes = require("./src/routes/index");
 
@@ -15,6 +16,7 @@ const { initMongo } = require("./src/mongo/index");
 const { initFirebase } = require("./src/firebase/index");
 const { onSocketConnection } = require("./src/socket");
 const authSocketMW = require("./src/middlewares/socket-auth.middleware");
+const helmet = require("helmet");
 
 require("./src/passport/index");
 //-----------------------------------CHECKING ENV VARIABLES
@@ -27,13 +29,23 @@ initMongo();
 // -------------------------FIREBASE CONNECTION
 initFirebase();
 
-// -------------------------MIDDLEWARES
+// -------------------------EXPRESS APP
 const app = express();
+
+// -------------------------MIDDLEWARES
+// -------------------------CORS
+const corseOptions = {
+  credentials: true,
+  origin: ["http://localhost:3000", CLIENT_URL],
+  methods: ["GET", "POST", "PUT", "DELETE"]
+}
+app.use(cors(corseOptions));
 
 app.use(express.json());
 app.use(express.urlencoded({ extended: true }));
 app.use(morgan('tiny'));
-app.use(expressSession(
+app.use(helmet());
+app.use(cookieSession(
   {
     secret: SESSION_SECRET,
     resave: false,
@@ -44,23 +56,16 @@ app.use(expressSession(
 app.use(passport.initialize());
 app.use(passport.session());
 
-// -------------------------CORS
-const corseOptions = {
-  credentials: true,
-  origin: ["http://localhost:3000", CLIENT_URL],
-  methods: ["GET", "POST", "PUT", "DELETE"]
-}
-app.use(cors(corseOptions));
-
 //--------------------------SETUP HEADER
 app.use((req, res, next) => {
-  res.setHeader('Access-Control-Allow-Origin', req.headers.origin || CLIENT_URL);
-  res.setHeader('Access-Control-Allow-Credentials', true)
-  res.setHeader('Access-Control-Allow-Methods', 'GET,OPTIONS,PATCH,DELETE,POST,PUT')
-  res.setHeader(
+  res.header('Access-Control-Allow-Origin', req.headers.origin || CLIENT_URL);
+  res.header('Access-Control-Allow-Credentials', true)
+  res.header('Access-Control-Allow-Methods', 'GET,OPTIONS,PATCH,DELETE,POST,PUT')
+  res.header(
     'Access-Control-Allow-Headers',
-    'X-CSRF-Token, X-Requested-With, Accept, Accept-Version, Content-Length, Content-MD5, Content-Type, Date, X-Api-Version'
-  )
+    'X-CSRF-Token, X-Requested-With, Accept, Accept-Version, Content-Length, Content-MD5, Content-Type, Date, X-Api-Version x-auth-token'
+  )  
+  res.header("Access-Control-Expose-Headers", "x-auth-token");
   console.log(req.headers.origin)
   console.log(CLIENT_URL)
   next();
