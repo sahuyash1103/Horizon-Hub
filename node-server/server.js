@@ -30,28 +30,6 @@ initFirebase();
 // -------------------------MIDDLEWARES
 const app = express();
 
-
-// -------------------------CORS
-const corseOptions = {
-  credentials: true,
-  origin: ["http://localhost:3000", CLIENT_URL],
-  methods: ["GET", "POST", "PUT", "DELETE"]
-}
-app.use(cors(corseOptions));
-
-//--------------------------SETUP HEADER
-app.use((req, res, next) => {
-  res.setHeader('Access-Control-Allow-Origin', req.headers.origin);
-  res.setHeader('Access-Control-Allow-Credentials', true)
-  res.setHeader('Access-Control-Allow-Methods', 'GET,OPTIONS,PATCH,DELETE,POST,PUT')
-  res.setHeader(
-    'Access-Control-Allow-Headers',
-    'X-CSRF-Token, X-Requested-With, Accept, Accept-Version, Content-Length, Content-MD5, Content-Type, Date, X-Api-Version'
-  )
-  next();
-});
-
-// OTHER MIDDLEWARES
 app.use(express.json());
 app.use(express.urlencoded({ extended: true }));
 app.use(morgan('tiny'));
@@ -65,6 +43,29 @@ app.use(expressSession(
 ));
 app.use(passport.initialize());
 app.use(passport.session());
+
+// -------------------------CORS
+const corseOptions = {
+  credentials: true,
+  origin: ["http://localhost:3000", CLIENT_URL],
+  methods: ["GET", "POST", "PUT", "DELETE"]
+}
+app.use(cors(corseOptions));
+
+//--------------------------SETUP HEADER
+app.use((req, res, next) => {
+  res.setHeader('Access-Control-Allow-Origin', req.headers.origin || CLIENT_URL);
+  res.setHeader('Access-Control-Allow-Credentials', true)
+  res.setHeader('Access-Control-Allow-Methods', 'GET,OPTIONS,PATCH,DELETE,POST,PUT')
+  res.setHeader(
+    'Access-Control-Allow-Headers',
+    'X-CSRF-Token, X-Requested-With, Accept, Accept-Version, Content-Length, Content-MD5, Content-Type, Date, X-Api-Version'
+  )
+  console.log(req.headers.origin)
+  console.log(CLIENT_URL)
+  next();
+});
+
 
 // -------------------------ROUTES
 app.use("/api/auth/login/", routes.loginRouter);
