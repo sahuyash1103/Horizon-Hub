@@ -49,5 +49,15 @@ export function messageListner(cbr) {
 
 export function sendTextMessage(text, to) {
     if (!socket) return true;
-    socket.emit("send-message:text", { text, to });
+    socket.emit("send-message:text", { text, to, messageType: "text" });
+}
+
+export function sendImageMessage(text, to) {
+    if (!socket) return true;
+    socket.emit("send-message:file", { text, to, messageType: "image" });
+}
+
+export function sendDocMessage(text, to) {
+    if (!socket) return true;
+    socket.emit("send-message:file", { text, to, messageType: "doc" });
 }

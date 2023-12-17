@@ -1,13 +1,16 @@
 import React from 'react'
 import { MdAdd } from "react-icons/md";
+import { RxCross2 } from "react-icons/rx";
 import { IoSend } from "react-icons/io5";
 import { MdEmojiEmotions } from "react-icons/md";
-import "./MessageBox.css"
 import { sendTextMessage } from './../../socket';
+import "./MessageBox.css"
 
 function MessageBox({ email }) {
   const [message, setMessage] = React.useState('')
-  
+  const [showEmoji, setShowEmoji] = React.useState(false);
+  const [showAdd, setShowAdd] = React.useState(false);
+
   const sendMessageHandler = (e) => {
     e.preventDefault();
     if (message.trim()) {
@@ -17,8 +20,18 @@ function MessageBox({ email }) {
   }
   return (
     <form className="message_box" onSubmit={sendMessageHandler}>
-      <div className='add_icon'>
-        <MdAdd className='icon' />
+      <div className='add_icon' onClick={(e) => setShowAdd(!showAdd)}>
+        {
+          showAdd &&
+          <div className='add_options'>
+            some attetchment options
+          </div>
+        }
+        {
+          showAdd ?
+            <RxCross2 className='icon' /> :
+            <MdAdd className='icon' />
+        }
       </div>
       <div className='input'>
         <div className='emoji_icon' >

@@ -120,7 +120,8 @@
     width: 100%;
 }
 
-.signup_text_field input[isvalid='false']~.success_message {
+.signup_text_field input[isvalid='false']~.success_message,
+.signup_text_field input[value='']~.success_message {
     width: 0;
 }
 

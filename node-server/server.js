@@ -127,6 +127,10 @@ app.get("/api/", (req, res) => {
     .status(200);
 });
 
+app.get('/*', function(req, res){
+  res.status(404).send('ROUTE NOT FOUND');
+});
+
 // -------------------------SETUP SERVER
 const httpServer = http.createServer(app);
 

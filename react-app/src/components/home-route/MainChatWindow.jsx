@@ -19,9 +19,9 @@ function MainChatWindow({ friend, conversationId }) {
         {friendMessages &&
           friendMessages.map((message, index) => {
             const isFriendMessage = message?.sentBy === friend?._id;
-            return isFriendMessage ?
-              <FriendMessage key={index} message={message} /> :
-              <UserMessage key={index} message={message} />
+            return !isFriendMessage ?
+              <UserMessage key={index} message={message} /> :
+              <FriendMessage key={index} message={message} />
           })
         }
         <div id="messages_end" ref={messagesEndRef}></div>

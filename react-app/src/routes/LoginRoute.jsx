@@ -33,15 +33,15 @@ function LoginRoute() {
             _errors.email = 'Email is required';
             isValid = false;
         }
-        if (!_formData.password) {
-            _errors.password = 'Password is required';
-            isValid = false;
-        }
-        if (!regex.email.test(_formData.email)) {
+        else if (!regex.email.test(_formData.email)) {
             _errors.email = 'Invalid email';
             isValid = false;
         }
-        if (!regex.password.test(_formData.password)) {
+        else if (!_formData.password) {
+            _errors.password = 'Password is required';
+            isValid = false;
+        }
+        else if (!regex.password.test(_formData.password)) {
             _errors.password = 'Invalid password';
             isValid = false;
         }

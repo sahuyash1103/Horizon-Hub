@@ -86,7 +86,8 @@
   width: 100%;
 }
 
-.loing_text_field input[isvalid='false']~.success_line {
+.loing_text_field input[isvalid='false']~.success_line,
+.loing_text_field input[value='']~.success_line {
   width: 0;
 }
 

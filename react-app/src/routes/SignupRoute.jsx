@@ -41,47 +41,49 @@ function SignupRoute() {
             _error.name = "Name is required";
             isValid = false;
         }
-        if (!regex.name.test(_formData.name)) {
+        else if (!regex.name.test(_formData.name)) {
             _error.name = "Name is invalid";
             isValid = false;
         }
-        if (!_formData.phone) {
+        else if (!_formData.phone) {
             _error.phone = "Phone number is required";
             isValid = false;
         }
-        if (!regex.phone.test(_formData.phone)) {
+        else if (!regex.phone.test(_formData.phone)) {
             _error.phone = "Phone number is invalid";
             isValid = false;
         }
-        if (!_formData.email) {
+        else if (!_formData.email) {
             _error.email = "Email is required";
             isValid = false;
         }
-        if (!regex.email.test(_formData.email)) {
+        else if (!regex.email.test(_formData.email)) {
             _error.email = "Email is invalid";
             isValid = false;
         }
-        if (!_formData.password) {
-            _error.password = "Password is required";
-            isValid = false;
+        else {
+            if (!_formData.password) {
+                _error.password = "Password is required";
+                isValid = false;
+            }
+            if (!regex.password.test(_formData.password)) {
+                _error.password = "Password is invalid";
+                isValid = false;
+            }
+            if (!_formData.cpassword) {
+                _error.cpassword = "Confirm password is required";
+                isValid = false;
+            }
+            if (!regex.password.test(_formData.cpassword)) {
+                _error.cpassword = "Confirm password is invalid";
+                isValid = false;
+            }
+            if (_formData.password !== _formData.cpassword) {
+                _error.cpassword = "Password and confirm password must be same";
+                isValid = false;
+            }
         }
-        if (!regex.password.test(_formData.password)) {
-            _error.password = "Password is invalid";
-            isValid = false;
-        }
-        if (!_formData.cpassword) {
-            _error.cpassword = "Confirm password is required";
-            isValid = false;
-        }
-        if (!regex.password.test(_formData.cpassword)) {
-            _error.cpassword = "Confirm password is invalid";
-            isValid = false;
-        }
-        if (_formData.password !== _formData.cpassword) {
-            _error.cpassword = "Password and confirm password must be same";
-            isValid = false;
-        }
-        setError(_error);
+        setError({ ..._error });
         return isValid;
     }
 
@@ -104,7 +106,7 @@ function SignupRoute() {
         const res = await signup(formData.name, formData.phone, formData.email, formData.password);
         if (!res || res?.error || !res?.data) {
             console.log("Signup Response: ", res);
-            alert(res|| 'Something went wrong');
+            alert(res || 'Something went wrong');
             return;
         }
         dispatch(setUser(res?.data));
