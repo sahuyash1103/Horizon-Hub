@@ -37,7 +37,6 @@ const app = express();
 const corseOptions = {
   credentials: true,
   origin: ["http://localhost:3000", CLIENT_URL],
-  methods: ["GET", "POST", "PUT", "DELETE"]
 }
 app.use(cors(corseOptions));
 

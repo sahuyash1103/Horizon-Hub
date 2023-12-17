@@ -1,12 +1,15 @@
 import { io } from 'socket.io-client';
-
+import env from "../utils/get-env";
 let socket;
 
 export function connectSocket(token) {
-    socket = io("http://localhost:3001", {
+    socket = io(env.SOCKET_URL, {
         auth: {
             token: token
-        }
+        },
+        extraHeaders: {
+            "ngrok-skip-browser-warning": true
+        },
     });
     return socket;
 }
@@ -15,10 +18,10 @@ export function initSocketListners() {
     if (!socket) return;
 
     socket.on("connect_error", (error) => {
-        console.log('[socket]: ', error);
+        console.log('[socket c]: ', error);
     });
     socket.on("error", (error) => {
-        console.log('[socket]: ', error);
+        console.log('[socket e]: ', error);
     });
 
     socket.on("connect", () => {
