@@ -45,7 +45,7 @@ app.use(express.json());
 app.use(express.urlencoded({ extended: true }));
 app.use(morgan('tiny'));
 app.use(helmet());
-app.use(cookieSession(
+app.use(expressSession(
   {
     secret: SESSION_SECRET,
     resave: false,
