@@ -28,7 +28,7 @@ function HomeRoute() {
 
 
   const getFriendFromConversationId = (conversationId) => {
-    const friend = _.find(friends, ['conversationId', conversationId]);
+    const friend = _.find(friends.friends, ['conversationId', conversationId]);
     return friend;
   }
 
@@ -41,6 +41,7 @@ function HomeRoute() {
     const res = await getMessagesOf(email);
     if (res?.data?.messages) {
       const sortedMessages = orderMessagesByDate(_.map(res?.data?.messages, 'message'));
+      console.log(sortedMessages);
       dispatch(setMessages({ ...messages, [conversationId]: sortedMessages }));
     }
   }
@@ -70,27 +71,28 @@ function HomeRoute() {
     if (newMessage) {
       const message = newMessage?.message;
       const mconversationId = message.conversationId;
-
+      const friendData = getFriendFromConversationId(mconversationId);
       if (messages[mconversationId]) {
         const sortedMessages = orderMessagesByDate([...messages[mconversationId], message]);
         dispatch(setMessages({ ...messages, [mconversationId]: sortedMessages }));
         setNewMessage(null);
       }
-      else {
-        const friend = getFriendFromConversationId(mconversationId);
-        console.log(friend);
-        // fetchMessagesOf(fEmail, mconversationId);
+      if (friendData) {
+        fetchMessagesOf(friendData?.friend?.email, mconversationId);
         // dispatch(setMessages({ ...messages, [mconversationId]: message }));
-        // setNewMessage(null);
+        setNewMessage(null);
+      }
+      else {
+        fetchFriends();
+        setNewMessage(null);
       }
     }
     // eslint-disable-next-line react-hooks/exhaustive-deps
   }, [newMessage])
 
   const updateFriendList = (fr) => {
-    const updatedList = { ...friends, friends: [fr.friends, ...friends.friends] };
+    const updatedList = { ...friends, friends: [...fr.friends] };
     dispatch(setFriends(updatedList));
-    console.log(updatedList);
   }
 
   return (

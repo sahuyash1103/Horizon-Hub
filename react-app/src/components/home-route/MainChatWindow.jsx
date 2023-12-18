@@ -10,16 +10,16 @@ function MainChatWindow({ friend, conversationId }) {
   const friendMessages = messages[conversationId];
 
   React.useEffect(() => {
-    console.log(friendMessages)
     messagesEndRef.current?.scrollIntoView({ behavior: "smooth" })
   }, [friendMessages, messagesEndRef]);
+  
   return (
     <div className='chat_window'>
       <div className="chat_container">
         {friendMessages &&
           friendMessages.map((message, index) => {
-            const isFriendMessage = message?.sentBy === friend?._id;
-            return !isFriendMessage ?
+            const isUserMessage = message?.sentBy !== friend?._id;
+            return isUserMessage ?
               <UserMessage key={index} message={message} /> :
               <FriendMessage key={index} message={message} />
           })

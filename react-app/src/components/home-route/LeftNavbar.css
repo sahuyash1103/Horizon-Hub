@@ -33,6 +33,7 @@
 
 .left_header .nav_icons .icon_area {
   cursor: pointer;
+  position: relative;
 }
 
 .left_header .icon_area .icon {

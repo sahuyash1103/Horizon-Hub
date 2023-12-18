@@ -12,20 +12,22 @@ const joinRoom = (socket, io) => {
 const onSocketConnection = async (io, socket) => {
     console.log(`[Connected] ${socket.user.email}`);
     socket.join(socket.user.email);
+
     const user = await User.findOne({ email: socket.user.email });
     if (!user) return socket.emit("error", { message: "User not found" });
-    if (!user.isOnline) {
-        User.findByIdAndUpdate(user._id, { $set: { isOnline: true } });
-    }
+
+    await User.findByIdAndUpdate(user._id, { $set: { isOnline: true } });
+    console.log(`[Online] ${socket.user.email}`);
 
     sendMessageText(socket, io);
     sendMessageFile(socket, io);
     sendGroupMessageText(socket, io);
     joinRoom(socket, io);
 
-    socket.on('disconnect', () => {
+    socket.on('disconnect', async () => {
         console.log(`[Disconnected] ${socket.user.email}`);
-        User.findByIdAndUpdate(user._id, { $set: { isOnline: false } });
+        console.log(`[Offline] ${socket.user.email}`);
+        await User.findByIdAndUpdate(user._id, { $set: { isOnline: false } })
     });
 }
 

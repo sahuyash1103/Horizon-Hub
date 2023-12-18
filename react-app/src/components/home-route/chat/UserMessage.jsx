@@ -6,7 +6,7 @@ const UserMessageAttetchment = ({ message }) => {
         <div className="attetchment">
             {
                 message?.messageType === 'image' &&
-                <img className='image' src={message.fileURL} />
+                <img className='image' src={message.fileURL} alt='message attetchment' />
             }
             {
                 message?.messageType === 'video' &&

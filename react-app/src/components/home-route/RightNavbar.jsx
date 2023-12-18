@@ -15,7 +15,7 @@ function RightNavbar({ friend }) {
         </div>
         <div className="f_details">
           <h3>{friend?.name}</h3>
-          <p>{friend?.isOnline || 'Offline'}</p>
+          <p>{friend?.isOnline ? 'Online' : 'Offline'}</p>
         </div>
       </div>
       <div className='nav_icons'>

@@ -5,6 +5,7 @@ const instance = axios.create({
     baseURL: getEnv.API_BASE_URL,
     headers: {
         'Content-Type': 'application/json',
+        "ngrok-skip-browser-warning": true
     },
     withCredentials: true, // SESSION COCKIES PASSED
 });

@@ -29,8 +29,10 @@ router.get('/:email', auth, async (req, res) => {
     if (!conversationId)
         return res.status(400).json({ message: 'Conversation not found' });
 
-    let messages = user.messages.filter(message => message.conversationId !== conversationId);
-    let unreadMessages = user.unreadMessages.filter(message => message.conversationId !== conversationId);
+    let messages = user.messages.filter(mdata =>
+        mdata.message.conversationId === conversationId);
+
+    let unreadMessages = user.unreadMessages.filter(mdata => mdata.message.conversationId === conversationId);
 
     res
         .status(200)

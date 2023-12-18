@@ -4,6 +4,7 @@ import { RxCross2 } from "react-icons/rx";
 import { IoSend } from "react-icons/io5";
 import { MdEmojiEmotions } from "react-icons/md";
 import { sendTextMessage } from './../../socket';
+import AttetchmentOptions from './AttetchmentOptions.jsx';
 import "./MessageBox.css"
 
 function MessageBox({ email }) {
@@ -21,12 +22,7 @@ function MessageBox({ email }) {
   return (
     <form className="message_box" onSubmit={sendMessageHandler}>
       <div className='add_icon' onClick={(e) => setShowAdd(!showAdd)}>
-        {
-          showAdd &&
-          <div className='add_options'>
-            some attetchment options
-          </div>
-        }
+        <AttetchmentOptions showAdd={showAdd} />
         {
           showAdd ?
             <RxCross2 className='icon' /> :

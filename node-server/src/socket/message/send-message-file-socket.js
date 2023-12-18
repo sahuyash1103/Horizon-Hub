@@ -56,16 +56,18 @@ const sendMessageFile = (socket, io) => {
                 }
             });
 
-        await User.findByIdAndUpdate(friend._id,
-            {
-                $push: {
-                    unreadMessages: {
-                        message: message._id,
-                        sentBy: socket.user._id,
-                        sentTo: friend._id
+        if (user._id.toString() !== friend._id.toString()) {
+            await User.findByIdAndUpdate(friend._id,
+                {
+                    $push: {
+                        unreadMessages: {
+                            message: message._id,
+                            sentBy: socket.user._id,
+                            sentTo: friend._id
+                        }
                     }
-                }
-            });
+                });
+        }
 
         await User.updateOne(
             {
@@ -80,19 +82,20 @@ const sendMessageFile = (socket, io) => {
             }
         );
 
-        await User.updateOne(
-            {
-                _id: friend._id,
-                [`${subCollection}.friend`]: user._id
-            },
-            {
-                $set: {
-                    [`${subCollection}.$.lastMessage`]: message._id,
-                    [`${subCollection}.$.lastMessageText`]: message.text
+        if (user._id.toString() !== friend._id.toString()) {
+            await User.updateOne(
+                {
+                    _id: friend._id,
+                    [`${subCollection}.friend`]: user._id
+                },
+                {
+                    $set: {
+                        [`${subCollection}.$.lastMessage`]: message._id,
+                        [`${subCollection}.$.lastMessageText`]: message.text
+                    }
                 }
-            }
-        );
-
+            );
+        }
         // if (friend.isOnline) 
         io.to(sendTo).emit("receive-message", { message: message }, async () => {
             const updatedMessage = await Message.findByIdAndUpdate(message._id,
@@ -105,7 +108,8 @@ const sendMessageFile = (socket, io) => {
         });
 
         // if (user.isOnline && (user.email !== friend.email)) 
-        io.to(socket.user.email).emit("receive-message", { message: message });
+        if (user.email !== friend.email)
+            io.to(socket.user.email).emit("receive-message", { message: message });
     });
 };
 

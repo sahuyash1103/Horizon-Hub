@@ -42,13 +42,15 @@ router.put("/", auth, async (req, res) => {
             "name email phone profilePic isOnline lastSeen isDeleted isSuspended isLocked status message sentOn sentBy sentTo messageType isRead"
         );;
 
-    await User.findByIdAndUpdate(friend._id,
-        {
-            $push: {
-                friends: { friend: user._id, conversationId: conversationId }
+    if (friend._id.toString() !== user._id.toString()) {
+        await User.findByIdAndUpdate(friend._id,
+            {
+                $push: {
+                    friends: { friend: user._id, conversationId: conversationId }
+                }
             }
-        }
-    );
+        );
+    }
 
     res.status(200).json({
         data: { friends: updatedUser.friends },

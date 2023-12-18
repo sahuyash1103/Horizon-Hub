@@ -1,13 +1,21 @@
 import React from 'react'
 import defaultPic from './../../assets/images/defaultPic.png';
-import { CommunityIcon, StatusIcon, ChannelIcon, NewChatIcon, MoreVertIcon } from './../../assets/svgs/'
-import "./LeftNavbar.css"
 import { addFriend } from './../../axios/api/friends/friendFeatures.req';
 import PopupNewChat from './../Popups';
+import MenuOptions from './MenuOptions';
+import {
+  CommunityIcon,
+  StatusIcon,
+  ChannelIcon,
+  NewChatIcon,
+  MoreVertIcon
+} from './../../assets/svgs/'
+import "./LeftNavbar.css"
 
 function LeftNavbar({ profile, updateFriendList }) {
   const [showPopup, setShowPopup] = React.useState(false);
   const [email, setEmail] = React.useState("");
+  const [showMenu, setShowMenu] = React.useState(false);
   const newChatHandler = async (e) => {
     e.preventDefault();
     if (email) {
@@ -47,8 +55,9 @@ function LeftNavbar({ profile, updateFriendList }) {
         <div className='icon_area' onClick={() => setShowPopup(true)}>
           <NewChatIcon className='icon' />
         </div>
-        <div className='icon_area'>
+        <div className='icon_area' onClick={() => setShowMenu(!showMenu)}>
           <MoreVertIcon className='icon' />
+            <MenuOptions showMenu={showMenu}/>
         </div>
       </div>
     </div >
