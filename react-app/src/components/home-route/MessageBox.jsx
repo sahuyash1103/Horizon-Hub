@@ -7,7 +7,7 @@ import { sendTextMessage } from './../../socket';
 import AttetchmentOptions from './AttetchmentOptions.jsx';
 import "./MessageBox.css"
 
-function MessageBox({ email }) {
+function MessageBox({ email, onAddAttachments }) {
   const [message, setMessage] = React.useState('')
   const [showEmoji, setShowEmoji] = React.useState(false);
   const [showAdd, setShowAdd] = React.useState(false);
@@ -22,7 +22,7 @@ function MessageBox({ email }) {
   return (
     <form className="message_box" onSubmit={sendMessageHandler}>
       <div className='add_icon' onClick={(e) => setShowAdd(!showAdd)}>
-        <AttetchmentOptions showAdd={showAdd} />
+        <AttetchmentOptions showAdd={showAdd} onAddAttachments={onAddAttachments}/>
         {
           showAdd ?
             <RxCross2 className='icon' /> :

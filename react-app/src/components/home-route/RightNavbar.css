@@ -47,7 +47,7 @@
 .right_header .f_details p {
   font-size: 15px;
   font-weight: 400;
-  color: #000;
+  color: #363636;
 }
 
 
@@ -63,14 +63,14 @@
 }
 
 .right_header .icon_area .icon {
-  color: #000;
+  color: #363636;
   height: 25px;
   width: 25px;
   margin: 5px;
 }
 
 .right_header .icon_area .icon.disabled {
-  color: gray;
+  color: #363636;
   height: 25px;
   width: 25px;
   margin: 5px;

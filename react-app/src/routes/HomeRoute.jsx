@@ -12,6 +12,7 @@ import MessageBox from './../components/home-route/MessageBox';
 import { connectSocket, initSocketListners, messageListner } from './../socket';
 import _ from 'lodash';
 import "./../styles/HomeRoute.css"
+import AttachmentWindow from '../components/home-route/chat/AttachmentWindow';
 
 const orderMessagesByDate = (messages) => {
   const sortedMessages = _.orderBy(messages, 'sentOn', ['asc']);
@@ -25,7 +26,8 @@ function HomeRoute() {
   const [conversationId, setconversationId] = useState(null);
   const [newMessage, setNewMessage] = useState(null);
   const dispatch = useDispatch();
-
+  const [isAttaching, setisAttaching] = useState(false);
+  const [attachments, setattachments] = useState([]);
 
   const getFriendFromConversationId = (conversationId) => {
     const friend = _.find(friends.friends, ['conversationId', conversationId]);
@@ -114,7 +116,10 @@ function HomeRoute() {
               friend={selectedFriend}
               conversationId={conversationId}
             />
-            <MessageBox email={selectedFriend?.email} />
+            {
+              isAttaching && <AttachmentWindow/>
+            }
+            <MessageBox email={selectedFriend?.email} onAddAttachments={setisAttaching} />
           </>
           :
           <div className="no_chat_selected">

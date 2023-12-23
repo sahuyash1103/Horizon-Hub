@@ -6,7 +6,7 @@
   height: 65px;
   background: #ededed;
   padding: 0 10px;
-  border-right: 1px solid #ccc;
+  /* border-right: 1px solid #ccc; */
 }
 
 .left_header .Profile_pic {
@@ -37,7 +37,7 @@
 }
 
 .left_header .icon_area .icon {
-  color: #000;
+  color: #363636;
   height: 30px;
   width: 30px;
   margin: 5px;
