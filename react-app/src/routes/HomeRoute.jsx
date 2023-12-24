@@ -12,7 +12,7 @@ import MessageBox from './../components/home-route/MessageBox';
 import { connectSocket, initSocketListners, messageListner } from './../socket';
 import _ from 'lodash';
 import "./../styles/HomeRoute.css"
-import AttachmentWindow from '../components/home-route/chat/AttachmentWindow';
+import AttachmentPreviewWindow from '../components/home-route/chat/AttachmentWindow';
 
 const orderMessagesByDate = (messages) => {
   const sortedMessages = _.orderBy(messages, 'sentOn', ['asc']);
@@ -25,9 +25,8 @@ function HomeRoute() {
   const [selectedFriend, setSelectedFriend] = useState(null);
   const [conversationId, setconversationId] = useState(null);
   const [newMessage, setNewMessage] = useState(null);
+  const [attachments, setAttachments] = useState([]);
   const dispatch = useDispatch();
-  const [isAttaching, setisAttaching] = useState(false);
-  const [attachments, setattachments] = useState([]);
 
   const getFriendFromConversationId = (conversationId) => {
     const friend = _.find(friends.friends, ['conversationId', conversationId]);
@@ -43,7 +42,6 @@ function HomeRoute() {
     const res = await getMessagesOf(email);
     if (res?.data?.messages) {
       const sortedMessages = orderMessagesByDate(_.map(res?.data?.messages, 'message'));
-      console.log(sortedMessages);
       dispatch(setMessages({ ...messages, [conversationId]: sortedMessages }));
     }
   }
@@ -54,9 +52,11 @@ function HomeRoute() {
     setSelectedFriend(friendDetails);
     setconversationId(conversationId);
     fetchMessagesOf(friendDetails?.email, conversationId)
+    setAttachments([]);
   }
 
   useEffect(() => {
+    document.title = 'ChitChat | Home';
     fetchFriends();
     // eslint-disable-next-line react-hooks/exhaustive-deps
   }, [])
@@ -104,7 +104,6 @@ function HomeRoute() {
         <SearchBar />
         <FriendsList
           friends={friends}
-          unreadMessages={"1"}
           onSelectFriend={onSelectFriendHandler}
         />
       </div>
@@ -117,9 +116,14 @@ function HomeRoute() {
               conversationId={conversationId}
             />
             {
-              isAttaching && <AttachmentWindow/>
+              attachments.length > 0 &&
+              <AttachmentPreviewWindow
+                email={selectedFriend?.email}
+                attachments={attachments}
+                setAttachments={setAttachments}
+              />
             }
-            <MessageBox email={selectedFriend?.email} onAddAttachments={setisAttaching} />
+            <MessageBox email={selectedFriend?.email} addAttachments={setAttachments} />
           </>
           :
           <div className="no_chat_selected">

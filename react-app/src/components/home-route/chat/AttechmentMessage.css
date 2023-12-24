@@ -1,0 +1,75 @@
+.attechment_image {
+    border-radius: 10px;
+    background-color: rgba(228, 228, 228, 1);
+    overflow: hidden;
+    height: 300px;
+}
+
+.attechment_doc {
+    border-radius: 10px;
+    background-color: rgba(228, 228, 228, 1);
+    overflow: hidden;
+    height: 75px;
+    width: 200px;
+    display: flex;
+    justify-content: space-between;
+    align-items: center;
+}
+
+.attechment_doc .doc_icon {
+    width: 50px;
+    height: 50px;
+    overflow: hidden;
+    background-color: #813eb6;
+    border-radius: 50%;
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    margin: 5px 15px;
+}
+
+.attechment_doc .doc_icon .icon {
+    font-size: 36px;
+    color: #eee9f2;
+}
+
+.attechment_doc .download_icon {
+    width: 50px;
+    height: 50px;
+    overflow: hidden;
+    background-color: #813eb6;
+    border-radius: 50%;
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    margin: 5px 15px;
+    cursor: pointer;
+}
+
+.attechment_doc .download_icon .icon {
+    font-size: 30px;
+    color: #eee9f2;
+}
+
+.attechment_container {
+    position: relative;
+}
+
+.attechment_container .image_download_icon {
+    position: absolute;
+    display: none;
+    top: 0;
+    right: 0;
+    width: 25px;
+    height: 25px;
+    margin: 10px;
+    padding: 5px;
+    color: #eee9f2;
+    background-color: rgba(27, 19, 33, 0.5);
+    border-radius: 50%;
+    cursor: pointer;
+}
+
+.attechment_container:hover .image_download_icon {
+    display: flex;
+}

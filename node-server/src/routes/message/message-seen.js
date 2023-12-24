@@ -29,7 +29,14 @@ router.get('/:mid', async (req, res) => {
         {
             $pull: { unreadMessages: readMessage },
             $push: { messages: readMessage }
-        });
+        }
+    );
+
+    await User.findOneAndUpdate({ _id: user._id, "friends.friend": message.sentBy },
+        {
+            $inc: { "friends.$.unreadMessages": -1 },
+        }
+    );
 
     res
         .status(200)

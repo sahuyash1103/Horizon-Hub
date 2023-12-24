@@ -90,6 +90,9 @@ const sendMessageText = (socket, io) => {
                     $set: {
                         [`${subCollection}.$.lastMessage`]: message._id,
                         [`${subCollection}.$.lastMessageText`]: message.text
+                    },
+                    $inc: {
+                        [`${subCollection}.$.unreadMessages`]: 1
                     }
                 }
             );

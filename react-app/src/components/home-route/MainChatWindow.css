@@ -1,6 +1,6 @@
 .chat_window {
   width: 100%;
-  height: calc(96vh - 60px - 65px);
+  height: calc(96vh - 60px - 60px);
 }
 
 .chat_container {
@@ -11,6 +11,20 @@
   flex-direction: column;
   justify-content: flex-start;
   overflow-y: scroll;
+}
+
+.date_divider {
+  display: flex;
+  justify-content: center;
+  align-items: center;
+  justify-self: center;
+  align-self: center;
+  margin: 10px 5px;
+  padding: 5px 10px;
+  border-radius: 5px;
+  background-color: #ededed;
+  color: #444;
+  font-size: 18px;
 }
 
 /* style scroll bar */

@@ -1,10 +1,11 @@
 import React from 'react'
 import defaultPic from './../../assets/images/defaultPic.png';
 import { FaChevronDown } from "react-icons/fa";
-import "./FriendsList.css"
 import { fromateTime } from './../../utils/formators';
+import { NewChatIcon } from './../../assets/svgs/'
+import "./FriendsList.css"
 
-const FriendListTile = ({ friend, unreadMessages, onClick }) => {
+const FriendListTile = ({ friend, onClick }) => {
   const friendDetails = friend?.friend;
   const { lastMessage } = friend;
   return (
@@ -22,7 +23,10 @@ const FriendListTile = ({ friend, unreadMessages, onClick }) => {
         </div>
         <div className="sub_heading">
           <p>{friend?.lastMessageText || "No conversation yet"}</p>
-          <span className='unread_count'>{unreadMessages}</span>
+          {
+            friend?.unreadMessages > 0 &&
+            <span className='unread_count'>{friend?.unreadMessages}</span>
+          }
           <FaChevronDown className='options_icon' />
         </div>
       </div>
@@ -30,15 +34,23 @@ const FriendListTile = ({ friend, unreadMessages, onClick }) => {
   )
 }
 
-function FriendsList({ friends, unreadMessages, onSelectFriend }) {
+function FriendsList({ friends, onSelectFriend }) {
   return (
     <div className="friend_list">
-      {
-        friends?.friends?.map((friend, i) => (
-          <FriendListTile key={i} friend={friend} unreadMessages={unreadMessages}
+      {friends?.friends?.length > 0 ?
+        friends.friends.map((friend, i) => (
+          <FriendListTile key={i} friend={friend}
             onClick={() => onSelectFriend(friend)}
           />
-        ))
+        )) :
+        <div className="no_friends">
+          <h3>No friends yet</h3>
+          <p>
+            Click on
+            <NewChatIcon className='icon' />
+            to add friends and start chating
+          </p>
+        </div>
       }
     </div>
   )

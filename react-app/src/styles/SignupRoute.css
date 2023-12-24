@@ -26,14 +26,12 @@
     flex-direction: column;
     justify-content: center;
     align-items: center;
-    margin-top: 75px;
+    margin-top: 25px;
 }
 
 
 .signup_logo_container .logo {
-    margin: 10px;
-    font-size: 160px;
-    color: #570082;
+    width: 100%;
 }
 
 .signup_logo_container #signup_page_title {

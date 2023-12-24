@@ -2,14 +2,16 @@ const User = require("./../../mongo/schema/userSchema");
 const Message = require("./../../mongo/schema/messageSchema");
 const Group = require("./../../mongo/schema/groupSchema");
 const findFriendInUserSubCollection = require("./../../utils/find-friend-in-user");
+const { storeMessageDoc } = require("./../../firebase/storage/storage");
 
 const sendMessageFile = (socket, io) => {
     socket.on("send-message:file", async (data) => {
         const sendTo = data.to;
         const text = data.text;
         const messageType = data.messageType;
+        const file = data.file;
 
-        if (!sendTo || !text)
+        if (!sendTo || !file || file.iseEmpty)
             return socket.emit("error", { message: "Invalid data" });
 
         const user = await User.findOne({ email: socket.user.email });
@@ -43,6 +45,10 @@ const sendMessageFile = (socket, io) => {
             isForwarded: false,
         });
 
+        const docUrl = await storeMessageDoc(file, message.conversationId, message._id);
+        if (!docUrl) return socket.emit('error', "Error while uploading images.");
+
+        message.fileUrl = docUrl;
         await message.save();
 
         await User.findByIdAndUpdate(user._id,
@@ -55,6 +61,9 @@ const sendMessageFile = (socket, io) => {
                     }
                 }
             });
+
+        let by = message.sentBy.toString() === user._id.toString() ? "You:" : "";
+        let lastMessageText = message.text || `${by} ${message.messageType}`;
 
         if (user._id.toString() !== friend._id.toString()) {
             await User.findByIdAndUpdate(friend._id,
@@ -77,7 +86,7 @@ const sendMessageFile = (socket, io) => {
             {
                 $set: {
                     [`${subCollection}.$.lastMessage`]: message._id,
-                    [`${subCollection}.$.lastMessageText`]: message.text
+                    [`${subCollection}.$.lastMessageText`]: lastMessageText
                 }
             }
         );
@@ -91,7 +100,10 @@ const sendMessageFile = (socket, io) => {
                 {
                     $set: {
                         [`${subCollection}.$.lastMessage`]: message._id,
-                        [`${subCollection}.$.lastMessageText`]: message.text
+                        [`${subCollection}.$.lastMessageText`]: lastMessageText
+                    },
+                    $inc: {
+                        [`${subCollection}.$.unreadMessages`]: 1
                     }
                 }
             );

@@ -1,55 +1,190 @@
-.attachment{
+.attachment_window {
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+    justify-content: space-evenly;
     width: 100%;
-    height:  calc(96vh - 60px - 65px);
-    background-color: #9e7bb5;
-    background: -webkit-linear-gradient(to right, #9e7bb5, #654ea3);  /* Chrome 10-25, Safari 5.1-6 */
-    background: linear-gradient(to right, #9e7bb5, #654ea3); /* W3C, IE 10+/ Edge, Firefox 16+, Chrome 26+, Opera 12+, Safari 7+ */
-
+    height: calc(96vh - 60px);
     position: absolute;
-    margin-top: 65px;
+    top: 60px;
+    left: 0;
+    z-index: 10;
+    background-color: #9e7bb5;
+    background: -webkit-linear-gradient(to right, #9e7bb5, #654ea3);
+    /* Chrome 10-25, Safari 5.1-6 */
+    background: linear-gradient(to right, #9e7bb5, #654ea3);
+    /* W3C, IE 10+/ Edge, Firefox 16+, Chrome 26+, Opera 12+, Safari 7+ */
 }
 
-.cross{
-    height: 35px;
-    width: 35px;
-    color: #fff;
-    position: absolute;
-    top: 0;
-    right: 0;
-    margin-top: 5px;
+.attachment_window .attechment_options {
+    width: 100%;
+    height: 50px;
+    display: flex;
+    align-items: center;
+    justify-content: space-between;
+    /* background-color: #654ea3; */
+    padding: 2px 10px;
+}
+
+.attachment_window .close_icon {
+    margin: 2px;
     cursor: pointer;
 }
 
-.image{
-    background-color: #fff;
-    width: 50%;
-    height: 50%;
-    position: relative;
-    top: 40%;
-    left: 50%;
-    transform: translate(-50%,-50%);
-    background-image: url(https://4kwallpapers.com/images/walls/thumbs_2t/4584.png);
+.attachment_window .close_icon .icon {
+    height: 35px;
+    width: 35px;
+    color: #fff;
 }
 
-.options{
+.attachment_window .preview_img {
     display: flex;
     align-items: center;
-    width: 50%;
-    height: 20%;
-    margin-top: 13%;
-    margin-left: 25%;
-}
-
-.image-options{
+    justify-content: center;
     width: 100%;
-    height: 100%;
-    background-color: #ededed;
-    margin: 10px;
+    height: calc(96vh - 60px - 50px - 120px - 40px - 20px);
+    max-height: 50vh
+        /* background-color: #fff; */
+    ;
 }
 
-.plus{
-    width: 50px;
-    height: 50px;
-    margin: 30px 0 0 20px;
+/* fit the parent div  */
+.attachment_window .preview_img img {
+    max-width: 100%;
+    max-height: 100%;
+}
+
+.attachment_window .text_box {
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    width: 60%;
+    height: 60px;
+    /* background: var(--second-color); */
+}
+
+.attechment_caption_input {
+    height: 40px;
+    width: 60%;
+    margin: 10px 5px;
+    border-radius: 10px;
+    box-shadow: rgba(0, 0, 0, 0.24) 0px 3px 8px;
+    display: flex;
+    gap: 10px;
+    justify-content: center;
+    align-items: center;
+    padding: 1px 10px;
+    background: #fff;
+}
+
+.attechment_caption_input input {
+    width: 100%;
+    font-size: 18px;
+    border: none;
+    outline: none;
+    background: none;
+}
+
+
+.attechment_caption_input .emoji_icon {
+    cursor: pointer;
+    margin: 5px;
+}
+
+.attechment_caption_input .emoji_icon .icon {
     color: #363636;
+    font-size: 20px;
+}
+
+.attechment_caption_input .mic_icon {
+    cursor: pointer;
+    margin: 5px;
+}
+
+.attechment_caption_input .mic_icon .icon {
+    color: #363636;
+    font-size: 22px;
+}
+
+.attachment_window .send_icon {
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    cursor: pointer;
+    /* background-color: #9e7bb5; */
+    border-radius: 10px;
+    align-self: flex-end;
+    margin-right: 20px;
+    margin-bottom: 20px;
+}
+
+.attachment_window .send_icon .icon {
+    /* color: #363636; */
+    color: #fff;
+    font-size: 28px;
+    margin: 5px;
+}
+
+.attechments_list {
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    gap: 25px;
+    width: 100%;
+    height: 120px;
+    overflow-x: scroll;
+    overflow-y: hidden;
+}
+
+.attachment_img,
+.attachment_img_add {
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    overflow: hidden;
+    border-radius: 8px;
+    width: 90px;
+    height: 90px;
+    background-color: #9e7bb5;
+    cursor: pointer;
+}
+
+.attachment_img.active {
+    background-color: #654ea3;
+    scale: 1.1;
+}
+
+.attachment_img:hover {
+    background-color: rgba(101, 78, 163, 0.3);
+    zoom: 110%;
+}
+
+.attachment_img img {
+    min-width: 100%;
+    min-height: 100%;
+}
+
+.attachment_img_add {
+    background-color: rgba(101, 78, 163, 0.5);
+}
+
+.attachment_img_add:hover {
+    background-color: rgba(101, 78, 163, 0.8);
+    zoom: 110%;
+}
+
+.add_more_files {
+    font-size: 22px;
+    color: #fff;
+}
+
+/* style scroll bar */
+.attechments_list::-webkit-scrollbar {
+    width: 5px;
+}
+
+/* style the thumb */
+.attechments_list::-webkit-scrollbar-thumb {
+    background: #ededed;
+    /* border-radius: 10px; */
 }

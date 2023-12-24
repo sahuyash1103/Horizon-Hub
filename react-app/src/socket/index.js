@@ -52,12 +52,12 @@ export function sendTextMessage(text, to) {
     socket.emit("send-message:text", { text, to, messageType: "text" });
 }
 
-export function sendImageMessage(text, to) {
+export function sendImageMessage(to, text, file) {
     if (!socket) return true;
-    socket.emit("send-message:file", { text, to, messageType: "image" });
+    socket.emit("send-message:file", { to, text, file, messageType: "image" });
 }
 
-export function sendDocMessage(text, to) {
+export function sendDocMessage(to, text, file) {
     if (!socket) return true;
-    socket.emit("send-message:file", { text, to, messageType: "doc" });
+    socket.emit("send-message:file", { to, text, file, messageType: "doc" });
 }

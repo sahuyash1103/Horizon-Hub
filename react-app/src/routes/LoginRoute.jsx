@@ -5,7 +5,7 @@ import { FcGoogle } from "react-icons/fc";
 import { BsGithub } from "react-icons/bs";
 import { BsInfoCircle } from "react-icons/bs";
 import { FaLock } from "react-icons/fa";
-import { IoChatbubble } from "react-icons/io5";
+import { AppLogo } from '../assets/svgs';
 import { googleAuth, login, githubAuth, getToken } from './../axios/api/auth/auth.req';
 import { setToken, setTokenValid, setUser, setKeepLoggedIn as setLoggedin } from './../redux-toolkit/reducers/auth';
 import { Link, useNavigate, useLocation } from 'react-router-dom';
@@ -104,6 +104,7 @@ function LoginRoute() {
     }
 
     useEffect(() => {
+        document.title = 'ChitChat | Login';
         isLoggedin();
         // eslint-disable-next-line react-hooks/exhaustive-deps
     }, []);
@@ -197,7 +198,7 @@ function LoginRoute() {
             </div>
             <div className="login_logo_container">
                 <div className="logo_content">
-                    <IoChatbubble className="logo" />
+                    <AppLogo className="logo" />
                     <h2 id="login_page_title">ChitChat</h2>
                     <h3 id="login_page_sub_title">Connect and Communicate</h3>
                 </div>

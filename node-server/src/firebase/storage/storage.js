@@ -26,10 +26,12 @@ async function storeMessageImage(file, cId, mId) {
 
 async function storeMessageDoc(file, cId, mId) {
     const storageFB = getStorage();
-    const fileExt = file.originalname?.split('.').pop() || 'txt';
+    const fileExt = file.originalname?.split('.').pop() || file.name?.split('.').pop() || 'txt';
     const fileName = `files/doc/${cId}/${mId}.${fileExt}`;
-    const storageRef = ref(storageFB, fileName)
-    console.log(fileExt);
+    const storageRef = ref(storageFB, fileName);
+    const metadata = {
+    }
+
     const uploadTask = await uploadBytesResumable(storageRef, file.buffer, metadata);
     return getDownloadURL(uploadTask.ref);
 }

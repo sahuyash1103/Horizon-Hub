@@ -2,6 +2,7 @@
     display: flex;
     position: relative;
     align-self: flex-end;
+    flex-direction: column;
     max-width: 65%;
     background-color: #eee9f2;
     border-radius: 10px;
@@ -19,10 +20,18 @@
     background: linear-gradient(135deg, #eee9f2 0%, #eee9f2 50%, transparent 50%, transparent);
 }
 
+.user_message .content {
+    display: flex;
+    width: 100%;
+    justify-content: space-between;
+    align-items: center;
+}
+
 .user_message p {
     color: #333;
     font-size: 16px;
     user-select: text;
+    margin-right: 5px;
 }
 
 .user_message span {

@@ -22,6 +22,10 @@ const friendSchema = new mongoose.Schema({
   lastMessageText: {
     type: String,
   },
+  unreadMessages: {
+    type: Number,
+    default: 0,
+  },
 });
 
 const messageSchema = new mongoose.Schema({

@@ -1,12 +1,12 @@
 import React, { useState, useEffect } from 'react'
 import { useDispatch } from 'react-redux';
-import { IoChatbubble } from "react-icons/io5";
 import { BsInfoCircle } from "react-icons/bs";
 import { SiGmail } from "react-icons/si";
 import { FaLock } from "react-icons/fa";
 import { FaUser } from "react-icons/fa";
 import { FaMobile } from "react-icons/fa6";
 import { signup, getToken } from './../axios/api/auth/auth.req';
+import { AppLogo } from '../assets/svgs';
 import { setToken, setTokenValid, setUser, setKeepLoggedIn as setLoggedin } from './../redux-toolkit/reducers/auth';
 import { Link, useLocation, useNavigate } from 'react-router-dom';
 import "./../styles/SignupRoute.css"
@@ -133,6 +133,7 @@ function SignupRoute() {
     }
 
     useEffect(() => {
+        document.title = 'ChitChat | Signup';
         isLoggedin();
         // eslint-disable-next-line react-hooks/exhaustive-deps
     }, []);
@@ -141,7 +142,7 @@ function SignupRoute() {
         <div className='signup_container'>
             <div className="signup_logo_container">
                 <div className="logo_content">
-                    <IoChatbubble className="logo" />
+                    <AppLogo className="logo" />
                     <h2 id='signup_page_title'>ChitChat</h2>
                     <h3 id='signup_page_sub_title'>Connect and Communicate</h3>
                 </div>

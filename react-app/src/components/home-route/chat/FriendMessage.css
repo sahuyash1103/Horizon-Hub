@@ -2,6 +2,7 @@
     display: flex;
     position: relative;
     align-self: flex-start;
+    flex-direction: column;
     max-width: 65%;
     background: linear-gradient(135deg, #813eb6 5%, #b476ee 100%);
     background-color: #eee9f2;
@@ -20,10 +21,18 @@
     background: linear-gradient(225deg, #813eb6 0%, #813eb6 50%, transparent 50%, transparent);
 }
 
+.friend_message .content {
+    display: flex;
+    width: 100%;
+    justify-content: space-between;
+    align-items: center;
+}
+
 .friend_message p {
     color: #fff;
     font-size: 16px;
     user-select: text;
+    margin-right: 5px;
 }
 
 .friend_message span {

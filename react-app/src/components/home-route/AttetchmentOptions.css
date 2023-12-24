@@ -36,3 +36,7 @@
 .attetchment_options_container .attetchment_options:hover {
     background-color: #ededed;
 }
+
+.file_input {
+    display: none;
+}

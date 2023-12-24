@@ -15,11 +15,17 @@
   margin-left: 10px;
   cursor: pointer;
   transition: 0.5s;
+  z-index: 5;
 }
 
 .add_icon .icon {
   font-size: 30px;
   color: #363636;
+  transition: 0.25s;
+}
+
+.add_icon .icon.clicked {
+  transform: rotate(-135deg);
 }
 
 .message_box .input {
@@ -44,22 +50,32 @@
   background: none;
 }
 
-.emoji_icon {
+.message_box .emoji_icon {
   cursor: pointer;
   margin: 5px;
 }
 
-.emoji_icon .icon {
+.message_box .emoji_icon .icon {
   color: #363636;
   font-size: 20px;
 }
 
-.send_icon {
+.message_box .mic_icon {
+  cursor: pointer;
+  margin: 5px;
+}
+
+.message_box .mic_icon .icon {
+  color: #363636;
+  font-size: 22px;
+}
+
+.message_box .send_icon {
   cursor: pointer;
   margin: 20px;
 }
 
-.send_icon .icon {
+.message_box .send_icon .icon {
   color: #363636;
   font-size: 28px;
 }

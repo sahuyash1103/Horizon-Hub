@@ -3,6 +3,8 @@ const GoogleStrategy = require('passport-google-oauth2').Strategy;
 const GitHubStrategy = require('passport-github2').Strategy;
 const LocalStrategy = require('passport-local').Strategy;
 const User = require("./../mongo/schema/userSchema");
+const { generateAvatarFromName } = require("./../utils/generate-avatar");
+const { storeProfilePic } = require("./../firebase/storage/storage");
 const { GOOGLE_CLIENT_ID, GOOGLE_CLIENT_SECRET, GITHUB_CLIENT_ID, GITHUB_CLIENT_SECRET, GOOGLE_CALLBACK_URL, GITHUB_CALLBACK_URL } = require("./../utils/get-env");
 const _ = require("lodash");
 
@@ -20,9 +22,14 @@ passport.use(new GoogleStrategy({
                 name: profile.displayName,
                 email: profile.email,
                 userName: profile.email?.split("@")[0],
-                profilePic: profile.picture,
                 provider: "google",
             })
+
+            const profilePic = generateAvatarFromName(user.name);
+            const profilePicUrl = await storeProfilePic(profilePic, user._id);
+
+            user.profilePic = profilePicUrl;
+
             await user.save();
         }
         if (user.provider !== "google") return done(null, false, { message: "Email already registered with another provider." });
@@ -53,6 +60,12 @@ passport.use(new GitHubStrategy({
                 userName: userName,
                 provider: "github",
             })
+
+            const profilePic = generateAvatarFromName(user.name);
+            const profilePicUrl = await storeProfilePic(profilePic, user._id);
+
+            user.profilePic = profilePicUrl;
+
             await user.save();
         }
         if (user.provider !== "github") return done(null, false, { message: "Email already registered with another provider." });

@@ -287,13 +287,11 @@
   flex-direction: column;
   justify-content: center;
   align-items: center;
-  margin-top: 75px;
+  margin-top: 25px;
 }
 
 .login_logo_container .logo {
-  margin: 10px;
-  font-size: 160px;
-  color: #570082;
+  width: 100%;
 }
 
 .login_logo_container #login_page_title {

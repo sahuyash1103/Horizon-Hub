@@ -1,13 +1,20 @@
 import { fromateTime } from './../../../utils/formators';
+import MessageAttetchment from './AttechmentMessage';
 import "./FriendMessage.css"
 
 function FriendMessage({ message }) {
     return (
         <div className="friend_message">
-            <p>
-                {message?.text}
-            </p>
-            <span>{fromateTime(message?.sentOn)}</span>
+            {
+                message?.messageType !== 'text' &&
+                <MessageAttetchment message={message} />
+            }
+            <div className="content">
+                <p>
+                    {message?.text}
+                </p>
+                <span>{fromateTime(message?.sentOn)}</span>
+            </div>
         </div>
     )
 }

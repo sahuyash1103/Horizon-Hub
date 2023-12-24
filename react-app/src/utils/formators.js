@@ -1,19 +1,26 @@
 
 export const fromateTime = (time) => {
-    const nowDate = new Date();
     const date = new Date(time);
     const hours = date.getHours();
     const minutes = date.getMinutes();
     const ampm = hours >= 12 ? "PM" : "AM";
 
-    if (nowDate.getDate() === date.getDate()) {
-        return `${hours}:${minutes} ${ampm}`;
+    return `${hours}:${minutes} ${ampm}`;
+}
+
+export const fromateDate = (time) => {
+    const nowDate = new Date();
+    const date = new Date(time);
+
+    if (nowDate.getDate() === date.getDate()
+        && nowDate.getMonth() === date.getMonth()
+        && nowDate.getFullYear() === date.getFullYear()) {
+        return `Today`;
     }
-    if (nowDate.getDate() - 1 === date.getDate()) {
+    if (nowDate.getDate() - 1 === date.getDate()
+        && nowDate.getMonth() === date.getMonth()
+        && nowDate.getFullYear() === date.getFullYear()) {
         return `Yesterday`;
     }
-    if (nowDate.getFullYear() === date.getFullYear()) {
-        return `${date.getDate()}/${date.getMonth() + 1}/${date.getFullYear()}`;
-    }
-    return `${hours}:${minutes} ${ampm}`;
+    return date.toDateString();
 }
