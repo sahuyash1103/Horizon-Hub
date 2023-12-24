@@ -11,8 +11,10 @@ import MainChatWindow from './../components/home-route/MainChatWindow';
 import MessageBox from './../components/home-route/MessageBox';
 import { connectSocket, initSocketListners, messageListner } from './../socket';
 import _ from 'lodash';
-import "./../styles/HomeRoute.css"
 import AttachmentPreviewWindow from '../components/home-route/chat/AttachmentWindow';
+import { AppLogo } from '../assets/svgs';
+// import appLogo from './../assets/images/logo.png';
+import "./../styles/HomeRoute.css"
 
 const orderMessagesByDate = (messages) => {
   const sortedMessages = _.orderBy(messages, 'sentOn', ['asc']);
@@ -127,8 +129,12 @@ function HomeRoute() {
           </>
           :
           <div className="no_chat_selected">
+            <AppLogo className="logo" />
+            {/* <img src={appLogo} alt="logo" className='logo'/> */}
             <h1>Click on a friend to start chatting</h1>
-            <p>sayma come up with an inovative design to fill this screen, please!</p>
+            <p>
+              This is the beta version of ChitChat. 
+            </p>
           </div>
         }
       </div>

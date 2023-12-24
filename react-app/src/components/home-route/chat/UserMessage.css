@@ -41,3 +41,22 @@
     font-size: 14px;
     align-self: flex-end;
 }
+
+.user_message #message_status {
+    width: 5px;
+    height: 5px;
+    border-radius: 50%;
+    background-color: #333;
+}
+
+#message_status.sent {
+    background-color: #f50057;
+}
+
+#message_status.received {
+    background-color: #0069bf;
+}
+
+#message_status.read {
+    background-color: #01c1a7;
+}

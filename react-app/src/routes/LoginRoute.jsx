@@ -199,7 +199,7 @@ function LoginRoute() {
             <div className="login_logo_container">
                 <div className="logo_content">
                     <AppLogo className="logo" />
-                    <h2 id="login_page_title">ChitChat</h2>
+                    {/* <h2 id="login_page_title">ChitChat</h2> */}
                     <h3 id="login_page_sub_title">Connect and Communicate</h3>
                 </div>
             </div>
