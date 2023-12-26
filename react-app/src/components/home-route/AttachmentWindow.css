@@ -37,10 +37,12 @@
     color: #fff;
 }
 
-.attachment_window .preview_img {
+.attachment_window .preview {
+    position: relative;
     display: flex;
     align-items: center;
     justify-content: center;
+    flex-direction: column;
     width: 100%;
     height: calc(96vh - 60px - 50px - 120px - 40px - 20px);
     max-height: 50vh
@@ -49,9 +51,37 @@
 }
 
 /* fit the parent div  */
-.attachment_window .preview_img img {
+.attachment_window .preview img {
     max-width: 100%;
     max-height: 100%;
+}
+
+.attachment_window .preview .doc_icon {
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    width: 100px;
+    height: 100px;
+    border-radius: 50%;
+    background-color: rgba(237, 237, 237, 0.676);
+}
+
+.attachment_window .preview .doc_icon .icon {
+    color: #654ea3;
+    font-size: 50px;
+}
+
+.attachment_window .preview .doc_name {
+    position: absolute;
+    bottom: -15px;
+    left: -10px;
+    font-size: 18px;
+    color: #fff;
+    width: 100%;
+    text-align: center;
+    overflow: hidden;
+    text-overflow: ellipsis;
+    margin: 5px;
 }
 
 .attachment_window .text_box {
@@ -131,13 +161,24 @@
     justify-content: center;
     gap: 25px;
     width: 100%;
-    height: 120px;
+    height: 150px;
     overflow-x: scroll;
     overflow-y: hidden;
 }
 
-.attachment_img,
-.attachment_img_add {
+.attechment_item {
+    position: relative;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    flex-direction: column;
+    width: 120px;
+    height: 120px;
+    cursor: pointer;
+}
+
+.attachment,
+.attachment_add {
     display: flex;
     align-items: center;
     justify-content: center;
@@ -149,26 +190,55 @@
     cursor: pointer;
 }
 
-.attachment_img.active {
+.attachment.active {
     background-color: #654ea3;
     scale: 1.1;
 }
 
-.attachment_img:hover {
+.attachment:hover {
     background-color: rgba(101, 78, 163, 0.3);
     zoom: 110%;
 }
 
-.attachment_img img {
+.attachment img {
     min-width: 100%;
     min-height: 100%;
 }
 
-.attachment_img_add {
+.attachment .doc_icon {
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    width: 50px;
+    height: 50px;
+    border-radius: 50%;
+    background-color: rgba(237, 237, 237, 0.676);
+}
+
+.attachment .doc_icon .icon {
+    color: #654ea3;
+    font-size: 30px;
+}
+
+.attechment_item .doc_name {
+    position: absolute;
+    bottom: -15px;
+    left: -10px;
+    font-size: 12px;
+    color: #fff;
+    width: 140px;
+    text-align: center;
+    overflow: hidden;
+    text-overflow: ellipsis;
+    margin: 5px;
+}
+
+
+.attachment_add {
     background-color: rgba(101, 78, 163, 0.5);
 }
 
-.attachment_img_add:hover {
+.attachment_add:hover {
     background-color: rgba(101, 78, 163, 0.8);
     zoom: 110%;
 }

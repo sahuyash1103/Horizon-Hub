@@ -11,7 +11,7 @@ import MainChatWindow from './../components/home-route/MainChatWindow';
 import MessageBox from './../components/home-route/MessageBox';
 import { connectSocket, initSocketListners, messageListner } from './../socket';
 import _ from 'lodash';
-import AttachmentPreviewWindow from '../components/home-route/chat/AttachmentWindow';
+import AttachmentPreviewWindow from '../components/home-route/AttachmentWindow';
 import { AppLogo } from '../assets/svgs';
 // import appLogo from './../assets/images/logo.png';
 import "./../styles/HomeRoute.css"

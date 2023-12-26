@@ -2,10 +2,11 @@ import React from 'react'
 import { RxCross2 } from "react-icons/rx";
 import { FaPlus } from "react-icons/fa";
 import { IoSend } from "react-icons/io5";
+import { IoDocument } from "react-icons/io5";
 import { MdEmojiEmotions } from "react-icons/md";
 import { IoMdMic } from "react-icons/io";
-import { sendDocMessage, sendImageMessage } from '../../../socket';
-import { readFiles } from '../../../utils/read-files';
+import { sendDocMessage, sendImageMessage } from '../../socket';
+import { readFiles } from '../../utils/read-files';
 import _ from 'lodash';
 import "./AttachmentWindow.css"
 
@@ -45,8 +46,15 @@ function AttachmentPreviewWindow({ email, setAttachments, attachments }) {
           <RxCross2 className='icon' />
         </div>
       </div>
-      <div className='preview_img'>
-        <img src={attachments[index].url} alt="preview" />
+      <div className='preview'>
+        {
+          attachments[index].type === 'image' ?
+            <img src={attachments[index].url} alt="preview" /> :
+            <div className='doc_icon'>
+              <IoDocument className='icon' />
+              <span className='doc_name'>{attachments[index].name}</span>
+            </div>
+        }
       </div>
       <div className='attechment_caption_input'>
         <div className='emoji_icon' >
@@ -55,7 +63,7 @@ function AttachmentPreviewWindow({ email, setAttachments, attachments }) {
         <input
           type="text"
           placeholder="Add a caption"
-          value={messages[index].text || ''}
+          value={messages[index]?.text || ''}
           onChange={(e) => setMessages([...messages, messages[index].text = e.target.value])}
         />
         <div className='mic_icon' >
@@ -65,16 +73,27 @@ function AttachmentPreviewWindow({ email, setAttachments, attachments }) {
       <div className='attechments_list'>
         {
           attachments.map((attachment, i) => (
-            <div
-              className={`attachment_img ${index === i && 'active'}`}
-              key={i}
-              onClick={() => setIndex(i)}
-            >
-              <img src={attachment.url} alt="attechment" />
+            <div className='attechment_item'>
+              <div
+                className={`attachment ${index === i && 'active'}`}
+                key={i}
+                onClick={() => setIndex(i)}
+              >{
+                  attachment.type === 'image' ?
+                    <img src={attachment.url} alt="attechment" /> :
+                    <div className='doc_icon'>
+                      <IoDocument className='icon' />
+                    </div>
+                }
+              </div>
+              {
+                attachment.type !== 'image' &&
+                <span className='doc_name'>{attachment.name}</span>
+              }
             </div>
           ))
         }
-        <label className='attachment_img_add'>
+        <label className='attachment_add'>
           <FaPlus className='add_more_files' />
           <input className='file_input' type="file" multiple onChange={hendleOnAddFile} />
         </label>

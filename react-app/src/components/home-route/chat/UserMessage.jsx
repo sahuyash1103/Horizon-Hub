@@ -14,9 +14,13 @@ function UserMessage({ message }) {
                 <p>
                     {message?.text}
                 </p>
-                <span>{fromateTime(message?.sentOn)}</span>
-                <span id='message_status'
-                    className={messageStatusClassName}></span>
+                <div className='message_status_container'>
+                    <span className='message_time'>{fromateTime(message?.sentOn)}
+                    </span>
+                    <span id='message_status'
+                        className={messageStatusClassName}>
+                    </span>
+                </div>
             </div>
         </div>
     )

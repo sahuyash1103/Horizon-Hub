@@ -16,7 +16,13 @@ passport.use(new GoogleStrategy({
     passReqToCallback: true
 },
     async (request, accessToken, refreshToken, profile, done) => {
-        let user = await User.findOne({ email: profile.email }).select("_id name email profilePic provider");
+        let userName = profile.email?.split("@")[0] || profile.username;
+        let user = await User.findOne({
+            $or: [
+                { email: profile.email },
+                { userName: userName }]
+        })
+            .select("_id name email profilePic provider");
         if (!user) {
             user = User({
                 name: profile.displayName,
@@ -32,7 +38,7 @@ passport.use(new GoogleStrategy({
 
             await user.save();
         }
-        if (user.provider !== "google") return done(null, false, { message: "Email already registered with another provider." });
+        if (user.provider !== "google") return done(`Account is registered with ${user.provider} provider.`, false);
         return done(null, _.pick(user, ["_id", "name", "email"]));
     }
 ));
@@ -44,7 +50,7 @@ passport.use(new GitHubStrategy({
     callbackURL: GITHUB_CALLBACK_URL || "/api/auth/github/callback"
 },
     async function (accessToken, refreshToken, profile, done) {
-        let userName = profile.email?.spit("@")[0] || profile.username;
+        let userName = profile.email?.split("@")[0] || profile.username;
         let user = await User.findOne(
             {
                 $or: [
@@ -68,7 +74,7 @@ passport.use(new GitHubStrategy({
 
             await user.save();
         }
-        if (user.provider !== "github") return done(null, false, { message: "Email already registered with another provider." });
+        if (user.provider !== "github") return done(`Account is registered with ${user.provider} provider.`, false);
         return done(null, _.pick(user, ["_id", "name", "email"]));
     }
 ));
@@ -81,15 +87,15 @@ passport.use(new LocalStrategy({
     async function (req, email, password, done) {
         try {
             const user = await User.findOne({ email: email });
-            if (!user) return done(null, false, { message: 'Incorrect email.' });
-            if (user.isDeleted) return done(null, false, { message: 'Profile is deleted.' });
+            if (!user) return done('Incorrect email.', false);
+            if (user.isDeleted) return done('Profile is deleted.', false);
 
-            if (user.isSuspended) return done(null, false, { message: 'Profile is suspended.' });
+            if (user.isSuspended) return done('Profile is suspended.', false);
 
-            if (user.isLocked) return done(null, false, { message: 'Profile is locked.' });
+            if (user.isLocked) return done('Profile is locked.', false);
 
             const validPassword = await user.verifyPassword(password);
-            if (!validPassword) return done(null, false, { message: 'Incorrect password.' });
+            if (!validPassword) return done('Incorrect password.', false);
 
             const token = `Bearer ${user.generateAuthToken()}`;
 

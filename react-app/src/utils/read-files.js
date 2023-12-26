@@ -1,13 +1,13 @@
 
 export const readFiles = async (files, type) => {
-    const reader = new FileReader();
     const fileObjects = await Promise.all(Array.from(files).map((file) => {
+        const reader = new FileReader();
         return new Promise(
             (resolve, reject) => {
                 reader.onload = (e) => {
                     const ArrayBuffer = e.target.result;
                     const blob = new Blob([ArrayBuffer], { type: file.type });
-                    const url = URL.createObjectURL( blob );
+                    const url = URL.createObjectURL(blob);
                     return resolve({
                         buffer: ArrayBuffer,
                         url: url,

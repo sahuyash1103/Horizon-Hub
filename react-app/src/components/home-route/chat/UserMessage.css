@@ -34,7 +34,14 @@
     margin-right: 5px;
 }
 
-.user_message span {
+.user_message .message_status_container {
+    display: flex;
+    align-items: flex-end;
+    justify-content: center;
+    gap: 5px;
+}
+
+.user_message .message_time {
     color: #333;
     margin-top: 5px;
     margin-left: 5px;
