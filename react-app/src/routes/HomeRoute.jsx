@@ -15,6 +15,8 @@ import AttachmentPreviewWindow from '../components/home-route/AttachmentWindow';
 import { AppLogo } from '../assets/svgs';
 // import appLogo from './../assets/images/logo.png';
 import "./../styles/HomeRoute.css"
+import UserProfile from '../components/home-route/chat/UserProfile';
+import FriendProfile from '../components/home-route/chat/FriendProfile';
 
 const orderMessagesByDate = (messages) => {
   const sortedMessages = _.orderBy(messages, 'sentOn', ['asc']);
@@ -102,14 +104,17 @@ function HomeRoute() {
   return (
     <div className='main_container'>
       <div className="left_window">
-        <LeftNavbar profile={profile} updateFriendList={updateFriendList} />
+        <UserProfile/>
+        {/* <LeftNavbar profile={profile} updateFriendList={updateFriendList} />
         <SearchBar />
         <FriendsList
           friends={friends}
           onSelectFriend={onSelectFriendHandler}
-        />
+        /> */}
       </div>
+      
       <div className="right_window">
+        <FriendProfile/>
         {selectedFriend ?
           <>
             <RightNavbar friend={selectedFriend} />
