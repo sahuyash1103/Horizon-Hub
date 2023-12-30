@@ -1,20 +1,31 @@
-.userprofile{
+.userprofile {
+    display: none;
+    flex-direction: column;
+    position: absolute;
+    top: 0;
+    left: 0;
     background-color: var(--second-color);
-    width: 100%;
-    height: 100%;
+    width: 30%;
+    height: 96vh;
     color: white;
+    border: 1px solid gray;
     font-family: 'Gill Sans', 'Gill Sans MT', Calibri, 'Trebuchet MS', sans-serif;
+    z-index: 9;
 }
 
-.userprofile .profile{
+.userprofile.show {
+    display: flex;
+}
+
+.userprofile .profile {
     width: 100%;
     height: 10%;
     background-color: var(--main-color);
     font-size: 27px;
-    padding: 20px 20px ;
+    padding: 20px 20px;
 }
 
-.userprofile .profile_pic{
+.userprofile .profile_pic {
     background-color: var(--main-color);
     margin-top: 26px;
     width: 50%;
@@ -23,9 +34,15 @@
     border-radius: 50%;
     cursor: pointer;
     margin-bottom: 27px;
+    overflow: hidden;
 }
 
-.user_details{
+.userprofile .profile_pic img {
+    width: 100%;
+    height: 100%;
+}
+
+.user_details {
     width: 100%;
     height: 13%;
     background-color: white;
@@ -36,18 +53,18 @@
     background-color: var(--second-color);
 }
 
-.pen{
+.pen {
     float: right;
     cursor: pointer;
 }
 
-.userprofile p{
-    margin-top: 7px ;
+.userprofile p {
+    margin-top: 7px;
     font-size: 15px;
     color: #393939;
 }
 
-.userprofile .arrow{
+.userprofile .arrow {
     margin-right: 20px;
     height: 20px;
     cursor: pointer;

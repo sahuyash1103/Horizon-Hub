@@ -12,7 +12,7 @@ import {
 } from './../../assets/svgs/'
 import "./LeftNavbar.css"
 
-function LeftNavbar({ profile, updateFriendList }) {
+function LeftNavbar({ profile, updateFriendList, onClickProfile }) {
   const [showPopup, setShowPopup] = React.useState(false);
   const [email, setEmail] = React.useState("");
   const [showMenu, setShowMenu] = React.useState(false);
@@ -37,7 +37,7 @@ function LeftNavbar({ profile, updateFriendList }) {
           onSubmit={newChatHandler}
         />
       }
-      <div className="Profile_pic">
+      <div className="Profile_pic" onClick={onClickProfile}>
         <img className="pic"
           src={profile?.profilePic || defaultPic} alt="user profile pic" />
       </div>
@@ -57,7 +57,7 @@ function LeftNavbar({ profile, updateFriendList }) {
         </div>
         <div className='icon_area' onClick={() => setShowMenu(!showMenu)}>
           <MoreVertIcon className='icon' />
-            <MenuOptions showMenu={showMenu}/>
+          <MenuOptions showMenu={showMenu} />
         </div>
       </div>
     </div >

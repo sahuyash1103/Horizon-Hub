@@ -1,22 +1,29 @@
 import React from 'react'
-import "./FriendProfile.css"
 import { RxCross2 } from "react-icons/rx";
+import "./FriendProfile.css"
 
-function FriendProfile() {
+function FriendProfile({ show, onClose, friend }) {
   return (
-    <div className='friendprofile'>
-        <div className='profile'> <RxCross2 className='cross1'/>
-        Contact Info
+    <div className={`friendprofile_container ${show && 'show'}`} onclick={onClose}>
+      <div className={`friendprofile`}>
+        <div className='profile'>
+          <RxCross2 className='cross1' onClick={onClose} />
+          Contact Info
         </div>
-        <div className='profile_pic'></div>
+        <div className='profile_pic'>
+          <img src={friend?.profilePic} alt="profile" />
+        </div>
         <div className='friend_name'>
-        <h3>Ahmad</h3>
-        <p>+91 8889991111</p>
+          <h3>{friend?.name}</h3>
+
+          {friend?.phone && <p>+91 {friend?.phone}</p>}
+          <p>{friend?.email}</p>
         </div>
         <div className='friend_about'>
-            About
-             <p>ChitChat is our Project.</p>
-             </div> 
+          About
+          <p>ChitChat is our Project.</p>
+        </div>
+      </div>
     </div>
   )
 }

@@ -6,11 +6,11 @@ import { MoreVertIcon } from './../../assets/svgs/'
 import defaultPic from './../../assets/images/defaultPic.png';
 import "./RightNavbar.css"
 
-function RightNavbar({ friend }) {
+function RightNavbar({ friend, onClickProfile }) {
   return (
     <div className="right_header">
       <div className="main_content">
-        <div className="f_profile_pic">
+        <div className="f_profile_pic" onClick={onClickProfile}>
           <img className="pic" src={friend?.profilePic || defaultPic} alt="friend profile pic" />
         </div>
         <div className="f_details">

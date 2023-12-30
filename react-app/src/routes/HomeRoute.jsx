@@ -14,9 +14,9 @@ import _ from 'lodash';
 import AttachmentPreviewWindow from '../components/home-route/AttachmentWindow';
 import { AppLogo } from '../assets/svgs';
 // import appLogo from './../assets/images/logo.png';
-import "./../styles/HomeRoute.css"
 import UserProfile from '../components/home-route/chat/UserProfile';
 import FriendProfile from '../components/home-route/chat/FriendProfile';
+import "./../styles/HomeRoute.css"
 
 const orderMessagesByDate = (messages) => {
   const sortedMessages = _.orderBy(messages, 'sentOn', ['asc']);
@@ -30,6 +30,8 @@ function HomeRoute() {
   const [conversationId, setconversationId] = useState(null);
   const [newMessage, setNewMessage] = useState(null);
   const [attachments, setAttachments] = useState([]);
+  const [showProfile, setShowProfile] = useState(false);
+  const [showFriendProfile, setShowFriendProfile] = useState(false);
   const dispatch = useDispatch();
 
   const getFriendFromConversationId = (conversationId) => {
@@ -104,20 +106,34 @@ function HomeRoute() {
   return (
     <div className='main_container'>
       <div className="left_window">
-        <UserProfile/>
-        {/* <LeftNavbar profile={profile} updateFriendList={updateFriendList} />
+        <UserProfile
+          showProfile={showProfile}
+          profile={profile}
+          onClose={() => setShowProfile(false)}
+        />
+        <LeftNavbar
+          profile={profile}
+          updateFriendList={updateFriendList}
+          onClickProfile={() => setShowProfile(true)}
+        />
         <SearchBar />
         <FriendsList
           friends={friends}
           onSelectFriend={onSelectFriendHandler}
-        /> */}
+        />
       </div>
-      
       <div className="right_window">
-        <FriendProfile/>
+        <FriendProfile
+          show={showFriendProfile}
+          onClose={() => setShowFriendProfile(false)}
+          friend={selectedFriend}
+        />
         {selectedFriend ?
           <>
-            <RightNavbar friend={selectedFriend} />
+            <RightNavbar
+              friend={selectedFriend}
+              onClickProfile={() => setShowFriendProfile(true)}
+            />
             <MainChatWindow
               friend={selectedFriend}
               conversationId={conversationId}
@@ -138,7 +154,7 @@ function HomeRoute() {
             {/* <img src={appLogo} alt="logo" className='logo'/> */}
             <h1>Click on a friend to start chatting</h1>
             <p>
-              This is the beta version of ChitChat. 
+              This is the beta version of ChitChat.
             </p>
           </div>
         }

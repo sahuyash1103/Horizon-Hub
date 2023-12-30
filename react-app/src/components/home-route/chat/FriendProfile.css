@@ -1,5 +1,16 @@
-.friendprofile{
+.friendprofile_container {
     position: absolute;
+    display: none;
+    width: 100%;
+    height: 100%;
+    background-color: rgba(0, 0, 0, 0.5);
+    z-index: 9;
+}
+
+.friendprofile {
+    position: absolute;
+    display: flex;
+    flex-direction: column;
     background-color: var(--second-color);
     width: 45%;
     height: 100%;
@@ -9,30 +20,41 @@
     font-family: 'Gill Sans', 'Gill Sans MT', Calibri, 'Trebuchet MS', sans-serif;
 }
 
+.friendprofile_container.show {
+    display: flex;
+}
+
 .friendprofile .profile {
     width: 100%;
     height: 10%;
     background-color: var(--main-color);
     display: flex;
     font-size: 27px;
-    padding: 20px 20px ;
+    padding: 20px 20px;
 }
 
-.profile_pic{
+.friendprofile .profile_pic {
     background-color: var(--main-color);
     margin-top: 26px;
     width: 50%;
     height: 30%;
     margin-left: 25%;
     border-radius: 50%;
+    cursor: pointer;
+    overflow: hidden;
 }
 
-.friend_name{
+.friendprofile .profile_pic img {
+    width: 100%;
+    height: 100%;
+}
+
+.friend_name {
     text-align: center;
     margin-top: 10px;
 }
 
-.friend_about{
+.friend_about {
     width: 100%;
     height: 15%;
     background-color: white;
@@ -46,29 +68,29 @@
     border-bottom: 10px solid #ffffff;
 }
 
-.pen{
+.pen {
     float: right;
     cursor: pointer;
 }
 
-.friendprofile .friend_name p{
-    margin-top: 3px ;
+.friendprofile .friend_name p {
+    margin-top: 3px;
     font-size: 13px;
     color: #393939;
 }
 
-.friendprofile .friend_about p{
-    margin-top: 7px ;
+.friendprofile .friend_about p {
+    margin-top: 7px;
     font-size: 15px;
     color: #393939;
 }
 
-.friendprofile .friend_name h3{
+.friendprofile .friend_name h3 {
     color: black;
     font-size: 22px;
 }
 
-.cross1{
+.cross1 {
     margin-right: 20px;
     width: 30px;
     height: 30px;
