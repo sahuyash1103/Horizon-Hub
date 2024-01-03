@@ -11,6 +11,8 @@
     position: absolute;
     display: flex;
     flex-direction: column;
+    justify-content: flex-start;
+    align-items: center;
     background-color: var(--second-color);
     width: 45%;
     height: 100%;
@@ -36,9 +38,8 @@
 .friendprofile .profile_pic {
     background-color: var(--main-color);
     margin-top: 26px;
-    width: 50%;
-    height: 30%;
-    margin-left: 25%;
+    width: 200px;
+    height: 200px;
     border-radius: 50%;
     cursor: pointer;
     overflow: hidden;
