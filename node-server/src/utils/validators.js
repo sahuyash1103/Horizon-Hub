@@ -85,10 +85,25 @@ const validateGroupData = async (group) => {
   }
 };
 
+const validateUserRealTimeUpdateData = async (data) => {
+  const schema = joi.object({
+    onlineStatus: joi.boolean(),
+    unreadMessages: joi.number(),
+    lastMessage: joi.string(),
+    profilePicture: joi.string(),
+  });
+  try {
+    await schema.validateAsync(data);
+  } catch (err) {
+    return err;
+  }
+}
+
 module.exports = {
   validateSignupData,
   validateLoginData,
   validateUserUpdateData,
   validateChangePasswordData,
   validateGroupData,
+  validateUserRealTimeUpdateData,
 };
