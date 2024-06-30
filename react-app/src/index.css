@@ -7,7 +7,7 @@
 body {
   margin: 0;
   padding: 0;
-  background-color: #c5aee3;
+  background-color: var(--body);
   user-select: none;
 }
 
@@ -21,4 +21,38 @@ button {
   --main-color: #813eb6;
   --second-color: #eee9f2;
   --third-color: #734f99;
+  --left-window-bg : #ededed;
+  --hover: #f4f4f4;
+  --friend-list: #fff;
+  --border-bottom: #e6e6e6;
+  --color: #000;
+  --color2: #fff;
+  --sub-color:#343434;
+  --body: #c5aee3;
+  --icons: #363636;
+  --nav: #ededed;
+  --right: -webkit-linear-gradient(to right, #c5aee3, #734f99);
+  --right1: linear-gradient(to right, #c5aee3, #734f99);
+  --attachment: #ccc;
+  --pop: #ccc;
+}
+
+.themeProvider.dark{
+  --main-color: green;
+  --second-color: #282828;
+  --third-color: #427b11;
+  --left-window-bg: #424242;
+  --friend-list: #212121;
+  --border-bottom: #000;
+  --hover: #303030;
+  --color: #fff;
+  --color2: #000;
+  --sub-color: #e6e6e6;
+  --icons: #ededed;
+  --nav: #212121;
+  --body: #000;
+  --right: -webkit-linear-gradient(to right,#212121 , #734f99);
+  --right1: linear-gradient(to right, #212121, #734f99);
+  --attachment: #000;
+  --pop: #555555;
 }

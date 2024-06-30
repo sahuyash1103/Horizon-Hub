@@ -3,7 +3,7 @@
     top: -20px;
     right: -5px;
     transform: translate(100%, -100%);
-    background-color: #ccc;
+    background-color: var(--attachment);
     display: flex;
     flex-direction: column;
     justify-content: center;
@@ -28,13 +28,14 @@
     width: 100%;
     height: 35px;
     cursor: pointer;
-    background-color: #fff;
+    background-color: var(--friend-list);
+    color: var(--color);
     margin-bottom: 1px;
     padding: 5px 10px;
 }
 
 .attetchment_options_container .attetchment_options:hover {
-    background-color: #ededed;
+    background-color: var(--hover);
 }
 
 .file_input {

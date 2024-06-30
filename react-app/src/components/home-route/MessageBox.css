@@ -20,7 +20,7 @@
 
 .add_icon .icon {
   font-size: 30px;
-  color: #363636;
+  color: var(--color);
   transition: 0.25s;
 }
 
@@ -76,6 +76,7 @@
 }
 
 .message_box .send_icon .icon {
-  color: #363636;
+  color: var(--icons);
+  background-color: var(--second-color);
   font-size: 28px;
 }

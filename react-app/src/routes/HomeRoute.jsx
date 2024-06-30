@@ -104,17 +104,17 @@ function HomeRoute() {
   return (
     <div className='main_container'>
       <div className="left_window">
-        <UserProfile/>
-        {/* <LeftNavbar profile={profile} updateFriendList={updateFriendList} />
+        {/* <UserProfile/> */}
+        <LeftNavbar profile={profile} updateFriendList={updateFriendList} />
         <SearchBar />
         <FriendsList
           friends={friends}
           onSelectFriend={onSelectFriendHandler}
-        /> */}
+        />
       </div>
       
       <div className="right_window">
-        <FriendProfile/>
+        {/* <FriendProfile/> */}
         {selectedFriend ?
           <>
             <RightNavbar friend={selectedFriend} />
