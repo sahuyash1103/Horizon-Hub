@@ -15,6 +15,7 @@ const friendSchema = new mongoose.Schema({
     required: true,
     // unique: true,
   },
+  isAnonymous: { type: Boolean, default: false },
   lastMessage: {
     type: mongoose.Types.ObjectId,
     ref: "Messages",
@@ -35,6 +36,7 @@ const messageSchema = new mongoose.Schema({
     required: true,
     // unique: true,
   },
+  isAnonymous: { type: Boolean, default: false },
   sentBy: {
     type: mongoose.Types.ObjectId,
     ref: "Users",

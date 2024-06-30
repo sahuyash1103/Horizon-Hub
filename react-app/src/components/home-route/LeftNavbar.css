@@ -42,3 +42,10 @@
   width: 30px;
   margin: 5px;
 }
+
+.left_header .icon_area .react-icon {
+  font-size: 18px;
+  height: 25px;
+  width: 30px;
+  margin: 0px;
+}

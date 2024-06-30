@@ -1,9 +1,9 @@
 import instance from "./../../index";
 
-export const addFriend = async (email, _id = null) => {
+export const addFriend = async (email, _id = null, { isAnonymous }) => {
     try {
         const response = await instance.put("/friends/friend/add", {
-            friend_data: { email, _id },
+            friend_data: { email, _id, isAnonymous },
         });
         return response.data;
     }

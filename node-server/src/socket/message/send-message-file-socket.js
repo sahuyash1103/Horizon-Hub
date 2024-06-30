@@ -10,6 +10,7 @@ const sendMessageFile = (socket, io) => {
         const text = data.text;
         const messageType = data.messageType;
         const file = data.file;
+        const isAnonymous = data.isAnonymous;
 
         if (!sendTo || !file || file.iseEmpty)
             return socket.emit("error", { message: "Invalid data" });
@@ -43,6 +44,7 @@ const sendMessageFile = (socket, io) => {
             isPinned: false,
             isStarred: false,
             isForwarded: false,
+            isAnonymous: isAnonymous,
         });
 
         const docUrl = await storeMessageDoc(file, message.conversationId, message._id);
@@ -57,7 +59,8 @@ const sendMessageFile = (socket, io) => {
                     messages: {
                         message: message._id,
                         sentBy: socket.user._id,
-                        sentTo: friend._id
+                        sentTo: friend._id,
+                        isAnonymous: isAnonymous
                     }
                 }
             });
@@ -72,7 +75,8 @@ const sendMessageFile = (socket, io) => {
                         unreadMessages: {
                             message: message._id,
                             sentBy: socket.user._id,
-                            sentTo: friend._id
+                            sentTo: friend._id,
+                            isAnonymous: isAnonymous
                         }
                     }
                 });
