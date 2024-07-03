@@ -14,15 +14,15 @@
   align-items: center;
   justify-content: space-between;
   width: 100%;
-  border-bottom: 1px solid #e6e6e6;
-  background-color: #fff;
+  border-bottom: 1px solid var(--left-window-bg);
+  background-color: var(--friend-list);
   padding: 10px 10px;
   cursor: pointer;
   transition: 0.5s;
 }
 
 .friend_tile:hover {
-  background-color: #f4f4f4;
+  background-color: var(--hover);
 }
 
 .friend_tile  .f_profile_pic {
@@ -59,11 +59,12 @@
 .friend_tile .friend_details .main_heading h4 {
   font-size: 20px;
   font-weight: 550;
+  color: var(--color);
 }
 
 .friend_tile .friend_details .main_heading p {
   font-size: 14px;
-  color: #343434;
+  color: var(--sub-color);
 }
 
 .friend_tile .friend_details .sub_heading {
@@ -75,7 +76,7 @@
 
 .friend_tile .friend_details .sub_heading p {
   font-size: 16px;
-  color: #343434;
+  color: var(--sub-color);
   text-wrap: nowrap;
   text-overflow: ellipsis;
 }
@@ -96,7 +97,7 @@
 
 .friend_tile .friend_details .sub_heading .options_icon {
   font-size: 20px;
-  color: #343434;
+  color: var(--sub-color);
   cursor: pointer;
   display: none;
 }

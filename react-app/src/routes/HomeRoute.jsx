@@ -116,6 +116,7 @@ function HomeRoute() {
           updateFriendList={updateFriendList}
           onClickProfile={() => setShowProfile(true)}
         />
+        {/* <UserProfile/> */}
         <SearchBar />
         <FriendsList
           friends={friends}
@@ -128,6 +129,7 @@ function HomeRoute() {
           onClose={() => setShowFriendProfile(false)}
           friend={selectedFriend}
         />
+        {/* <FriendProfile/> */}
         {selectedFriend ?
           <>
             <RightNavbar

@@ -22,8 +22,8 @@
   margin: 10px 5px;
   padding: 5px 10px;
   border-radius: 5px;
-  background-color: #ededed;
-  color: #444;
+  background-color: var(--second-color);
+  color: var(--sub-color);
   font-size: 18px;
 }
 
@@ -34,6 +34,6 @@
 
 /* style the thumb */
 .chat_container::-webkit-scrollbar-thumb {
-  background: var(--third-color);
+  background: var(--second-color);
   border-radius: 10px;
 }

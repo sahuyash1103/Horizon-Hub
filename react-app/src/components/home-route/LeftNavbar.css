@@ -4,7 +4,7 @@
   justify-content: space-between;
   width: 100%;
   height: 65px;
-  background: #ededed;
+  background: var(--nav);
   padding: 0 10px;
   /* border-right: 1px solid #ccc; */
 }
@@ -37,7 +37,7 @@
 }
 
 .left_header .icon_area .icon {
-  color: #363636;
+  color: var(--icons);
   height: 30px;
   width: 30px;
   margin: 5px;
