@@ -52,6 +52,7 @@ const messageSchema = new mongoose.Schema({
     isPinned: { type: Boolean, required: false },
     isStarred: { type: Boolean, required: false },
     isForwarded: { type: Boolean, required: false },
+    isAnonymous: { type: Boolean, default: false },
     forwardedTo: {
         type: [mongoose.Types.ObjectId],
         required: false,

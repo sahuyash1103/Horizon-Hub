@@ -32,6 +32,19 @@
   cursor: pointer;
 }
 
+.right_header .pic_anonymous {
+  width: 100%;
+  height: 100%;
+  cursor: pointer;
+  display: grid;
+  place-items: center;
+  background-color: #d5d5d5;
+}
+
+.right_header .pic_anonymous svg {
+  font-size: 24px;
+}
+
 .right_header .f_details {
   display: flex;
   flex-direction: column;

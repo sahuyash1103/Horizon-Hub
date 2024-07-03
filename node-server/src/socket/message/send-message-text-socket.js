@@ -7,6 +7,7 @@ const sendMessageText = (socket, io) => {
     socket.on("send-message:text", async (data) => {
         const sendTo = data.to;
         const text = data.text;
+        const isAnonymous = data.isAnonymous;
 
         if (!sendTo || !text)
             return socket.emit("error", { message: "Invalid data" });
@@ -40,6 +41,7 @@ const sendMessageText = (socket, io) => {
             isPinned: false,
             isStarred: false,
             isForwarded: false,
+            isAnonymous: isAnonymous,
         });
 
         await message.save();
@@ -50,7 +52,8 @@ const sendMessageText = (socket, io) => {
                     messages: {
                         message: message._id,
                         sentBy: socket.user._id,
-                        sentTo: friend._id
+                        sentTo: friend._id,
+                        isAnonymous: isAnonymous
                     }
                 }
             });
@@ -62,7 +65,8 @@ const sendMessageText = (socket, io) => {
                         unreadMessages: {
                             message: message._id,
                             sentBy: socket.user._id,
-                            sentTo: friend._id
+                            sentTo: friend._id,
+                            isAnonymous: isAnonymous
                         }
                     }
                 });
