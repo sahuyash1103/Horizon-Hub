@@ -60,7 +60,7 @@ function HomeRoute() {
   }
 
   useEffect(() => {
-    document.title = 'ChitChat | Home';
+    document.title = 'HorizonHub | Home';
     fetchFriends();
     // eslint-disable-next-line react-hooks/exhaustive-deps
   }, [])
@@ -136,9 +136,9 @@ function HomeRoute() {
           <div className="no_chat_selected">
             <AppLogo className="logo" />
             {/* <img src={appLogo} alt="logo" className='logo'/> */}
-            <h1>Click on a friend to start chatting</h1>
+            <h1>Click on a friend's profile to start chatting</h1>
             <p>
-              This is the beta version of ChitChat. 
+              This is the beta version of HorizonHub. 
             </p>
           </div>
         }

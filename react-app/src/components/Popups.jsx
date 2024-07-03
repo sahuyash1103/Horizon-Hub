@@ -22,7 +22,7 @@ function PopupNewChat({ setPopup, setEmail, email, onSubmit }) {
                                 name="email"
                                 type="email"
                                 onChange={(e) => setEmail(e.target.value)}
-                                placeholder='Enter your Email'
+                                placeholder='Enter an Email to add'
                             />
                             <span className="success_line"></span>
                             <span className="error_message" error-message="Invalid Email">
