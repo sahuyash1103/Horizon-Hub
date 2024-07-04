@@ -104,7 +104,7 @@ function LoginRoute() {
     }
 
     useEffect(() => {
-        document.title = 'ChitChat | Login';
+        document.title = 'HorizonHub | Login';
         isLoggedin();
         // eslint-disable-next-line react-hooks/exhaustive-deps
     }, []);
