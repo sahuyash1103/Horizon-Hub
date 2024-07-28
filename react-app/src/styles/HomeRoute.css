@@ -53,8 +53,7 @@
 }
 
 .no_chat_selected .logo {
-  width: 30%;
-  margin: 30px;
+  margin: 30px auto;
 }
 
 .no_chat_selected h1 {
